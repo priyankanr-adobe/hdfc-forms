@@ -266,3 +266,92 @@ header nav .nav-sections ul > li > ul > li {
 header nav .nav-tools {
   grid-area: tools;
 }
+
+
+/*header*/
+/* ================= HEADER BACKGROUND ================= */
+header.header-wrapper {
+  background: #071a4b;
+  height: 85px !important;
+  min-height: 85px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+/* ================= INNER CONTAINER ================= */
+header.header-wrapper .header.block {
+  width: 100%;
+  max-width: 1366px;
+  margin: 0 auto;
+  padding: 0 90px;
+  position: relative;
+  height: 100%;
+  box-sizing: border-box;
+  display: block;
+}
+
+/* ================= LEFT LOGO ================= */
+header.header-wrapper .header.block::before {
+  content: "";
+  position: absolute;
+  left: 90px;
+  top: 45%;
+  transform: translateY(-50%);
+
+  width: 120px;
+  height: 28px;
+
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/2/28/HDFC_Bank_Logo.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: left center;
+}
+
+/* ================= RIGHT BADGE (TEXT + ICON) ================= */
+header.header-wrapper .header.block::after {
+  content: "100% SAFE & SECURE";
+  position: absolute;
+  right: 90px;
+  top: 45%;
+  transform: translateY(-50%);
+
+  display: flex;
+  align-items: center;
+
+  background-color: #2cc56f;
+  color: #ffffff;
+
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+
+  padding: 6px 30px 6px 12px;
+  border-radius: 20px;
+
+  white-space: nowrap;
+
+  /* icon */
+  background-image: url("https://img.icons8.com/color/96/security-checked.png");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 16px;
+}
+
+/* ================= OPTIONAL RESPONSIVE ================= */
+@media (max-width: 768px) {
+  header.header-wrapper .header.block {
+    padding: 0 20px;
+  }
+
+  header.header-wrapper .header.block::before {
+    left: 20px;
+    width: 100px;
+  }
+
+  header.header-wrapper .header.block::after {
+    right: 20px;
+    font-size: 9px;
+    padding: 5px 26px 5px 10px;
+  }
+}

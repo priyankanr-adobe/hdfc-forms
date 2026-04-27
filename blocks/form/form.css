@@ -792,3 +792,788 @@ main div.form-wrapper {
 main .form form select[multiple] {
     height: calc(42px + 50px);
 }
+
+
+/* HDFC Form  */
+main .form form .text-wrapper.field-mobile.field-wrapper {
+  position: relative !important;
+}
+
+/* India flag */
+main .form form .text-wrapper.field-mobile.field-wrapper .field-label + input {
+  padding-left: 82px !important;
+}
+
+main .form form .text-wrapper.field-mobile.field-wrapper::before {
+  content: "";
+  position: absolute !important;
+  left: 14px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  width: 16px !important;
+  height: 12px !important;
+  z-index: 9999 !important;
+  pointer-events: none !important;
+  background-image: url("https://flagcdn.com/w40/in.png");
+  background-repeat: no-repeat !important;
+  background-size: contain !important;
+  background-position: center !important;
+  border-radius: 2px;
+}
+
+/* +91 */
+main .form form .text-wrapper.field-mobile.field-wrapper::after {
+  content: "+91" !important;
+  position: absolute !important;
+  left: 36px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  color: #6b7280 !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  z-index: 9999 !important;
+  line-height: 1 !important;
+  pointer-events: none !important;
+}
+
+/* divider */
+main .form form .text-wrapper.field-mobile.field-wrapper input[name="mobile"] {
+  background-image: linear-gradient(
+    to right,
+    transparent 0,
+    transparent 66px,
+    #d1d5db 66px,
+    #d1d5db 67px,
+    transparent 67px
+  ) !important;
+  background-repeat: no-repeat !important;
+  background-size: 100% 100% !important;
+}
+
+
+
+
+
+/* OTP Styling */
+main .form form .number-wrapper.field-entered-otp {
+  position: relative;
+  max-width: 520px;
+}
+
+main .form form .number-wrapper.field-entered-otp input[name="entered_otp"] {
+  width: 100% !important;
+  height: 48px !important;
+  border: 1px solid #d9dde5 !important;
+  border-radius: 10px !important;
+  background-color: #fff !important;
+
+  /* 6 guide dots */
+  background-image: radial-gradient(circle, #e5e7eb 2px, transparent 2px) !important;
+  background-size: calc(100% / 6) 100% !important;
+  background-repeat: repeat-x !important;
+  background-position: center !important;
+
+  /* allow typing to be visible */
+  color: #111827 !important;
+  caret-color: #6b7280 !important;
+  font-size: 22px !important;
+  font-weight: 600 !important;
+  letter-spacing: 28px !important;
+  padding: 0 44px 0 16px !important;
+
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* hide placeholder only */
+main .form form .number-wrapper.field-entered-otp input[name="entered_otp"]::placeholder {
+  color: transparent !important;
+}
+
+/* remove number arrows */
+main .form form .number-wrapper.field-entered-otp input[type="number"]::-webkit-inner-spin-button,
+main .form form .number-wrapper.field-entered-otp input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+main .form form .number-wrapper.field-entered-otp input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* eye icon */
+main .form form .number-wrapper.field-entered-otp::after {
+  content: "";
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  background: url("https://img.icons8.com/fluency-systems-regular/48/9ca3af/visible.png") no-repeat center;
+  background-size: contain;
+  pointer-events: none;
+}
+
+
+/* Offer page css*/
+/* OFFER DETAILS WRAPPER */
+main .form form .field-offer-details {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 18px 24px 44px !important;
+  border: 0 !important;
+}
+
+main .form form .field-offer-details > legend {
+  display: none !important;
+}
+
+/* SUBTITLE */
+main .form form .field-offer-subtitle {
+  width: 100% !important;
+  margin: 0 0 22px !important;
+}
+
+main .form form .field-offer-subtitle p {
+  font-size: 18px;
+  font-weight: 800;
+  color: #1f2937;
+  margin: 0;
+}
+
+/* TOP BANNER */
+main .form form .field-offer-details > .field-offer-banner-panel {
+  width: 100% !important;
+  background: #e8fbff;
+  border-radius: 20px;
+  border: 0 !important;
+  padding: 20px 30px !important;
+  min-height: 86px;
+  display: flex !important;
+  align-items: center;
+  gap: 28px;
+  margin: 0 0 34px !important;
+}
+
+main .form form .field-offer-details > .field-offer-banner-panel > legend {
+  display: none !important;
+}
+
+main .form form .field-offer-details > .field-offer-banner-panel::before {
+  content: "" !important;
+  display: block !important;
+  width: 72px !important;
+  height: 72px !important;
+  flex: 0 0 72px !important;
+  background-image: url("https://img.icons8.com/color/96/money-bag-rupee.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: contain !important;
+}
+
+main .form form .field-offer-details > .field-offer-banner-panel p {
+  font-size: 18px;
+  font-weight: 800;
+  color: #1f2937;
+  margin: 0;
+  display: flex !important;
+  align-items: center;
+  gap: 28px;
+}
+
+/* HIDE DUPLICATE BANNER */
+main .form form .field-offer-input-panel .field-offer-banner-panel {
+  display: none !important;
+}
+
+/* SIDE BY SIDE PANELS */
+main .form form .field-offer-input-panel,
+main .form form .field-offer-summary-panel {
+  display: inline-block !important;
+  vertical-align: top !important;
+  box-sizing: border-box !important;
+  float: none !important;
+}
+
+main .form form .field-offer-input-panel {
+  
+  padding-right: 52px !important;
+  border: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+}
+
+main .form form .field-offer-summary-panel {
+  width: 340px !important;
+  min-width: 340px !important;
+}
+
+main .form form .field-offer-input-panel > legend,
+main .form form .field-offer-summary-panel > legend {
+  display: none !important;
+}
+
+/* LEFT PANEL */
+main .form form .field-offer-input-panel .field-loan-amount > label {
+  font-size: 19px !important;
+  line-height: 1.3 !important;
+  font-weight: 800 !important;
+  color: #1f2937 !important;
+  margin: 0 0 32px !important;
+  display: block;
+}
+
+main .form form .field-offer-input-panel .field-loan-amount input {
+  display: none !important;
+}
+
+main .form form .field-offer-input-panel .number-wrapper {
+  margin: 0 0 34px !important;
+  padding: 0 !important;
+}
+
+main .form form .field-offer-input-panel .number-wrapper > label {
+  font-size: 15px !important;
+  font-weight: 800 !important;
+  color: #1f2937 !important;
+  margin: 0 0 18px !important;
+  display: block;
+}
+
+main .form form .field-offer-input-panel .range-widget-wrapper {
+  position: relative;
+  padding-top: 46px;
+  padding-bottom: 26px;
+}
+
+main .form form .field-offer-input-panel .range-bubble {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  min-width: 96px;
+  text-align: center;
+  padding: 12px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #fff;
+  color: #374151;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+/* SLIDER */
+main .form form .field-offer-input-panel input[type="range"] {
+  width: 100%;
+  appearance: none;
+  height: 6px;
+  border-radius: 999px;
+  background: #f9a12b !important;
+  outline: none;
+  margin: 0;
+}
+
+main .form form .field-offer-input-panel .range-widget-wrapper::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 49px;
+  height: 10px;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to right,
+    transparent 0,
+    transparent calc(14.28% - 1px),
+    rgba(255,255,255,.55) calc(14.28% - 1px),
+    rgba(255,255,255,.55) 14.28%
+  );
+}
+
+main .form form .field-offer-input-panel input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #2147d8;
+  border: 0;
+  box-shadow: 0 0 0 3px #fff;
+}
+
+main .form form .field-offer-input-panel input[type="range"]::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #2147d8;
+  border: 0;
+  box-shadow: 0 0 0 3px #fff;
+}
+
+main .form form .field-offer-input-panel .range-min,
+main .form form .field-offer-input-panel .range-max {
+  position: absolute;
+  bottom: 0;
+  color: #8b929e;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+main .form form .field-offer-input-panel .range-min {
+  left: 0;
+}
+
+main .form form .field-offer-input-panel .range-max {
+  right: 0;
+}
+
+/* PROCEED BUTTON */
+main .form form .field-offer-input-panel .button-wrapper {
+  margin-top: 8px !important;
+}
+
+main .form form .field-offer-input-panel .button-wrapper button {
+  min-width: 190px;
+  height: 46px;
+  border: 0 !important;
+  border-radius: 10px !important;
+  background: #2446d8 !important;
+  color: #fff !important;
+  font-size: 15px !important;
+  font-weight: 800 !important;
+}
+
+main .form form .field-offer-input-panel .button-wrapper button::after {
+  font-size: 26px;
+  margin-left: 9px;
+  vertical-align: -2px;
+}
+
+/* SUMMARY CARD */
+/* ===============================
+   SUMMARY CARD
+================================ */
+main .form form .field-offer-summary-panel {
+  width: 310px !important;
+  height: 315px !important;
+  min-width: 310px !important;
+  background: #fff8e8 !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  position: relative !important;
+  border: 0 !important;
+  padding: 0 !important;
+  font-family: Arial, sans-serif;
+}
+
+/* hide panel legend */
+main .form form .field-offer-summary-panel > legend {
+  display: none !important;
+}
+
+/* reset field spacing */
+main .form form .field-offer-summary-panel .field-wrapper {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: auto !important;
+}
+
+/* allow input typing/editing */
+main .form form .field-offer-summary-panel input {
+  border: 0 !important;
+  outline: 0 !important;
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  width: auto !important;
+  pointer-events: auto !important;
+  font-family: Arial, sans-serif;
+}
+
+/* ===============================
+   TITLE + BIG AMOUNT
+================================ */
+main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(1) {
+  position: absolute !important;
+  top: 22px;
+  left: 28px;
+  right: 28px;
+}
+
+main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(1) label {
+  display: block !important;
+  font-size: 14px !important;
+  line-height: 1.25;
+  font-weight: 800 !important;
+  color: #111827 !important;
+  margin: 0 0 10px !important;
+}
+
+main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(1) input {
+  display: block !important;
+  font-size: 34px !important;
+  line-height: 1;
+  font-weight: 900 !important;
+  color: #111827 !important;
+  max-width: 250px !important;
+}
+
+/* dashed divider */
+main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(1)::after {
+  content: "";
+  display: block;
+  border-top: 1px dashed #e4d8bd;
+  margin-top: 18px;
+}
+
+/* ===============================
+   EMI / ROI / TAXES
+================================ */
+main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(2),
+main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(3),
+main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(4) {
+  position: absolute !important;
+  padding-left: 12px !important;
+}
+
+/* position */
+main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(2) {
+  top: 142px;
+  left: 32px;
+}
+
+main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(3) {
+  top: 142px;
+  left: 188px;
+}
+
+main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(4) {
+  top: 196px;
+  left: 32px;
+}
+
+/* orange side line */
+main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(2)::before,
+main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(3)::before,
+main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(4)::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 2px;
+  width: 3px;
+  height: 38px;
+  background: #ff9f2a;
+  border-radius: 2px;
+}
+
+/* label */
+main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(2) label,
+main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(3) label,
+main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(4) label {
+  display: block !important;
+  font-size: 12px !important;
+  line-height: 1.2;
+  color: #6b7280 !important;
+  font-weight: 700 !important;
+  margin: 0 0 3px !important;
+}
+
+/* value below label */
+main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(2) input,
+main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(3) input,
+main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(4) input {
+  display: block !important;
+  font-size: 16px !important;
+  line-height: 1.2;
+  font-weight: 800 !important;
+  color: #111827 !important;
+  margin-top: 0 !important;
+  max-width: 90px !important;
+}
+main .form form .field-offer-summary-panel 
+.field-wrapper input {
+  margin-bottom: 2px !important;
+}
+
+/* ===============================
+   FOOTER NOTE
+================================ */
+
+/* hide actual note field */
+main .form form .field-offer-summary-panel > .field-wrapper:last-child {
+  display: none !important;
+}
+
+/* visual footer note */
+main .form form .field-offer-summary-panel::after {
+  content: "ⓘ  The principal offer is subject to credit review, basis which the loan amount may be down-sized or rejected.";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: #ff9f2a;
+  color: #fff;
+  font-size: 10px;
+  line-height: 1.35;
+  font-weight: 700;
+  padding: 14px 24px 14px 48px;
+  border-radius: 0 0 16px 16px;
+  box-sizing: border-box;
+}
+
+
+
+/* MOBILE */
+@media (max-width: 900px) {
+  main .form form .field-offer-input-panel,
+  main .form form .field-offer-summary-panel {
+    width: 100% !important;
+    min-width: 0 !important;
+    display: block !important;
+    padding-right: 0 !important;
+  }
+}
+
+
+
+/* Thank You Screen */
+/* SUCCESS PAGE */
+main .form form .field-loan-success-page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 6px 20px 28px !important;
+  display: grid !important;
+  grid-template-columns: 680px 190px !important;
+  column-gap: 28px !important;
+  row-gap: 14px !important;
+  border: 0 !important;
+}
+
+main .form form .field-loan-success-page > legend {
+  display: none !important;
+}
+
+/* Alert */
+main .form form .field-success-alert {
+  grid-column: 1 / 2 !important;
+  background: #fff8e8 !important;
+  border: 1px solid #f5c66b !important;
+  border-radius: 8px !important;
+  padding: 7px 14px !important;
+  margin: -8px 0 4px !important;
+  font-size: 11px !important;
+  color: #6b7280 !important;
+}
+
+main .form form .field-success-alert p {
+  margin: 0 !important;
+  line-height: 1.35 !important;
+}
+
+/* Main card */
+main .form form .field-main-success-card {
+  grid-column: 1 / 2 !important;
+  background: #fff !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 16px !important;
+  padding: 24px 26px !important;
+  min-height: 245px !important;
+}
+
+main .form form .field-main-success-card > legend {
+  display: none !important;
+}
+
+/* Application number block */
+main .form form .field-main-success-card .text-wrapper:nth-of-type(1) {
+  position: relative;
+  padding-left: 72px !important;
+  margin-bottom: 20px !important;
+}
+
+main .form form .field-main-success-card .text-wrapper:nth-of-type(1)::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 2px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #f3e8ff url("https://img.icons8.com/fluency-systems-regular/48/7c3aed/document.png") no-repeat center;
+  background-size: 24px;
+}
+
+main .form form .field-main-success-card .text-wrapper:nth-of-type(1) label {
+  font-size: 12px !important;
+  color: #8b929e !important;
+  font-weight: 600 !important;
+  margin: 0 0 4px !important;
+}
+
+main .form form .field-main-success-card .text-wrapper:nth-of-type(1) input {
+  border: 0 !important;
+  background: transparent !important;
+  padding: 0 !important;
+  height: auto !important;
+  font-size: 24px !important;
+  font-weight: 800 !important;
+  color: #1f2937 !important;
+}
+
+main .form form .field-main-success-card .text-wrapper:nth-of-type(1)::after {
+  content: "⧉";
+  position: absolute;
+  left: 210px;
+  top: 25px;
+  font-size: 17px;
+  color: #2563eb;
+}
+
+/* Call note */
+main .form form .field-main-success-card .plain-text-wrapper:nth-of-type(2) p {
+  font-size: 12px !important;
+  color: #6b7280 !important;
+  margin: 0 0 18px !important;
+}
+
+/* Summary title */
+main .form form .field-main-success-card .plain-text-wrapper:nth-of-type(3) {
+  border-top: 1px dashed #e5e7eb !important;
+  padding-top: 18px !important;
+}
+
+main .form form .field-main-success-card .plain-text-wrapper:nth-of-type(3) p {
+  font-size: 16px !important;
+  font-weight: 800 !important;
+  color: #1f2937 !important;
+  margin: 0 0 18px !important;
+}
+
+/* Loan amount */
+main .form form .field-main-success-card .text-wrapper:nth-of-type(2) {
+  position: relative;
+  padding-left: 13px !important;
+}
+
+main .form form .field-main-success-card .text-wrapper:nth-of-type(2)::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 3px;
+  width: 3px;
+  height: 34px;
+  background: #60a5fa;
+}
+
+main .form form .field-main-success-card .text-wrapper:nth-of-type(2) label {
+  font-size: 11px !important;
+  color: #8b929e !important;
+  margin: 0 0 4px !important;
+}
+
+main .form form .field-main-success-card .text-wrapper:nth-of-type(2) input {
+  border: 0 !important;
+  background: transparent !important;
+  padding: 0 !important;
+  height: auto !important;
+  font-size: 15px !important;
+  font-weight: 800 !important;
+  color: #1f2937 !important;
+}
+
+/* Blue info */
+main .form form .field-loan-info-note {
+  grid-column: 1 / 2 !important;
+  background: #eef5ff !important;
+  color: #2563eb !important;
+  border-radius: 4px !important;
+  padding: 9px 12px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+}
+
+main .form form .field-loan-info-note p {
+  margin: 0 !important;
+  line-height: 1.35 !important;
+}
+
+/* Management card */
+main .form form .field-loan-management-card {
+  grid-column: 1 / 2 !important;
+  background: #fff !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+}
+
+main .form form .field-loan-management-card > legend {
+  display: none !important;
+}
+
+main .form form .field-loan-management-card .plain-text-wrapper:nth-of-type(1) {
+  background: #dfe9ff !important;
+  padding: 15px 22px !important;
+}
+
+main .form form .field-loan-management-card .plain-text-wrapper:nth-of-type(1) p {
+  font-size: 15px !important;
+  font-weight: 800 !important;
+  color: #1f2937 !important;
+  margin: 0 !important;
+}
+
+main .form form .field-loan-management-card .plain-text-wrapper:nth-of-type(1) p::before {
+  color: #2563eb;
+  margin-right: 10px;
+}
+
+main .form form .field-loan-management-card .plain-text-wrapper:nth-of-type(2) {
+  padding: 18px 22px !important;
+  position: relative;
+  background: #fff !important;
+}
+
+main .form form .field-loan-management-card .plain-text-wrapper:nth-of-type(2) p {
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  color: #1f2937 !important;
+  margin: 0 !important;
+}
+
+main .form form .field-loan-management-card .plain-text-wrapper:nth-of-type(2)::after {
+  content: "›";
+  position: absolute;
+  right: 22px;
+  top: 10px;
+  font-size: 30px;
+  color: #2563eb;
+}
+
+/* More services */
+main .form form .field-loan-success-page > .plain-text-wrapper:last-of-type {
+  grid-column: 1 / 2 !important;
+}
+
+main .form form .field-loan-success-page > .plain-text-wrapper:last-of-type p {
+  font-size: 12px !important;
+  color: #6b7280 !important;
+  margin: 0 !important;
+}
+
+/* Right offer panel: no image styling */
+main .form form .field-right-offer-panel {
+  grid-column: 2 / 3 !important;
+  grid-row: 2 / span 3 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 18px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+
+main .form form .field-right-offer-panel > legend {
+  display: none !important;
+}

@@ -58,3 +58,272 @@ main .form fieldset.accordion  fieldset.accordion-collapse {
 main .form fieldset.accordion {
     row-gap: 0;
 }
+
+/* Accordian Custom styling */
+/* =========================================
+   OUTER ACCORDION WRAPPER
+========================================= */
+main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin-bottom: 24px;
+}
+
+main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > legend.field-label {
+  font-size: 0;
+  margin: 0 0 16px;
+  padding: 0;
+}
+
+main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > legend.field-label::after {
+  content: "Accordion";
+  font-size: 16px;
+  font-weight: 700;
+  color: #4b5563;
+}
+
+/* =========================================
+   ALL INNER PANELS
+   Loan Details + Personal Details
+========================================= */
+main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper.field-wrapper.col-12 {
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  margin-bottom: 20px;
+  padding: 0 !important;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  box-shadow: none;
+}
+
+/* =========================================
+   PANEL HEADER
+========================================= */
+main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper.field-wrapper.col-12 > legend.field-label.accordion-legend {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 18px 24px 18px 52px;
+  background: #eef2ff;
+  color: #374151;
+  font-size: 18px;
+  font-weight: 700;
+  border-bottom: 1px solid #e5e7eb;
+  position: relative;
+  line-height: 1.2;
+}
+
+/* Right chevron */
+main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper.field-wrapper.col-12 > legend.field-label.accordion-legend::after {
+  content: "";
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  border-right: 2px solid #2563eb;
+  border-bottom: 2px solid #2563eb;
+  transform: translateY(-60%) rotate(45deg);
+}
+
+/* Default icon slot before heading */
+main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper.field-wrapper.col-12 > legend.field-label.accordion-legend::before {
+  content: "";
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+/* Loan Details icon */
+main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper.field-loan-details.field-wrapper.col-12 > legend.field-label.accordion-legend::before {
+  background-image: url("https://img.icons8.com/fluency-systems-regular/48/5b7cfa/bank-card-back-side.png");
+}
+
+/* Personal Details icon */
+main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper[class*="field-personal-details"].field-wrapper.col-12 > legend.field-label.accordion-legend::before {
+  background-image: url("https://img.icons8.com/fluency-systems-regular/48/5b7cfa/user.png");
+}
+
+/* Fallback if class name differs but legend text is Personal Details
+   Keep this harmless general icon for other panels */
+main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper.field-wrapper.col-12 > legend.field-label.accordion-legend::before {
+  background-image: url("https://img.icons8.com/fluency-systems-regular/48/5b7cfa/secured-letter.png");
+}
+
+/* Re-apply exact icons with higher specificity */
+main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper.field-loan-details.field-wrapper.col-12 > legend.field-label.accordion-legend::before {
+  background-image: url("https://img.icons8.com/fluency-systems-regular/48/5b7cfa/bank-card-back-side.png");
+}
+
+main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper[class*="field-personal-details"].field-wrapper.col-12 > legend.field-label.accordion-legend::before {
+  background-image: url("https://img.icons8.com/fluency-systems-regular/48/5b7cfa/user.png");
+}
+
+/* =========================================
+   GRID LAYOUT
+========================================= */
+main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper.field-wrapper.col-12 > .field-wrapper.col-3 {
+  grid-column: span 3;
+  padding: 14px 20px 10px;
+  margin: 0 !important;
+  border: 0 !important;
+  min-width: 0;
+}
+
+main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper.field-wrapper.col-12 > .field-wrapper.col-6 {
+  grid-column: span 6;
+  padding: 14px 20px 10px;
+  margin: 0 !important;
+  border: 0 !important;
+  min-width: 0;
+}
+
+main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper.field-wrapper.col-12 > .field-wrapper.col-12 {
+  grid-column: 1 / -1;
+  padding: 14px 20px 10px;
+  margin: 0 !important;
+  border: 0 !important;
+  min-width: 0;
+}
+
+/* =========================================
+   FIELD BLOCKS
+   Blue line moved slightly right
+========================================= */
+main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper.field-wrapper.col-12 .text-wrapper,
+main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper.field-wrapper.col-12 .date-wrapper {
+  position: relative;
+  padding-left: 18px; /* increased so line is away from border */
+  min-height: 44px;
+}
+
+/* Blue line */
+main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper.field-wrapper.col-12 .text-wrapper::before,
+main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper.field-wrapper.col-12 .date-wrapper::before {
+  content: "";
+  position: absolute;
+  left: 14px; /* moved right from 0 */
+  top: 2px;
+  bottom: 2px;
+  width: 2px;
+  background: #60a5fa;
+  border-radius: 2px;
+}
+
+/* =========================================
+   LABELS
+========================================= */
+main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper.field-wrapper.col-12 .text-wrapper > label.field-label,
+main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper.field-wrapper.col-12 .date-wrapper > label.field-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: #9ca3af;
+  margin: 0 0 6px;
+  line-height: 1.2;
+  padding-left: 0 !important;
+}
+
+/* Remove old label blue lines if any */
+main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper.field-wrapper.col-12 .text-wrapper > label.field-label::before,
+main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper.field-wrapper.col-12 .date-wrapper > label.field-label::before {
+  content: none !important;
+}
+
+/* =========================================
+   VALUES AS DISPLAY TEXT
+========================================= */
+main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper.field-wrapper.col-12 input[type="text"],
+main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper.field-wrapper.col-12 input[type="number"],
+main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper.field-wrapper.col-12 input[type="tel"],
+main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper.field-wrapper.col-12 input[type="date"] {
+  border: 0 !important;
+  background: transparent !important;
+  height: auto !important;
+  min-height: unset !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+  font-weight: 700 !important;
+  color: #374151 !important;
+  box-shadow: none !important;
+  width: 100% !important;
+  -webkit-text-fill-color: #374151 !important;
+}
+
+/* If values are coming through placeholder */
+main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion input::placeholder {
+  color: #374151 !important;
+  opacity: 1 !important;
+  font-weight: 700 !important;
+}
+
+/* Links like Click here */
+main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion a {
+  color: #2563eb;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* Hide helper text */
+main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion .field-description {
+  display: none !important;
+}
+
+/* Address-style full-width row divider */
+main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper.field-wrapper.col-12 > .field-wrapper.col-12 {
+  border-top: 1px dashed #d1d5db !important;
+  padding-top: 14px;
+  margin-top: 4px !important;
+}
+
+/* Slightly tighter lower rows */
+main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper.field-wrapper.col-12 > .field-wrapper.col-3:nth-of-type(n+6) {
+  padding-top: 10px;
+  padding-bottom: 16px;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+@media (max-width: 768px) {
+  main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper.field-wrapper.col-12 > legend.field-label.accordion-legend {
+    padding: 16px 18px 16px 46px;
+    font-size: 16px;
+  }
+
+  main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper.field-wrapper.col-12 > legend.field-label.accordion-legend::before {
+    left: 16px;
+    width: 16px;
+    height: 16px;
+  }
+
+  main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper.field-wrapper.col-12 > .field-wrapper.col-3 {
+    grid-column: span 6;
+    padding: 16px 16px 6px;
+  }
+
+  main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper.field-wrapper.col-12 > .field-wrapper.col-6,
+  main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper.field-wrapper.col-12 > .field-wrapper.col-12 {
+    grid-column: 1 / -1;
+    padding: 16px 16px 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper.field-wrapper.col-12 > .field-wrapper.col-3,
+  main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper.field-wrapper.col-12 > .field-wrapper.col-6,
+  main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.accordion > .panel-wrapper.field-wrapper.col-12 > .field-wrapper.col-12 {
+    grid-column: 1 / -1;
+  }
+}
