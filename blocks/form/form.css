@@ -855,11 +855,13 @@ main .form form .text-wrapper.field-mobile.field-wrapper input[name="mobile"] {
 
 
 /* OTP Styling */
+/* Wrapper */
 main .form form .number-wrapper.field-entered-otp {
   position: relative;
   max-width: 520px;
 }
 
+/* OTP input */
 main .form form .number-wrapper.field-entered-otp input[name="entered_otp"] {
   width: 100% !important;
   height: 48px !important;
@@ -867,30 +869,37 @@ main .form form .number-wrapper.field-entered-otp input[name="entered_otp"] {
   border-radius: 10px !important;
   background-color: #fff !important;
 
-  /* 6 guide dots */
-  background-image: radial-gradient(circle, #e5e7eb 2px, transparent 2px) !important;
-  background-size: calc(100% / 6) 100% !important;
-  background-repeat: repeat-x !important;
-  background-position: center !important;
-
-  /* allow typing to be visible */
-  color: #111827 !important;
-  caret-color: #6b7280 !important;
   font-size: 22px !important;
   font-weight: 600 !important;
   letter-spacing: 28px !important;
-  padding: 0 44px 0 16px !important;
+  padding: 0 16px !important;
+
+  color: #111827 !important;
+  caret-color: #6b7280 !important;
 
   outline: none !important;
   box-shadow: none !important;
 }
 
-/* hide placeholder only */
-main .form form .number-wrapper.field-entered-otp input[name="entered_otp"]::placeholder {
+/* SHOW DOTS ONLY WHEN EMPTY */
+main .form form .number-wrapper.field-entered-otp input[name="entered_otp"]:placeholder-shown {
+  background-image: radial-gradient(circle, #e5e7eb 2px, transparent 2px) !important;
+  background-size: calc(100% / 6) 100% !important;
+  background-repeat: repeat-x !important;
+  background-position: center !important;
+}
+
+/* HIDE DOTS AFTER TYPING */
+main .form form .number-wrapper.field-entered-otp input[name="entered_otp"]:not(:placeholder-shown) {
+  background-image: none !important;
+}
+
+/* Hide placeholder text */
+main .form form .number-wrapper.field-entered-otp input::placeholder {
   color: transparent !important;
 }
 
-/* remove number arrows */
+/* Remove number arrows */
 main .form form .number-wrapper.field-entered-otp input[type="number"]::-webkit-inner-spin-button,
 main .form form .number-wrapper.field-entered-otp input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -901,21 +910,6 @@ main .form form .number-wrapper.field-entered-otp input[type="number"] {
   -moz-appearance: textfield;
   appearance: textfield;
 }
-
-/* eye icon */
-main .form form .number-wrapper.field-entered-otp::after {
-  content: "";
-  position: absolute;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 18px;
-  height: 18px;
-  background: url("https://img.icons8.com/fluency-systems-regular/48/9ca3af/visible.png") no-repeat center;
-  background-size: contain;
-  pointer-events: none;
-}
-
 
 /* Offer page css*/
 /* OFFER DETAILS WRAPPER */
