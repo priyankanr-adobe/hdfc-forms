@@ -117,7 +117,40 @@ function stopOtpTimer(globals) {
 }
 
 
+/**
+ * When OTP is invalid
+ * @param {scope} globals
+ */
+function handleInvalidOtp(globals) {
+  const panel = globals?.form?.otp_verification_panel;
+
+  const attemptInfo = panel?.attempt_info;
+  const submitBtn = panel?.otp_submit;
+  const resendBtn = panel?.resend_otp;
+
+  if (submitBtn) {
+    globals.functions.setProperty(submitBtn, {
+      enabled: false
+    });
+  }
+
+  if (resendBtn) {
+    globals.functions.setProperty(resendBtn, {
+      visible: true,
+      enabled: true
+    });
+  }
+
+  if (attemptInfo) {
+    globals.functions.setProperty(attemptInfo, {
+      value: "Invalid OTP. Please resend OTP."
+    });
+  }
+
+  return "Invalid OTP";
+}
+
 // eslint-disable-next-line import/prefer-default-export
 export {
-  getFullName, days, submitFormArrayToString, maskMobileNumber, startOtpTimer, stopOtpTimer,
+  getFullName, days, submitFormArrayToString, maskMobileNumber, startOtpTimer, stopOtpTimer, handleInvalidOtp,
 };
