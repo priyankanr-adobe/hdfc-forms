@@ -124,9 +124,16 @@ function stopOtpTimer(globals) {
 function handleInvalidOtp(globals) {
   const panel = globals?.form?.otp_verification_panel;
 
-  const attemptInfo = panel?.attempt_info;
+  const validationMessage = panel?.validation_message;
   const submitBtn = panel?.otp_submit;
   const resendBtn = panel?.resend_otp;
+
+  if (validationMessage) {
+    globals.functions.setProperty(validationMessage, {
+      value: "Invalid OTP. Please resend OTP.",
+      visible: true
+    });
+  }
 
   if (submitBtn) {
     globals.functions.setProperty(submitBtn, {
@@ -138,12 +145,6 @@ function handleInvalidOtp(globals) {
     globals.functions.setProperty(resendBtn, {
       visible: true,
       enabled: true
-    });
-  }
-
-  if (attemptInfo) {
-    globals.functions.setProperty(attemptInfo, {
-      value: "Invalid OTP. Please resend OTP."
     });
   }
 
