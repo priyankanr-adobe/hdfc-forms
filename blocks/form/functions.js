@@ -117,26 +117,167 @@ function stopOtpTimer(globals) {
 }
 
 
+/* OTP Flow */
+
+window.otpTimerInterval = window.otpTimerInterval || null;
+window.otpAttemptsLeft = window.otpAttemptsLeft || 3;
+
 /**
- * Show invalid OTP after submit
+ * Start OTP timer
  * @param {scope} globals
  * @returns {string}
  */
-function handleOtpValidation(globals) {
+function startOtpTimer(globals) {
   const panel = globals?.form?.otp_verification_panel;
 
-  const otpField = panel?.otp;
+  const timerField = panel?.timer;
+  const resendBtn = panel?.resend_otp;
+  const submitBtn = panel?.otp_submit;
   const validationMessage = panel?.validation_message;
+  const attemptInfo = panel?.attempt_info;
 
-  // 🔴 Show red error on OTP field
-  if (otpField) {
-    globals.functions.setProperty(otpField, {
-      valid: false,
-      errorMessage: "Invalid OTP"
+  if (!timerField) {
+    console.error("timer field not found");
+    return "00:30";
+  }
+
+  let seconds = 30;
+
+  if (window.otpTimerInterval) {
+    clearInterval(window.otpTimerInterval);
+    window.otpTimerInterval = null;
+  }
+
+  // Hide resend while timer is running
+  if (resendBtn) {
+    globals.functions.setProperty(resendBtn, {
+      visible: false,
+      enabled: false
     });
   }
 
-  // 📝 Show message in your custom field (optional)
+  // Enable submit while timer is running
+  if (submitBtn) {
+    globals.functions.setProperty(submitBtn, {
+      visible: true,
+      enabled: true
+    });
+  }
+
+  // Clear validation message
+  if (validationMessage) {
+    globals.functions.setProperty(validationMessage, {
+      value: "",
+      visible: false
+    });
+  }
+
+  // Set attempt info
+  if (attemptInfo) {
+    globals.functions.setProperty(attemptInfo, {
+      value: `${window.otpAttemptsLeft}/3 attempt(s) left`
+    });
+  }
+
+  globals.functions.setProperty(timerField, {
+    value: "00:30"
+  });
+
+  window.otpTimerInterval = setInterval(() => {
+    seconds -= 1;
+
+    const timerValue = seconds >= 10 ? `00:${seconds}` : `00:0${seconds}`;
+
+    globals.functions.setProperty(timerField, {
+      value: timerValue
+    });
+
+    if (seconds <= 0) {
+      clearInterval(window.otpTimerInterval);
+      window.otpTimerInterval = null;
+
+      globals.functions.setProperty(timerField, {
+        value: "00:00"
+      });
+
+      if (resendBtn && window.otpAttemptsLeft > 0) {
+        globals.functions.setProperty(resendBtn, {
+          visible: true,
+          enabled: true
+        });
+      }
+
+      if (submitBtn) {
+        globals.functions.setProperty(submitBtn, {
+          enabled: false
+        });
+      }
+
+      if (validationMessage) {
+        globals.functions.setProperty(validationMessage, {
+          value: "OTP expired. Please resend OTP.",
+          visible: true
+        });
+      }
+    }
+  }, 1000);
+
+  return "00:30";
+}
+
+/**
+ * OTP valid success handler
+ * @param {scope} globals
+ * @returns {string}
+ */
+function handleValidOtp(globals) {
+  const panel = globals?.form?.otp_verification_panel;
+
+  const validationMessage = panel?.validation_message;
+  const submitBtn = panel?.otp_submit;
+  const resendBtn = panel?.resend_otp;
+
+  if (window.otpTimerInterval) {
+    clearInterval(window.otpTimerInterval);
+    window.otpTimerInterval = null;
+  }
+
+  if (validationMessage) {
+    globals.functions.setProperty(validationMessage, {
+      value: "OTP validated successfully",
+      visible: true
+    });
+  }
+
+  if (submitBtn) {
+    globals.functions.setProperty(submitBtn, {
+      visible: true,
+      enabled: true
+    });
+  }
+
+  if (resendBtn) {
+    globals.functions.setProperty(resendBtn, {
+      visible: false,
+      enabled: false
+    });
+  }
+
+  return "OTP validated successfully";
+}
+
+/**
+ * OTP invalid handler
+ * @param {scope} globals
+ * @returns {string}
+ */
+function handleInvalidOtp(globals) {
+  const panel = globals?.form?.otp_verification_panel;
+
+  const validationMessage = panel?.validation_message;
+  const submitBtn = panel?.otp_submit;
+  const resendBtn = panel?.resend_otp;
+
   if (validationMessage) {
     globals.functions.setProperty(validationMessage, {
       value: "Invalid OTP",
@@ -144,10 +285,103 @@ function handleOtpValidation(globals) {
     });
   }
 
+  if (submitBtn) {
+    globals.functions.setProperty(submitBtn, {
+      enabled: true
+    });
+  }
+
+  if (resendBtn) {
+    globals.functions.setProperty(resendBtn, {
+      visible: false,
+      enabled: false
+    });
+  }
+
   return "Invalid OTP";
+}
+
+/**
+ * Resend OTP handler
+ * @param {scope} globals
+ * @returns {string}
+ */
+function handleResendOtp(globals) {
+  const panel = globals?.form?.otp_verification_panel;
+
+  const attemptInfo = panel?.attempt_info;
+  const validationMessage = panel?.validation_message;
+  const submitBtn = panel?.otp_submit;
+  const resendBtn = panel?.resend_otp;
+  const otpField = panel?.otp;
+
+  if (window.otpAttemptsLeft > 0) {
+    window.otpAttemptsLeft -= 1;
+  }
+
+  if (attemptInfo) {
+    globals.functions.setProperty(attemptInfo, {
+      value: `${window.otpAttemptsLeft}/3 attempt(s) left`
+    });
+  }
+
+  if (validationMessage) {
+    globals.functions.setProperty(validationMessage, {
+      value: "",
+      visible: false
+    });
+  }
+
+  if (otpField) {
+    globals.functions.setProperty(otpField, {
+      value: ""
+    });
+  }
+
+  if (window.otpAttemptsLeft <= 0) {
+    if (submitBtn) {
+      globals.functions.setProperty(submitBtn, {
+        enabled: false
+      });
+    }
+
+    if (resendBtn) {
+      globals.functions.setProperty(resendBtn, {
+        visible: false,
+        enabled: false
+      });
+    }
+
+    if (validationMessage) {
+      globals.functions.setProperty(validationMessage, {
+        value: "Maximum OTP attempts reached.",
+        visible: true
+      });
+    }
+
+    return "Maximum OTP attempts reached";
+  }
+
+  if (submitBtn) {
+    globals.functions.setProperty(submitBtn, {
+      visible: true,
+      enabled: true
+    });
+  }
+
+  if (resendBtn) {
+    globals.functions.setProperty(resendBtn, {
+      visible: false,
+      enabled: false
+    });
+  }
+
+  startOtpTimer(globals);
+
+  return `${window.otpAttemptsLeft}/3 attempt(s) left`;
 }
 
 // eslint-disable-next-line import/prefer-default-export
 export {
-  getFullName, days, submitFormArrayToString, maskMobileNumber, startOtpTimer, stopOtpTimer, handleOtpValidation,
+  getFullName, days, submitFormArrayToString, maskMobileNumber, startOtpTimer, stopOtpTimer, handleValidOtp, handleInvalidOtp, handleResendOtp,
 };
