@@ -962,15 +962,17 @@ main .form form .field-offer-details > .field-offer-banner-panel > legend {
 }
 
 main .form form .field-offer-details > .field-offer-banner-panel::before {
-  content: "" !important;
-  display: block !important;
-  width: 72px !important;
-  height: 72px !important;
-  flex: 0 0 72px !important;
-  background-image: url("https://img.icons8.com/color/96/money-bag-rupee.png") !important;
-  background-repeat: no-repeat !important;
-  background-position: center !important;
-  background-size: contain !important;
+  content: "";
+  width: 80px;
+  height: 80px;
+  flex: 0 0 80px;
+
+  background-image: url("https://cdn-icons-png.flaticon.com/512/3135/3135706.png") !important;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+
+  display: block;
 }
 
 main .form form .field-offer-details > .field-offer-banner-panel p {
@@ -1451,6 +1453,41 @@ main .form form .field-main-success-card .plain-text-wrapper:nth-of-type(3) p {
 }
 
 /* Loan amount */
+main .form form .field-main-success-card .field-text-input-6977336091777274034750 {
+  position: relative !important;
+  padding-left: 12px !important;
+  margin-top: 8px !important;
+}
+
+main .form form .field-main-success-card .field-text-input-6977336091777274034750::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 3px;
+  height: 50px;
+  background: #60a5fa;
+}
+
+main .form form .field-main-success-card .field-text-input-6977336091777274034750 label {
+  display: block !important;
+  font-size: 14px !important;
+  color: #8b929e !important;
+  margin: 0 0 4px !important;
+}
+
+main .form form .field-main-success-card .field-text-input-6977336091777274034750 input {
+  border: 0 !important;
+  outline: 0 !important;
+  background: transparent !important;
+  padding: 0 !important;
+  height: auto !important;
+  font-size: 15px !important;
+  font-weight: 800 !important;
+  color: #1f2937 !important;
+  box-shadow: none !important;
+}
+
 main .form form .field-main-success-card .text-wrapper:nth-of-type(2) {
   position: relative;
   padding-left: 13px !important;

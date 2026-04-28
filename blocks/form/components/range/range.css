@@ -49,3 +49,150 @@ main .form .range-widget-wrapper.decorated input[type="range"]:focus {
 .range-widget-wrapper.decorated .range-max {
     float: right;
 }
+
+
+/*range css*/
+/* =========================================
+   RANGE WRAPPER
+========================================= */
+.range-widget-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 40px;
+  padding-bottom: 30px;
+}
+
+/* =========================================
+   RANGE TRACK (ORANGE LINE)
+========================================= */
+.range-widget-wrapper input[type="range"] {
+  width: 100%;
+  appearance: none;
+  height: 4px;
+  background: #f59e0b;
+  border-radius: 2px;
+  outline: none;
+  margin: 0;
+  position: relative;
+  z-index: 2;
+}
+
+/* =========================================
+   SLIDER THUMB (BLUE DOT)
+========================================= */
+.range-widget-wrapper input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #1d4ed8;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -6px;
+  position: relative;
+  z-index: 3;
+}
+
+.range-widget-wrapper input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: #1d4ed8;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* =========================================
+   VALUE BUBBLE (TOP FLOATING BOX)
+========================================= */
+.range-bubble {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  color: #111827;
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  z-index: 4;
+}
+
+/* =========================================
+   DEFAULT MIN/MAX (HIDE)
+========================================= */
+.range-min,
+.range-max {
+  display: none !important;
+}
+
+/* =========================================
+   CUSTOM LABELS (50K, 2L, 4L...)
+========================================= */
+.custom-range-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  width: 100%;
+  font-size: 12px;
+  font-weight: 700;
+  color: #8b929e;
+  padding: 0 4px;
+}
+
+/* =========================================
+   TICK MARKS (SMALL WHITE CUTS ON LINE)
+========================================= */
+.range-widget-wrapper.decorated::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 30px;
+  height: 8px;
+  pointer-events: none;
+
+  background: repeating-linear-gradient(
+    to right,
+    transparent 0,
+    transparent calc(14.28% - 1px),
+    rgba(255, 255, 255, 0.8) calc(14.28% - 1px),
+    rgba(255, 255, 255, 0.8) 14.28%
+  );
+}
+
+/* =========================================
+   ALIGNMENT FIX (VERY IMPORTANT)
+========================================= */
+.range-widget-wrapper input[type="range"] {
+  position: relative;
+  top: 24px;
+}
+
+/* labels alignment with ticks */
+.custom-range-labels span {
+  transform: translateX(-50%);
+}
+
+/* fix first and last alignment */
+.custom-range-labels span:first-child {
+  transform: translateX(0);
+}
+
+.custom-range-labels span:last-child {
+  transform: translateX(0);
+}
+
+/* =========================================
+   MOBILE RESPONSIVE
+========================================= */
+@media (max-width: 768px) {
+  .range-bubble {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
+
+  .custom-range-labels {
+    font-size: 11px;
+  }
+}
