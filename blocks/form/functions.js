@@ -117,9 +117,107 @@ function stopOtpTimer(globals) {
 }
 
 
+/**
+ * OTP valid handler
+ * @param {scope} globals
+ * @returns {string}
+ */
+function handleValidOtp(globals) {
+  const panel = globals?.form?.otp_verification_panel;
+  const validationMessage = panel?.validation_message;
+  const resendBtn = panel?.resend_otp;
+  const submitBtn = panel?.otp_submit;
 
+  if (validationMessage) {
+    globals.functions.setProperty(validationMessage, {
+      value: "OTP validated successfully",
+      visible: true
+    });
+  }
+
+  if (resendBtn) {
+    globals.functions.setProperty(resendBtn, {
+      visible: false,
+      enabled: false
+    });
+  }
+
+  if (submitBtn) {
+    globals.functions.setProperty(submitBtn, {
+      enabled: true
+    });
+  }
+
+  return "OTP validated successfully";
+}
+
+
+/**
+ * OTP invalid handler
+ * @param {scope} globals
+ * @returns {string}
+ */
+function handleInvalidOtp(globals) {
+  const panel = globals?.form?.otp_verification_panel;
+  const validationMessage = panel?.validation_message;
+
+  if (validationMessage) {
+    globals.functions.setProperty(validationMessage, {
+      value: "Invalid OTP",
+      visible: true
+    });
+  }
+
+  return "Invalid OTP";
+}
+
+
+/**
+ * Resend OTP click handler
+ * @param {scope} globals
+ * @returns {string}
+ */
+function handleResendOtp(globals) {
+  const panel = globals?.form?.otp_verification_panel;
+  const validationMessage = panel?.validation_message;
+  const otpField = panel?.otp;
+  const submitBtn = panel?.otp_submit;
+  const resendBtn = panel?.resend_otp;
+
+  if (validationMessage) {
+    globals.functions.setProperty(validationMessage, {
+      value: "",
+      visible: false
+    });
+  }
+
+  if (otpField) {
+    globals.functions.setProperty(otpField, {
+      value: ""
+    });
+  }
+
+  if (submitBtn) {
+    globals.functions.setProperty(submitBtn, {
+      enabled: true
+    });
+  }
+
+  if (resendBtn) {
+    globals.functions.setProperty(resendBtn, {
+      visible: false,
+      enabled: false
+    });
+  }
+
+  startOtpTimer(globals);
+
+  return "OTP resent";
+}
 
 // eslint-disable-next-line import/prefer-default-export
 export {
-  getFullName, days, submitFormArrayToString, maskMobileNumber, startOtpTimer, stopOtpTimer, 
+  getFullName, days, submitFormArrayToString, maskMobileNumber, startOtpTimer, stopOtpTimer, handleValidOtp,
+  handleInvalidOtp,
+  handleResendOtp,
 };
