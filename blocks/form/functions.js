@@ -118,33 +118,29 @@ function stopOtpTimer(globals) {
 
 
 /**
- * When OTP is invalid
+ * Show invalid OTP after submit
  * @param {scope} globals
+ * @returns {string}
  */
-function handleInvalidOtp(globals) {
+function handleOtpValidation(globals) {
   const panel = globals?.form?.otp_verification_panel;
 
+  const otpField = panel?.otp;
   const validationMessage = panel?.validation_message;
-  const submitBtn = panel?.otp_submit;
-  const resendBtn = panel?.resend_otp;
 
+  // 🔴 Show red error on OTP field
+  if (otpField) {
+    globals.functions.setProperty(otpField, {
+      valid: false,
+      errorMessage: "Invalid OTP"
+    });
+  }
+
+  // 📝 Show message in your custom field (optional)
   if (validationMessage) {
     globals.functions.setProperty(validationMessage, {
-      value: "Invalid OTP. Please resend OTP.",
+      value: "Invalid OTP",
       visible: true
-    });
-  }
-
-  if (submitBtn) {
-    globals.functions.setProperty(submitBtn, {
-      enabled: false
-    });
-  }
-
-  if (resendBtn) {
-    globals.functions.setProperty(resendBtn, {
-      visible: true,
-      enabled: true
     });
   }
 
@@ -153,5 +149,5 @@ function handleInvalidOtp(globals) {
 
 // eslint-disable-next-line import/prefer-default-export
 export {
-  getFullName, days, submitFormArrayToString, maskMobileNumber, startOtpTimer, stopOtpTimer, handleInvalidOtp,
+  getFullName, days, submitFormArrayToString, maskMobileNumber, startOtpTimer, stopOtpTimer, handleOtpValidation,
 };
