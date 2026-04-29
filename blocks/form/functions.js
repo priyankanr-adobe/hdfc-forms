@@ -126,7 +126,7 @@ function handleValidOtp(globals) {
   const panel = globals?.form?.otp_verification_panel;
   const validationMessage = panel?.validation_message;
   const resendBtn = panel?.resend_otp;
-  const submitBtn = panel?.otp_submit;
+  const submitBtn = globals?.form?.otp_verification_panel?.otp_submit;
 
   if (validationMessage) {
     globals.functions.setProperty(validationMessage, {
@@ -144,6 +144,7 @@ function handleValidOtp(globals) {
 
   if (submitBtn) {
     globals.functions.setProperty(submitBtn, {
+      visible: true,
       enabled: true
     });
   }
@@ -157,14 +158,36 @@ function handleValidOtp(globals) {
  * @param {scope} globals
  * @returns {string}
  */
+
 function handleInvalidOtp(globals) {
   const panel = globals?.form?.otp_verification_panel;
+
   const validationMessage = panel?.validation_message;
+  const attemptInfo = panel?.attempt_info;
+  const submitBtn = panel?.otp_submit;
+
+  window.otpAttemptsLeft = window.otpAttemptsLeft || 3;
+
+  if (window.otpAttemptsLeft > 0) {
+    window.otpAttemptsLeft -= 1;
+  }
 
   if (validationMessage) {
     globals.functions.setProperty(validationMessage, {
       value: "Invalid OTP",
       visible: true
+    });
+  }
+
+  if (attemptInfo) {
+    globals.functions.setProperty(attemptInfo, {
+      value: `${window.otpAttemptsLeft}/3 attempt(s) left`
+    });
+  }
+
+  if (submitBtn) {
+    globals.functions.setProperty(submitBtn, {
+      enabled: window.otpAttemptsLeft > 0
     });
   }
 
