@@ -61,47 +61,64 @@ function maskMobileNumber(mobileNumber) {
  * @param {scope} globals
  */
 function startOtpTimer(globals) {
-  debugger;
-  const timerField = globals.form.otp_verification_panel.timer
+  const panel = globals.form.otp_verification_panel;
+
+  const timerField = panel.timer;
+  const submitBtn = panel.otp_submit;
+  const resendBtn = panel.resend_otp;
+
   let seconds = 30;
- 
+
   if (!timerField) {
-    return '00:30';
+    return "00:30";
   }
- 
+
   if (window.otpTimerInterval) {
     clearInterval(window.otpTimerInterval);
     window.otpTimerInterval = null;
   }
- 
-  globals.functions.setProperty(timerField, {
-    value: '00:30',
+
+  globals.functions.setProperty(submitBtn, {
+    enabled: true,
+    visible: true
   });
- 
+
+  globals.functions.setProperty(resendBtn, {
+    enabled: false,
+    visible: false
+  });
+
+  globals.functions.setProperty(timerField, {
+    value: "00:30"
+  });
+
   window.otpTimerInterval = setInterval(() => {
     seconds -= 1;
- 
-    if (seconds >= 10) {
-      globals.functions.setProperty(timerField, {
-        value: `00:${seconds}`,
-      });
-    } else if (seconds >= 0) {
-      globals.functions.setProperty(timerField, {
-        value: `00:0${seconds}`,
-      });
-    }
- 
+
+    globals.functions.setProperty(timerField, {
+      value: seconds >= 10 ? `00:${seconds}` : `00:0${seconds}`
+    });
+
     if (seconds <= 0) {
       clearInterval(window.otpTimerInterval);
       window.otpTimerInterval = null;
- 
+
       globals.functions.setProperty(timerField, {
-        value: 'Time expired',
+        value: "Time expired"
+      });
+
+      globals.functions.setProperty(submitBtn, {
+        enabled: false
+      });
+
+      globals.functions.setProperty(resendBtn, {
+        enabled: true,
+        visible: true
       });
     }
   }, 1000);
- 
-  return '00:30';
+
+  return "00:30";
 }
  
 /**
@@ -116,9 +133,19 @@ function stopOtpTimer(globals) {
   }
 }
 
+function testSubmitMessage(globals) {
+  globals.functions.setProperty(
+    globals.form.otp_verification_panel.validation_message,
+    {
+      value: "Submit clicked",
+      visible: true
+    }
+  );
 
+  return "Submit clicked";
+}
 
 // eslint-disable-next-line import/prefer-default-export
 export {
-  getFullName, days, submitFormArrayToString, maskMobileNumber, startOtpTimer, stopOtpTimer, 
+  getFullName, days, submitFormArrayToString, maskMobileNumber, startOtpTimer, stopOtpTimer, testSubmitMessage,
 };
