@@ -261,7 +261,11 @@ function handleOtpResend(globals) {
   return `${window.otpResendAttemptsLeft}/3 attempt(s) left`;
 }
 
-
+/**
+ * 3/3 attempts
+ * @param {scope} globals
+ * @returns {string}
+ */
 function handleOtpGenerated(globals) {
   const panel = globals.form.otp_verification_panel;
   const attemptInfo = panel.attempt_info;
