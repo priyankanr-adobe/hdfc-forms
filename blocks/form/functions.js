@@ -283,8 +283,66 @@ function handleOtpGenerated(globals) {
   return "OTP generated";
 }
 
+
+/**
+ * Calculate EMI and update loan offer card
+ * @param {scope} globals
+ * @returns {string}
+ */
+function calculateLoanOffer(globals) {
+  const form = globals.form;
+
+  // CHANGE THESE PATHS if your field names are different
+  const loanAmountField = form.loan_details.loan_amount;
+  const tenureField = form.loan_details.loan_tenure;
+
+  const personalLoanAmountField = form.loan_details.personal_loan_amount;
+  const emiAmountField = form.loan_details.emi_amount;
+  const rateOfInterestField = form.loan_details.rate_of_interest;
+  const taxesField = form.loan_details.taxes;
+
+  const principal = Number(loanAmountField.value || 0);
+  const tenureMonths = Number(tenureField.value || 0);
+
+  const annualInterestRate = 10.97;
+  const monthlyRate = annualInterestRate / (12 * 100);
+  const taxes = 4000;
+
+  if (!principal || !tenureMonths) {
+    return "";
+  }
+
+  const emi =
+    principal *
+    monthlyRate *
+    Math.pow(1 + monthlyRate, tenureMonths) /
+    (Math.pow(1 + monthlyRate, tenureMonths) - 1);
+
+  const formatINR = (amount) => {
+    return `₹${Math.round(amount).toLocaleString("en-IN")}`;
+  };
+
+  globals.functions.setProperty(personalLoanAmountField, {
+    value: formatINR(principal)
+  });
+
+  globals.functions.setProperty(emiAmountField, {
+    value: formatINR(emi)
+  });
+
+  globals.functions.setProperty(rateOfInterestField, {
+    value: `${annualInterestRate}%`
+  });
+
+  globals.functions.setProperty(taxesField, {
+    value: formatINR(taxes)
+  });
+
+  return "Loan offer calculated";
+}
+
 // eslint-disable-next-line import/prefer-default-export
 export {
   getFullName, days, submitFormArrayToString, maskMobileNumber, startOtpTimer, stopOtpTimer, handleOtpSuccess, handleOtpResend,
-  handleOtpInvalid, handleOtpGenerated,
+  handleOtpInvalid, handleOtpGenerated, calculateLoanOffer,
 };
