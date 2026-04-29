@@ -67,7 +67,7 @@ function startOtpTimer(globals) {
   const submitBtn = panel.otp_submit;
   const resendBtn = panel.resend_otp;
 
-  let seconds = 30;
+  let seconds = 10;
 
   if (!timerField) {
     return "00:30";
@@ -89,7 +89,7 @@ function startOtpTimer(globals) {
   });
 
   globals.functions.setProperty(timerField, {
-    value: "00:30"
+    value: "00:10"
   });
 
   window.otpTimerInterval = setInterval(() => {
