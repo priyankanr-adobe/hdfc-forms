@@ -261,8 +261,26 @@ function handleOtpResend(globals) {
   return `${window.otpResendAttemptsLeft}/3 attempt(s) left`;
 }
 
+
+function handleOtpGenerated(globals) {
+  const panel = globals.form.otp_verification_panel;
+  const attemptInfo = panel.attempt_info;
+
+  window.otpResendAttemptsLeft = 3;
+
+  if (attemptInfo) {
+    globals.functions.setProperty(attemptInfo, {
+      value: "3/3 attempt(s) left"
+    });
+  }
+
+  startOtpTimer(globals);
+
+  return "OTP generated";
+}
+
 // eslint-disable-next-line import/prefer-default-export
 export {
   getFullName, days, submitFormArrayToString, maskMobileNumber, startOtpTimer, stopOtpTimer, handleOtpSuccess, handleOtpResend,
-  handleOtpInvalid,
+  handleOtpInvalid, handleOtpGenerated,
 };
