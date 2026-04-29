@@ -133,6 +133,9 @@ function stopOtpTimer(globals) {
   }
 }
 
+/**
+ * @param {scope} globals
+ */
 function handleOtpSuccess(globals) {
   globals.functions.setProperty(
     globals.form.otp_verification_panel.validation_message,
@@ -145,6 +148,9 @@ function handleOtpSuccess(globals) {
   return "OTP validated successfully";
 }
 
+/**
+ * @param {scope} globals
+ */
 function handleOtpInvalid(globals) {
   globals.functions.setProperty(
     globals.form.otp_verification_panel.validation_message,
