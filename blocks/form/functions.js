@@ -261,7 +261,6 @@ function handleOtpResend(globals) {
   return `${window.otpResendAttemptsLeft}/3 attempt(s) left`;
 }
 
-
 // eslint-disable-next-line import/prefer-default-export
 export {
   getFullName, days, submitFormArrayToString, maskMobileNumber, startOtpTimer, stopOtpTimer, handleOtpSuccess, handleOtpResend,
