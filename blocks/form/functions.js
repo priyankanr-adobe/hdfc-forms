@@ -133,19 +133,31 @@ function stopOtpTimer(globals) {
   }
 }
 
-function testSubmitMessage(globals) {
+function handleOtpSuccess(globals) {
   globals.functions.setProperty(
     globals.form.otp_verification_panel.validation_message,
     {
-      value: "Submit clicked",
+      value: "OTP validated successfully",
       visible: true
     }
   );
 
-  return "Submit clicked";
+  return "OTP validated successfully";
 }
 
+function handleOtpInvalid(globals) {
+  globals.functions.setProperty(
+    globals.form.otp_verification_panel.validation_message,
+    {
+      value: "Invalid OTP",
+      visible: true
+    }
+  );
+
+  return "Invalid OTP";
+}
 // eslint-disable-next-line import/prefer-default-export
 export {
-  getFullName, days, submitFormArrayToString, maskMobileNumber, startOtpTimer, stopOtpTimer, testSubmitMessage,
+  getFullName, days, submitFormArrayToString, maskMobileNumber, startOtpTimer, stopOtpTimer, handleOtpSuccess,
+  handleOtpInvalid,
 };
