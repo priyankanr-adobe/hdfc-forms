@@ -292,7 +292,7 @@ function handleOtpGenerated(globals) {
 function calculateLoanOffer(globals) {
   const form = globals.form;
 
-  // CHANGE THESE PATHS if your field names are different
+  
   const loanAmountField = form.loan_details.loan_amount;
   const tenureField = form.loan_details.loan_tenure;
 
