@@ -292,46 +292,44 @@ function handleOtpGenerated(globals) {
 function calculateLoanOffer(globals) {
   const form = globals.form;
 
-  
-  const loanAmountField = form.loan_details.loan_amount;
-  const tenureField = form.loan_details.loan_tenure;
+  const amountField = form.offer_details.offer_input_panel.loan_amount;
+  const tenureField = form.offer_details.offer_input_panel.loan_tenure;
 
-  const personalLoanAmountField = form.loan_details.personal_loan_amount;
-  const emiAmountField = form.loan_details.emi_amount;
-  const rateOfInterestField = form.loan_details.rate_of_interest;
-  const taxesField = form.loan_details.taxes;
+  const offerAmount = form.offer_details.offer_summary_panel.personal_loan_amount;
+  const emiAmount = form.offer_details.offer_summary_panel.emi_amount;
+  const roi = form.offer_details.offer_summary_panel.rate_of_interest;
+  const taxesField = form.offer_details.offer_summary_panel.taxes;
 
-  const principal = Number(loanAmountField.value || 0);
-  const tenureMonths = Number(tenureField.value || 0);
+  const principal = Number(amountField.value || 0);
+  const months = Number(tenureField.value || 0);
 
-  const annualInterestRate = 10.97;
-  const monthlyRate = annualInterestRate / (12 * 100);
+  const annualRate = 10.97;
+  const monthlyRate = annualRate / (12 * 100);
   const taxes = 4000;
 
-  if (!principal || !tenureMonths) {
+  if (!principal || !months) {
     return "";
   }
 
   const emi =
     principal *
     monthlyRate *
-    Math.pow(1 + monthlyRate, tenureMonths) /
-    (Math.pow(1 + monthlyRate, tenureMonths) - 1);
+    Math.pow(1 + monthlyRate, months) /
+    (Math.pow(1 + monthlyRate, months) - 1);
 
-  const formatINR = (amount) => {
-    return `₹${Math.round(amount).toLocaleString("en-IN")}`;
-  };
+  const formatINR = (value) =>
+    `₹${Math.round(value).toLocaleString("en-IN")}`;
 
-  globals.functions.setProperty(personalLoanAmountField, {
+  globals.functions.setProperty(offerAmount, {
     value: formatINR(principal)
   });
 
-  globals.functions.setProperty(emiAmountField, {
+  globals.functions.setProperty(emiAmount, {
     value: formatINR(emi)
   });
 
-  globals.functions.setProperty(rateOfInterestField, {
-    value: `${annualInterestRate}%`
+  globals.functions.setProperty(roi, {
+    value: `${annualRate}%`
   });
 
   globals.functions.setProperty(taxesField, {
