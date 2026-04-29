@@ -217,8 +217,53 @@ function handleOtpInvalid(globals) {
   return "Invalid OTP";
 }
 
+
+/**
+ * Resend OTP handler
+ * @param {scope} globals
+ * @returns {string}
+ */
+function handleOtpResend(globals) {
+  const panel = globals.form.otp_verification_panel;
+
+  const attemptInfo = panel.attempt_info;
+  const validationMessage = panel.validation_message;
+  const resendBtn = panel.resend_otp;
+
+  window.otpResendAttemptsLeft = window.otpResendAttemptsLeft ?? 3;
+
+  if (window.otpResendAttemptsLeft > 0) {
+    window.otpResendAttemptsLeft -= 1;
+  }
+
+  if (attemptInfo) {
+    globals.functions.setProperty(attemptInfo, {
+      value: `${window.otpResendAttemptsLeft}/3 attempt(s) left`
+    });
+  }
+
+  if (validationMessage) {
+    globals.functions.setProperty(validationMessage, {
+      value: "",
+      visible: false
+    });
+  }
+
+  if (resendBtn) {
+    globals.functions.setProperty(resendBtn, {
+      visible: false,
+      enabled: false
+    });
+  }
+
+  startOtpTimer(globals);
+
+  return `${window.otpResendAttemptsLeft}/3 attempt(s) left`;
+}
+
+
 // eslint-disable-next-line import/prefer-default-export
 export {
-  getFullName, days, submitFormArrayToString, maskMobileNumber, startOtpTimer, stopOtpTimer, handleOtpSuccess,
+  getFullName, days, submitFormArrayToString, maskMobileNumber, startOtpTimer, stopOtpTimer, handleOtpSuccess, handleOtpResend,
   handleOtpInvalid,
 };
