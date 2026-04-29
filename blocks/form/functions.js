@@ -62,7 +62,7 @@ function maskMobileNumber(mobileNumber) {
  */
 function startOtpTimer(globals) {
   const panel = globals.form.otp_verification_panel;
-
+    debugger;
   const timerField = panel.timer;
   const submitBtn = panel.otp_submit;
   const resendBtn = panel.resend_otp;
@@ -140,7 +140,7 @@ function stopOtpTimer(globals) {
  */
 function handleOtpSuccess(globals) {
   const panel = globals.form.otp_verification_panel;
-  debugger;
+
   const validationMessage = panel.validation_message;
   const resendBtn = panel.resend_otp;
   const submitBtn = panel.otp_submit;
