@@ -174,19 +174,49 @@ function handleOtpSuccess(globals) {
 }
 
 /**
+ * OTP invalid handler
  * @param {scope} globals
+ * @returns {string}
  */
 function handleOtpInvalid(globals) {
-  globals.functions.setProperty(
-    globals.form.otp_verification_panel.validation_message,
-    {
+  const panel = globals.form.otp_verification_panel;
+
+  const validationMessage = panel.validation_message;
+  const resendBtn = panel.resend_otp;
+  const submitBtn = panel.otp_submit;
+
+  // reduce attempts
+  window.otpResendAttemptsLeft = window.otpResendAttemptsLeft || 3;
+  if (window.otpResendAttemptsLeft > 0) {
+    window.otpResendAttemptsLeft -= 1;
+  }
+
+  // show invalid message
+  if (validationMessage) {
+    globals.functions.setProperty(validationMessage, {
       value: "Invalid OTP",
       visible: true
-    }
-  );
+    });
+  }
+
+  // disable submit if no attempts left
+  if (submitBtn) {
+    globals.functions.setProperty(submitBtn, {
+      enabled: window.otpResendAttemptsLeft > 0
+    });
+  }
+
+  // show resend if attempts still available
+  if (resendBtn) {
+    globals.functions.setProperty(resendBtn, {
+      visible: window.otpResendAttemptsLeft > 0,
+      enabled: window.otpResendAttemptsLeft > 0
+    });
+  }
 
   return "Invalid OTP";
 }
+
 // eslint-disable-next-line import/prefer-default-export
 export {
   getFullName, days, submitFormArrayToString, maskMobileNumber, startOtpTimer, stopOtpTimer, handleOtpSuccess,
