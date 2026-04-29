@@ -134,16 +134,41 @@ function stopOtpTimer(globals) {
 }
 
 /**
+ * OTP success handler
  * @param {scope} globals
+ * @returns {string}
  */
 function handleOtpSuccess(globals) {
-  globals.functions.setProperty(
-    globals.form.otp_verification_panel.validation_message,
-    {
+  const panel = globals.form.otp_verification_panel;
+  debugger;
+  const validationMessage = panel.validation_message;
+  const resendBtn = panel.resend_otp;
+  const submitBtn = panel.otp_submit;
+
+  stopOtpTimer(globals);
+
+  window.otpResendAttemptsLeft = 3;
+  window.otpTimerExpired = false;
+
+  if (validationMessage) {
+    globals.functions.setProperty(validationMessage, {
       value: "OTP validated successfully",
       visible: true
-    }
-  );
+    });
+  }
+
+  if (resendBtn) {
+    globals.functions.setProperty(resendBtn, {
+      visible: false,
+      enabled: false
+    });
+  }
+
+  if (submitBtn) {
+    globals.functions.setProperty(submitBtn, {
+      enabled: true
+    });
+  }
 
   return "OTP validated successfully";
 }
