@@ -284,52 +284,50 @@ function handleOtpGenerated(globals) {
 }
 
 
-function getFieldValue(field, className) {
-  let value = Number(field?.$value || field?.value || field?._value || 0);
+function readRangeValue(fieldName) {
+  const selectors = [
+    `.field-${fieldName} input[type="range"]`,
+    `.field-${fieldName.replaceAll("_", "-")} input[type="range"]`,
+    `.field-${fieldName} input[type="number"]`,
+    `.field-${fieldName.replaceAll("_", "-")} input[type="number"]`
+  ];
 
-  if (!value && className) {
-    const input = document.querySelector(
-      `.${className} input[type="range"], .${className} input[type="number"]`
-    );
-
-    if (input) {
-      value = Number(input.value || 0);
+  for (const selector of selectors) {
+    const input = document.querySelector(selector);
+    if (input && input.value) {
+      return Number(input.value);
     }
   }
 
-  return value;
+  return 0;
 }
 
-/**
- * Calculate EMI and update loan offer card
- * @param {scope} globals
- * @returns {string}
- */
 function calculateLoanOffer(globals) {
   const form = globals.form;
 
-  const amountField = form.offer_details.offer_input_panel.loan_amount;
-  const tenureField = form.offer_details.offer_input_panel.loan_tenure;
+  const offerAmount =
+    form.offer_details.offer_summary_panel.personal_loan_amount;
+  const emiAmount =
+    form.offer_details.offer_summary_panel.emi_amount;
+  const roi =
+    form.offer_details.offer_summary_panel.rate_of_interest;
+  const taxesField =
+    form.offer_details.offer_summary_panel.taxes;
 
-  const offerAmount = form.offer_details.offer_summary_panel.personal_loan_amount;
-  const emiAmount = form.offer_details.offer_summary_panel.emi_amount;
-  const roi = form.offer_details.offer_summary_panel.rate_of_interest;
-  const taxesField = form.offer_details.offer_summary_panel.taxes;
-
-  const principal = getFieldValue(amountField, "field-loan_amount");
-  const months = getFieldValue(tenureField, "field-loan_tenure");
+  const principal = readRangeValue("loan_amount");
+  const months = readRangeValue("loan_tenure");
 
   console.log("principal:", principal);
   console.log("months:", months);
-
-  const annualRate = 10.97;
-  const monthlyRate = annualRate / (12 * 100);
-  const taxes = 4000;
 
   if (!principal || !months) {
     console.error("Loan amount or tenure missing");
     return "";
   }
+
+  const annualRate = 10.97;
+  const monthlyRate = annualRate / (12 * 100);
+  const taxes = 4000;
 
   const emi =
     principal *
