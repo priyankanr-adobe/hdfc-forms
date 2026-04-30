@@ -284,6 +284,7 @@ function handleOtpGenerated(globals) {
 }
 
 
+/*offer detail function */
 function readRangeValue(fieldName) {
   const selectors = [
     `.field-${fieldName} input[type="range"]`,
