@@ -325,9 +325,20 @@ function calculateLoanOffer(globals) {
     return "";
   }
 
-  const annualRate = 10.97;
+  let annualRate = 10.97;
+
+  if (principal >= 1000000) {
+    annualRate = 10.2;
+  } else if (principal >= 500000) {
+    annualRate = 10.5;
+  } else {
+    annualRate = 10.97;
+  }
+
   const monthlyRate = annualRate / (12 * 100);
-  const taxes = 4000;
+
+  // 0.5% of loan amount
+  const taxes = Math.round(principal * 0.005);
 
   const emi =
     principal *
@@ -356,6 +367,7 @@ function calculateLoanOffer(globals) {
 
   return "Loan offer calculated";
 }
+
 
 // eslint-disable-next-line import/prefer-default-export
 export {
