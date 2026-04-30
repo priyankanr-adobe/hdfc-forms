@@ -1,32 +1,36 @@
 function updateBubble(input, element) {
-  const step = input.step || 1;
-  const max = input.max || 0;
-  const min = input.min || 1;
-  const value = input.value || 1;
+  const step = Number(input.step || 1);
+  const max = Number(input.max || 0);
+  const min = Number(input.min || 0);
+  const value = Number(input.value || 0);
+
   const current = Math.ceil((value - min) / step);
   const total = Math.ceil((max - min) / step);
+
   const bubble = element.querySelector('.range-bubble');
 
-  const bubbleWidth = bubble.getBoundingClientRect().width || 31;
-  const left = `${(current / total) * 100}% - ${(current / total) * bubbleWidth}px`;
+  if (!bubble) return;
 
+  const bubbleWidth = bubble.getBoundingClientRect().width || 40;
+  const percent = current / total;
+
+  const left = `${percent * 100}% - ${percent * bubbleWidth}px`;
+
+  // update bubble text
   bubble.innerText = `${value}`;
 
-  const steps = {
-    '--total-steps': Math.ceil((max - min) / step),
-    '--current-steps': Math.ceil((value - min) / step),
-  };
-
-  const style = Object.entries(steps)
-    .map(([varName, varValue]) => `${varName}:${varValue}`)
-    .join(';');
-
+  // update position
   bubble.style.left = `calc(${left})`;
-  element.setAttribute('style', style);
+
+  // ✅ FIX: update CSS variables properly (no reset issue)
+  element.style.setProperty('--total-steps', total);
+  element.style.setProperty('--current-steps', current);
 }
 
 export default async function decorate(fieldDiv, fieldJson) {
   const input = fieldDiv.querySelector('input');
+
+  if (!input) return fieldDiv;
 
   input.type = 'range';
   input.min = input.min || 1;
@@ -35,10 +39,11 @@ export default async function decorate(fieldDiv, fieldJson) {
 
   const div = document.createElement('div');
   div.className = 'range-widget-wrapper decorated';
+
   input.after(div);
 
-  const hover = document.createElement('span');
-  hover.className = 'range-bubble';
+  const bubble = document.createElement('span');
+  bubble.className = 'range-bubble';
 
   const rangeMinEl = document.createElement('span');
   rangeMinEl.className = 'range-min';
@@ -46,20 +51,21 @@ export default async function decorate(fieldDiv, fieldJson) {
   const rangeMaxEl = document.createElement('span');
   rangeMaxEl.className = 'range-max';
 
-  rangeMinEl.innerText = `${input.min || 1}`;
+  rangeMinEl.innerText = `${input.min}`;
   rangeMaxEl.innerText = `${input.max}`;
 
-  div.appendChild(hover);
+  div.appendChild(bubble);
   div.appendChild(input);
   div.appendChild(rangeMinEl);
   div.appendChild(rangeMaxEl);
 
-  /* ADD CUSTOM RANGE LABELS */
+  // ✅ CUSTOM LABELS
   const customLabels = document.createElement('div');
   customLabels.className = 'custom-range-labels';
 
   const fieldName = input.name || '';
-  const labelText = fieldDiv.querySelector('label')?.textContent?.toLowerCase() || '';
+  const labelText =
+    fieldDiv.querySelector('label')?.textContent?.toLowerCase() || '';
 
   if (
     fieldName.includes('loan_amount') ||
@@ -88,11 +94,19 @@ export default async function decorate(fieldDiv, fieldJson) {
 
   div.appendChild(customLabels);
 
+  // ✅ FIX: use both events
   input.addEventListener('input', (e) => {
     updateBubble(e.target, div);
   });
 
-  updateBubble(input, div);
+  input.addEventListener('change', (e) => {
+    updateBubble(e.target, div);
+  });
+
+  // initial render
+  setTimeout(() => {
+    updateBubble(input, div);
+  }, 0);
 
   return fieldDiv;
 }
