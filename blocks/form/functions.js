@@ -300,14 +300,21 @@ function calculateLoanOffer(globals) {
   const roi = form.offer_details.offer_summary_panel.rate_of_interest;
   const taxesField = form.offer_details.offer_summary_panel.taxes;
 
-  const principal = Number(amountField.value || 0);
-  const months = Number(tenureField.value || 0);
+  console.log("amountField:", amountField);
+  console.log("tenureField:", tenureField);
+
+  const principal = Number(amountField?.$value || amountField?.value || 0);
+  const months = Number(tenureField?.$value || tenureField?.value || 0);
+
+  console.log("principal:", principal);
+  console.log("months:", months);
 
   const annualRate = 10.97;
   const monthlyRate = annualRate / (12 * 100);
   const taxes = 4000;
 
   if (!principal || !months) {
+    console.error("Loan amount or tenure missing");
     return "";
   }
 
@@ -317,8 +324,7 @@ function calculateLoanOffer(globals) {
     Math.pow(1 + monthlyRate, months) /
     (Math.pow(1 + monthlyRate, months) - 1);
 
-  const formatINR = (value) =>
-    `₹${Math.round(value).toLocaleString("en-IN")}`;
+  const formatINR = (value) => `₹${Math.round(value).toLocaleString("en-IN")}`;
 
   globals.functions.setProperty(offerAmount, {
     value: formatINR(principal)
