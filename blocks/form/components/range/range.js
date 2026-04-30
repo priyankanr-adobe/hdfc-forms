@@ -1,8 +1,8 @@
 function updateBubble(input, element) {
   const step = Number(input.step || 1);
   const max = Number(input.max || 0);
-  const min = Number(input.min || 0);
-  const value = Number(input.value || 0);
+  const min = Number(input.min || 1);
+  const value = Number(input.value || 1);
 
   const current = Math.ceil((value - min) / step);
   const total = Math.ceil((max - min) / step);
