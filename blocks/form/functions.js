@@ -284,6 +284,22 @@ function handleOtpGenerated(globals) {
 }
 
 
+function getFieldValue(field, className) {
+  let value = Number(field?.$value || field?.value || field?._value || 0);
+
+  if (!value && className) {
+    const input = document.querySelector(
+      `.${className} input[type="range"], .${className} input[type="number"]`
+    );
+
+    if (input) {
+      value = Number(input.value || 0);
+    }
+  }
+
+  return value;
+}
+
 /**
  * Calculate EMI and update loan offer card
  * @param {scope} globals
@@ -300,11 +316,8 @@ function calculateLoanOffer(globals) {
   const roi = form.offer_details.offer_summary_panel.rate_of_interest;
   const taxesField = form.offer_details.offer_summary_panel.taxes;
 
-  console.log("amountField:", amountField);
-  console.log("tenureField:", tenureField);
-
-  const principal = Number(amountField?.$value || amountField?.value || 0);
-  const months = Number(tenureField?.$value || tenureField?.value || 0);
+  const principal = getFieldValue(amountField, "field-loan_amount");
+  const months = getFieldValue(tenureField, "field-loan_tenure");
 
   console.log("principal:", principal);
   console.log("months:", months);
@@ -324,7 +337,8 @@ function calculateLoanOffer(globals) {
     Math.pow(1 + monthlyRate, months) /
     (Math.pow(1 + monthlyRate, months) - 1);
 
-  const formatINR = (value) => `₹${Math.round(value).toLocaleString("en-IN")}`;
+  const formatINR = (value) =>
+    `₹${Math.round(value).toLocaleString("en-IN")}`;
 
   globals.functions.setProperty(offerAmount, {
     value: formatINR(principal)
