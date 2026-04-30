@@ -304,6 +304,17 @@ function readRangeValue(fieldName) {
   return 0;
 }
 
+function updateSliderUI(fieldName, value) {
+  const wrapper = document.querySelector(
+    `.field-${fieldName} .range-widget-wrapper, 
+     .field-${fieldName.replaceAll("_","-")} .range-widget-wrapper`
+  );
+
+  if (wrapper) {
+    wrapper.style.setProperty("--current-steps", value);
+  }
+}
+
 function calculateLoanOffer(globals) {
   const form = globals.form;
 
@@ -318,6 +329,9 @@ function calculateLoanOffer(globals) {
 
   const principal = readRangeValue("loan_amount");
   const months = readRangeValue("loan_tenure");
+  
+  updateSliderUI("loan_amount", principal);
+  updateSliderUI("loan_tenure", months);
 
   console.log("principal:", principal);
   console.log("months:", months);
