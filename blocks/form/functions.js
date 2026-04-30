@@ -296,6 +296,7 @@ function readRangeValue(fieldName) {
   for (const selector of selectors) {
     const input = document.querySelector(selector);
     if (input && input.value) {
+      input.dispatchEvent(new Event("input", { bubbles: true }));
       return Number(input.value);
     }
   }
