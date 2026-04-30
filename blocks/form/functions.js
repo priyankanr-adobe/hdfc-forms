@@ -306,25 +306,13 @@ function readRangeValue(fieldName) {
 
 function updateSliderUI(fieldName, value) {
   const wrapper = document.querySelector(
-    `.field-${fieldName} .range-widget-wrapper, .field-${fieldName.replaceAll("_", "-")} .range-widget-wrapper`
+    `.field-${fieldName} .range-widget-wrapper, 
+     .field-${fieldName.replaceAll("_","-")} .range-widget-wrapper`
   );
 
-  const input = document.querySelector(
-    `.field-${fieldName} input[type="range"], .field-${fieldName.replaceAll("_", "-")} input[type="range"]`
-  );
-
-  if (!wrapper || !input) return;
-
-  input.value = value;
-  input.setAttribute("value", value);
-
-  const min = Number(input.min || 0);
-  const currentSteps = Number(value) - min;
-
-  wrapper.style.setProperty("--current-steps", currentSteps);
-
-  input.dispatchEvent(new Event("input", { bubbles: true }));
-  input.dispatchEvent(new Event("change", { bubbles: true }));
+  if (wrapper) {
+    wrapper.style.setProperty("--current-steps", value);
+  }
 }
 
 function calculateLoanOffer(globals) {
