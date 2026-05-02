@@ -288,31 +288,17 @@ function handleOtpGenerated(globals) {
 function readRangeValue(fieldName) {
   const selectors = [
     `.field-${fieldName} input[type="range"]`,
-    `.field-${fieldName.replaceAll("_", "-")} input[type="range"]`,
-    `.field-${fieldName} input[type="number"]`,
-    `.field-${fieldName.replaceAll("_", "-")} input[type="number"]`
+    `.field-${fieldName.replaceAll("_", "-")} input[type="range"]`
   ];
 
   for (const selector of selectors) {
     const input = document.querySelector(selector);
-    if (input && input.value) {
-      input.dispatchEvent(new Event("input", { bubbles: true }));
-      return Number(input.value);
+    if (input) {
+      return Number(input.value || 0);
     }
   }
 
   return 0;
-}
-
-function updateSliderUI(fieldName, value) {
-  const wrapper = document.querySelector(
-    `.field-${fieldName} .range-widget-wrapper, 
-     .field-${fieldName.replaceAll("_","-")} .range-widget-wrapper`
-  );
-
-  if (wrapper) {
-    wrapper.style.setProperty("--current-steps", value);
-  }
 }
 
 function calculateLoanOffer(globals) {
@@ -329,31 +315,23 @@ function calculateLoanOffer(globals) {
 
   const principal = readRangeValue("loan_amount");
   const months = readRangeValue("loan_tenure");
-  
-  updateSliderUI("loan_amount", principal);
-  updateSliderUI("loan_tenure", months);
 
   console.log("principal:", principal);
   console.log("months:", months);
 
   if (!principal || !months) {
-    console.error("Loan amount or tenure missing");
     return "";
   }
 
   let annualRate = 10.97;
 
-  if (principal >= 1000000) {
+  if (principal >= 120000) {
     annualRate = 10.2;
-  } else if (principal >= 500000) {
+  } else if (principal >= 100000) {
     annualRate = 10.5;
-  } else {
-    annualRate = 10.97;
   }
 
   const monthlyRate = annualRate / (12 * 100);
-
-  // 0.5% of loan amount
   const taxes = Math.round(principal * 0.005);
 
   const emi =
@@ -383,7 +361,6 @@ function calculateLoanOffer(globals) {
 
   return "Loan offer calculated";
 }
-
 
 // eslint-disable-next-line import/prefer-default-export
 export {

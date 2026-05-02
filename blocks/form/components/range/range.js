@@ -1,35 +1,28 @@
 function updateBubble(input, element) {
   const step = Number(input.step || 1);
-  const max = Number(input.max || 0);
+  const max = Number(input.max || 100);
   const min = Number(input.min || 1);
-  const value = Number(input.value || 1);
+  const value = Number(input.value || min);
 
   const current = Math.ceil((value - min) / step);
   const total = Math.ceil((max - min) / step);
 
   const bubble = element.querySelector('.range-bubble');
-
-  if (!bubble) return;
+  if (!bubble || !total) return;
 
   const bubbleWidth = bubble.getBoundingClientRect().width || 40;
   const percent = current / total;
-
   const left = `${percent * 100}% - ${percent * bubbleWidth}px`;
 
-  // update bubble text
   bubble.innerText = `${value}`;
-
-  // update position
   bubble.style.left = `calc(${left})`;
 
-  // ✅ FIX: update CSS variables properly (no reset issue)
   element.style.setProperty('--total-steps', total);
   element.style.setProperty('--current-steps', current);
 }
 
 export default async function decorate(fieldDiv, fieldJson) {
   const input = fieldDiv.querySelector('input');
-
   if (!input) return fieldDiv;
 
   input.type = 'range';
@@ -59,7 +52,6 @@ export default async function decorate(fieldDiv, fieldJson) {
   div.appendChild(rangeMinEl);
   div.appendChild(rangeMaxEl);
 
-  // ✅ CUSTOM LABELS
   const customLabels = document.createElement('div');
   customLabels.className = 'custom-range-labels';
 
@@ -67,10 +59,7 @@ export default async function decorate(fieldDiv, fieldJson) {
   const labelText =
     fieldDiv.querySelector('label')?.textContent?.toLowerCase() || '';
 
-  if (
-    fieldName.includes('loan_amount') ||
-    labelText.includes('loan amount')
-  ) {
+  if (fieldName.includes('loan_amount') || labelText.includes('loan amount')) {
     customLabels.innerHTML = `
       <span>50K</span>
       <span>2L</span>
@@ -94,7 +83,6 @@ export default async function decorate(fieldDiv, fieldJson) {
 
   div.appendChild(customLabels);
 
-  // ✅ FIX: use both events
   input.addEventListener('input', (e) => {
     updateBubble(e.target, div);
   });
@@ -103,10 +91,7 @@ export default async function decorate(fieldDiv, fieldJson) {
     updateBubble(e.target, div);
   });
 
-  // initial render
-  setTimeout(() => {
-    updateBubble(input, div);
-  }, 0);
+  updateBubble(input, div);
 
   return fieldDiv;
 }
