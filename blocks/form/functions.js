@@ -285,6 +285,8 @@ function handleOtpGenerated(globals) {
 
 
 /*offer detail function */
+let loanOfferDebounceTimer;
+
 function readRangeValue(fieldName) {
   const selectors = [
     `.field-${fieldName} input[type="range"]`,
@@ -302,6 +304,16 @@ function readRangeValue(fieldName) {
 }
 
 function calculateLoanOffer(globals) {
+  clearTimeout(loanOfferDebounceTimer);
+
+  loanOfferDebounceTimer = setTimeout(() => {
+    runLoanOfferCalculation(globals);
+  }, 300);
+
+  return "Loan offer calculation scheduled";
+}
+
+function runLoanOfferCalculation(globals) {
   const form = globals.form;
 
   const offerAmount =
