@@ -1582,3 +1582,43 @@ main .form form .field-right-offer-panel {
 main .form form .field-right-offer-panel > legend {
   display: none !important;
 }
+
+
+/* Loan Amount display like original */
+main .form form .field-main-success-card .field-personal-loan-amount {
+  position: relative !important;
+  padding-left: 14px !important;
+  margin-top: 10px !important;
+  width: 220px !important;
+}
+
+main .form form .field-main-success-card .field-personal-loan-amount::before {
+  content: "";
+  position: absolute !important;
+  left: 0 !important;
+  top: 4px !important;
+  width: 3px !important;
+  height: 42px !important;
+  background: #8fb0ff !important;
+  border-radius: 2px !important;
+}
+
+main .form form .field-main-success-card .field-personal-loan-amount label {
+  display: block !important;
+  margin: 0 0 4px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: #8b929e !important;
+}
+
+/* Make loan amount look like text, not input */
+main .form form .field-main-success-card .field-personal-loan-amount input {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  height: auto !important;
+  font-size: 20px !important;
+  font-weight: 800 !important;
+  color: #1f2937 !important;
+}
