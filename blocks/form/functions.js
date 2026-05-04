@@ -288,11 +288,19 @@ function handleOtpGenerated(globals) {
 let loanOfferDebounceTimer;
 
 function readRangeValue(fieldName) {
-  const input =
-    document.querySelector(`.field-${fieldName} input[type="range"]`) ||
-    document.querySelector(`.field-${fieldName.replaceAll("_", "-")} input[type="range"]`);
+  const selectors = [
+    `.field-${fieldName} input[type="range"]`,
+    `.field-${fieldName.replaceAll("_", "-")} input[type="range"]`
+  ];
 
-  return input ? Number(input.value || 0) : 0;
+  for (const selector of selectors) {
+    const input = document.querySelector(selector);
+    if (input) {
+      return Number(input.value || 0);
+    }
+  }
+
+  return 0;
 }
 
 function calculateLoanOffer(globals) {
@@ -300,7 +308,7 @@ function calculateLoanOffer(globals) {
 
   loanOfferDebounceTimer = setTimeout(() => {
     runLoanOfferCalculation(globals);
-  }, 80);
+  }, 300);
 
   return "Loan offer calculation scheduled";
 }
@@ -308,34 +316,60 @@ function calculateLoanOffer(globals) {
 function runLoanOfferCalculation(globals) {
   const form = globals.form;
 
-  const offerAmount = form.offer_details.offer_summary_panel.personal_loan_amount;
-  const emiAmount = form.offer_details.offer_summary_panel.emi_amount;
-  const roi = form.offer_details.offer_summary_panel.rate_of_interest;
-  const taxesField = form.offer_details.offer_summary_panel.taxes;
+  const offerAmount =
+    form.offer_details.offer_summary_panel.personal_loan_amount;
+  const emiAmount =
+    form.offer_details.offer_summary_panel.emi_amount;
+  const roi =
+    form.offer_details.offer_summary_panel.rate_of_interest;
+  const taxesField =
+    form.offer_details.offer_summary_panel.taxes;
 
   const principal = readRangeValue("loan_amount");
   const months = readRangeValue("loan_tenure");
 
-  if (!principal || !months) return "";
+  console.log("principal:", principal);
+  console.log("months:", months);
+
+  if (!principal || !months) {
+    return "";
+  }
 
   let annualRate = 10.97;
 
-  if (principal >= 120000) annualRate = 10.2;
-  else if (principal >= 100000) annualRate = 10.5;
+  if (principal >= 120000) {
+    annualRate = 10.2;
+  } else if (principal >= 100000) {
+    annualRate = 10.5;
+  }
 
   const monthlyRate = annualRate / (12 * 100);
   const taxes = Math.round(principal * 0.005);
 
   const emi =
-    (principal * monthlyRate * Math.pow(1 + monthlyRate, months)) /
+    principal *
+    monthlyRate *
+    Math.pow(1 + monthlyRate, months) /
     (Math.pow(1 + monthlyRate, months) - 1);
 
-  const formatINR = (value) => `₹${Math.round(value).toLocaleString("en-IN")}`;
+  const formatINR = (value) =>
+    `₹${Math.round(value).toLocaleString("en-IN")}`;
 
-  globals.functions.setProperty(offerAmount, { value: formatINR(principal) });
-  globals.functions.setProperty(emiAmount, { value: formatINR(emi) });
-  globals.functions.setProperty(roi, { value: `${annualRate}%` });
-  globals.functions.setProperty(taxesField, { value: formatINR(taxes) });
+  globals.functions.setProperty(offerAmount, {
+    value: formatINR(principal)
+  });
+
+  globals.functions.setProperty(emiAmount, {
+    value: formatINR(emi)
+  });
+
+  globals.functions.setProperty(roi, {
+    value: `${annualRate}%`
+  });
+
+  globals.functions.setProperty(taxesField, {
+    value: formatINR(taxes)
+  });
 
   return "Loan offer calculated";
 }
