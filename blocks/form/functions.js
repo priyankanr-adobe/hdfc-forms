@@ -332,7 +332,18 @@ function getRate() {
  * @returns {string}
  */
 function getTax() {
-  return '₹4,000';
+  const data = globals.functions.exportData();
+
+  const loanAmount = Number(data.loan_amount || 0);
+
+  if (!loanAmount) return '';
+
+  const processingFee = loanAmount * 0.02;   // 2%
+  const gst = processingFee * 0.18;          // 18% GST
+
+  const totalCharges = processingFee + gst;
+
+  return `₹${Math.round(totalCharges).toLocaleString('en-IN')}`
 }
 
 
