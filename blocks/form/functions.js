@@ -286,12 +286,8 @@ function handleOtpGenerated(globals) {
 
 /*offer detail function */
 /**
- * EMI Calculation
  * @param {scope} globals
- */
-/**
- * EMI Calculation
- * @param {scope} globals
+ * @returns {string}
  */
 function updateLoanDisplay(globals) {
   const data = globals.functions.exportData();
@@ -303,16 +299,20 @@ function updateLoanDisplay(globals) {
     : '';
 }
 
+/**
+ * @param {scope} globals
+ * @returns {string}
+ */
 function updateLoanDetails(globals) {
   const data = globals.functions.exportData();
 
   const loanAmount = Number(data.loan_amount || 0);
   const tenure = Number(data.loan_tenure || 0);
 
+  if (!loanAmount || !tenure) return '';
+
   const rate = 10.97;
   const monthlyRate = rate / (12 * 100);
-
-  if (!loanAmount || !tenure) return '';
 
   const emi =
     (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, tenure)) /
@@ -321,10 +321,16 @@ function updateLoanDetails(globals) {
   return `₹${Math.round(emi).toLocaleString('en-IN')}`;
 }
 
+/**
+ * @returns {string}
+ */
 function getRate() {
   return '10.97%';
 }
 
+/**
+ * @returns {string}
+ */
 function getTax() {
   return '₹4,000';
 }
