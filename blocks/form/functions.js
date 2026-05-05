@@ -285,53 +285,74 @@ function handleOtpGenerated(globals) {
 
 
 /*offer detail function */
-function calculateLoanOffer(globals) {
+/**
+ * EMI Calculation
+ * @param {scope} globals
+ */
+/**
+ * EMI Calculation
+ * @param {scope} globals
+ */
+function updateLoanDisplay(globals) {
   const data = globals.functions.exportData();
-
-  let principal = Number(data.loan_amount || 0);
-  let months = Number(data.loan_tenure || 0);
-
-  const changedName = globals.field?.name;
-  const changedValue = Number(globals.field?.value || 0);
-
-  if (changedName === 'loan_amount') {
-    principal = changedValue;
-  }
-
-  if (changedName === 'loan_tenure') {
-    months = changedValue;
-  }
-
-  if (!principal || !months) return '';
-
-  const form = globals.form;
-
-  const offerAmount = form.offer_details.offer_summary_panel.personal_loan_amount;
-  const emiAmount = form.offer_details.offer_summary_panel.emi_amount;
-  const roi = form.offer_details.offer_summary_panel.rate_of_interest;
-  const taxesField = form.offer_details.offer_summary_panel.taxes;
-
-  const annualRate = 10.97;
-  const monthlyRate = annualRate / (12 * 100);
-  const taxes = Math.round(principal * 0.005);
-
-  const emi =
-    (principal * monthlyRate * Math.pow(1 + monthlyRate, months)) /
-    (Math.pow(1 + monthlyRate, months) - 1);
-
-  const formatINR = (value) =>
-    `₹${Math.round(value).toLocaleString('en-IN')}`;
-
-  globals.functions.setProperty(offerAmount, { value: formatINR(principal) });
-  globals.functions.setProperty(emiAmount, { value: formatINR(emi) });
-  globals.functions.setProperty(roi, { value: `${annualRate}%` });
-  globals.functions.setProperty(taxesField, { value: formatINR(taxes) });
-
-  return 'Loan offer calculated';
+ 
+  const loanAmount =
+    Number(data.loan_amount || 0) * 250000;
+ 
+  return loanAmount > 0
+    ? "₹" + loanAmount.toLocaleString("en-IN")
+    : "";
 }
+ 
+function updateLoanDetails(globals) {
+  const data = globals.functions.exportData();
+ 
+  // Loan scaling already correct
+  const loanAmount =
+    Number(data.loan_amount || 0) * 250000;
+ 
+  // Convert tenure step → months
+  const tenureStep =
+    Number(data["Loan Tenure"] || 0);
+ 
+  // Map step to months (12–84)
+  const tenure = tenureStep * 12;
+ 
+  const rate = 10.97;
+  const monthlyRate =
+    rate / (12 * 100);
+ 
+  let emi = 0;
+ 
+  if (loanAmount > 0 && tenure > 0) {
+ 
+    emi =
+      (loanAmount *
+        monthlyRate *
+        Math.pow(1 + monthlyRate, tenure)) /
+      (Math.pow(1 + monthlyRate, tenure) - 1);
+ 
+    emi = Math.round(emi);
+  }
+ 
+  return "₹" + emi.toLocaleString("en-IN");
+}
+ 
+function getRate() {
+  return "10.97%";
+}
+ 
+function getTax() {
+  return "₹4,000";
+}
+ 
+
 
 // eslint-disable-next-line import/prefer-default-export
 export {
   getFullName, days, submitFormArrayToString, maskMobileNumber, startOtpTimer, stopOtpTimer, handleOtpSuccess, handleOtpResend,
-  handleOtpInvalid, handleOtpGenerated, calculateLoanOffer,
+  handleOtpInvalid, handleOtpGenerated, updateLoanDetails,
+  updateLoanDisplay,
+  getRate,
+  getTax,
 };
