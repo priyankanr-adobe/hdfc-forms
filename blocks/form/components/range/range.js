@@ -1,24 +1,25 @@
-function updateBubble(input, element) {
-  const step = Number(input.step || 1);
-  const max = Number(input.max || 100);
-  const min = Number(input.min || 1);
-  const value = Number(input.value || min);
+function formatValue(input, value) {
+  const name = input.name || '';
+  if (name.includes('loan_amount')) {
+    return `₹${Number(value).toLocaleString('en-IN')}`;
+  }
+  return `${value} months`;
+}
 
-  const current = Math.ceil((value - min) / step);
-  const total = Math.ceil((max - min) / step);
+function updateBubble(input, wrapper) {
+  const min = Number(input.min);
+  const max = Number(input.max);
+  const value = Number(input.value);
 
-  const bubble = element.querySelector('.range-bubble');
-  if (!bubble || !total) return;
+  const percent = ((value - min) / (max - min)) * 100;
 
-  const bubbleWidth = bubble.getBoundingClientRect().width || 40;
-  const percent = current / total;
-  const left = `${percent * 100}% - ${percent * bubbleWidth}px`;
+  const bubble = wrapper.querySelector('.range-bubble');
+  if (!bubble) return;
 
-  bubble.innerText = `${value}`;
-  bubble.style.left = `calc(${left})`;
+  bubble.textContent = formatValue(input, value);
+  bubble.style.left = `${percent}%`;
 
-  element.style.setProperty('--total-steps', total);
-  element.style.setProperty('--current-steps', current);
+  wrapper.style.setProperty('--range-progress', `${percent}%`);
 }
 
 export default async function decorate(fieldDiv, fieldJson) {
@@ -26,41 +27,38 @@ export default async function decorate(fieldDiv, fieldJson) {
   if (!input) return fieldDiv;
 
   input.type = 'range';
-  input.min = input.min || 1;
-  input.max = input.max || 100;
-  input.step = fieldJson?.properties?.stepValue || 1;
 
-  const div = document.createElement('div');
-  div.className = 'range-widget-wrapper decorated';
+  const fieldName = input.name || '';
+  const labelText = fieldDiv.querySelector('label')?.textContent?.toLowerCase() || '';
 
-  input.after(div);
+  if (fieldName.includes('loan_amount') || labelText.includes('loan amount')) {
+    input.min = 50000;
+    input.max = 1500000;
+    input.step = 50000;
+    input.value = input.value || 1500000;
+  } else {
+    input.min = 12;
+    input.max = 84;
+    input.step = 12;
+    input.value = input.value || 84;
+  }
+
+  const wrapper = document.createElement('div');
+  wrapper.className = 'range-widget-wrapper decorated';
+
+  input.after(wrapper);
 
   const bubble = document.createElement('span');
   bubble.className = 'range-bubble';
 
-  const rangeMinEl = document.createElement('span');
-  rangeMinEl.className = 'range-min';
+  wrapper.appendChild(bubble);
+  wrapper.appendChild(input);
 
-  const rangeMaxEl = document.createElement('span');
-  rangeMaxEl.className = 'range-max';
-
-  rangeMinEl.innerText = `${input.min}`;
-  rangeMaxEl.innerText = `${input.max}`;
-
-  div.appendChild(bubble);
-  div.appendChild(input);
-  div.appendChild(rangeMinEl);
-  div.appendChild(rangeMaxEl);
-
-  const customLabels = document.createElement('div');
-  customLabels.className = 'custom-range-labels';
-
-  const fieldName = input.name || '';
-  const labelText =
-    fieldDiv.querySelector('label')?.textContent?.toLowerCase() || '';
+  const labels = document.createElement('div');
+  labels.className = 'custom-range-labels';
 
   if (fieldName.includes('loan_amount') || labelText.includes('loan amount')) {
-    customLabels.innerHTML = `
+    labels.innerHTML = `
       <span>50K</span>
       <span>2L</span>
       <span>4L</span>
@@ -70,7 +68,7 @@ export default async function decorate(fieldDiv, fieldJson) {
       <span>15L</span>
     `;
   } else {
-    customLabels.innerHTML = `
+    labels.innerHTML = `
       <span>12m</span>
       <span>24m</span>
       <span>36m</span>
@@ -81,17 +79,12 @@ export default async function decorate(fieldDiv, fieldJson) {
     `;
   }
 
-  div.appendChild(customLabels);
+  wrapper.appendChild(labels);
 
-  input.addEventListener('input', (e) => {
-    updateBubble(e.target, div);
-  });
+  input.addEventListener('input', () => updateBubble(input, wrapper));
+  input.addEventListener('change', () => updateBubble(input, wrapper));
 
-  input.addEventListener('change', (e) => {
-    updateBubble(e.target, div);
-  });
-
-  updateBubble(input, div);
+  updateBubble(input, wrapper);
 
   return fieldDiv;
 }

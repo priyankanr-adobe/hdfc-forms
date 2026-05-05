@@ -285,35 +285,16 @@ function handleOtpGenerated(globals) {
 
 
 /*offer detail function */
-let loanOfferDebounceTimer;
+function calculateLoanOffer(globals) {
+  const data = globals.functions.exportData();
 
-function readRangeValue(fieldName) {
-  const selectors = [
-    `.field-${fieldName} input[type="range"]`,
-    `.field-${fieldName.replaceAll("_", "-")} input[type="range"]`
-  ];
+  const principal = Number(data.loan_amount || 0);
+  const months = Number(data.loan_tenure || 0);
 
-  for (const selector of selectors) {
-    const input = document.querySelector(selector);
-    if (input) {
-      return Number(input.value || 0);
-    }
+  if (!principal || !months) {
+    return '';
   }
 
-  return 0;
-}
-
-function calculateLoanOffer(globals) {
-  clearTimeout(loanOfferDebounceTimer);
-
-  loanOfferDebounceTimer = setTimeout(() => {
-    runLoanOfferCalculation(globals);
-  }, 300);
-
-  return "Loan offer calculation scheduled";
-}
-
-function runLoanOfferCalculation(globals) {
   const form = globals.form;
 
   const offerAmount =
@@ -324,16 +305,6 @@ function runLoanOfferCalculation(globals) {
     form.offer_details.offer_summary_panel.rate_of_interest;
   const taxesField =
     form.offer_details.offer_summary_panel.taxes;
-
-  const principal = readRangeValue("loan_amount");
-  const months = readRangeValue("loan_tenure");
-
-  console.log("principal:", principal);
-  console.log("months:", months);
-
-  if (!principal || !months) {
-    return "";
-  }
 
   let annualRate = 10.97;
 
@@ -347,31 +318,29 @@ function runLoanOfferCalculation(globals) {
   const taxes = Math.round(principal * 0.005);
 
   const emi =
-    principal *
-    monthlyRate *
-    Math.pow(1 + monthlyRate, months) /
+    (principal * monthlyRate * Math.pow(1 + monthlyRate, months)) /
     (Math.pow(1 + monthlyRate, months) - 1);
 
   const formatINR = (value) =>
-    `₹${Math.round(value).toLocaleString("en-IN")}`;
+    `₹${Math.round(value).toLocaleString('en-IN')}`;
 
   globals.functions.setProperty(offerAmount, {
-    value: formatINR(principal)
+    value: formatINR(principal),
   });
 
   globals.functions.setProperty(emiAmount, {
-    value: formatINR(emi)
+    value: formatINR(emi),
   });
 
   globals.functions.setProperty(roi, {
-    value: `${annualRate}%`
+    value: `${annualRate}%`,
   });
 
   globals.functions.setProperty(taxesField, {
-    value: formatINR(taxes)
+    value: formatINR(taxes),
   });
 
-  return "Loan offer calculated";
+  return 'Loan offer calculated';
 }
 
 // eslint-disable-next-line import/prefer-default-export
