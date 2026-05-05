@@ -295,57 +295,39 @@ function handleOtpGenerated(globals) {
  */
 function updateLoanDisplay(globals) {
   const data = globals.functions.exportData();
- 
-  const loanAmount =
-    Number(data.loan_amount || 0) * 250000;
- 
+
+  const loanAmount = Number(data.loan_amount || 0);
+
   return loanAmount > 0
-    ? "₹" + loanAmount.toLocaleString("en-IN")
-    : "";
+    ? `₹${loanAmount.toLocaleString('en-IN')}`
+    : '';
 }
- 
+
 function updateLoanDetails(globals) {
   const data = globals.functions.exportData();
- 
-  // Loan scaling already correct
-  const loanAmount =
-    Number(data.loan_amount || 0) * 250000;
- 
-  // Convert tenure step → months
-  const tenureStep =
-    Number(data["Loan Tenure"] || 0);
- 
-  // Map step to months (12–84)
-  const tenure = tenureStep * 12;
- 
+
+  const loanAmount = Number(data.loan_amount || 0);
+  const tenure = Number(data.loan_tenure || 0);
+
   const rate = 10.97;
-  const monthlyRate =
-    rate / (12 * 100);
- 
-  let emi = 0;
- 
-  if (loanAmount > 0 && tenure > 0) {
- 
-    emi =
-      (loanAmount *
-        monthlyRate *
-        Math.pow(1 + monthlyRate, tenure)) /
-      (Math.pow(1 + monthlyRate, tenure) - 1);
- 
-    emi = Math.round(emi);
-  }
- 
-  return "₹" + emi.toLocaleString("en-IN");
+  const monthlyRate = rate / (12 * 100);
+
+  if (!loanAmount || !tenure) return '';
+
+  const emi =
+    (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, tenure)) /
+    (Math.pow(1 + monthlyRate, tenure) - 1);
+
+  return `₹${Math.round(emi).toLocaleString('en-IN')}`;
 }
- 
+
 function getRate() {
-  return "10.97%";
+  return '10.97%';
 }
- 
+
 function getTax() {
-  return "₹4,000";
+  return '₹4,000';
 }
- 
 
 
 // eslint-disable-next-line import/prefer-default-export
