@@ -169,6 +169,19 @@ function handleOtpSuccess(globals) {
       enabled: true
     });
   }
+  if (response.success) {
+  stopOtpTimer(globals);
+
+  fetchReviewDetailsAPI(globals);
+
+  globals.functions.setProperty(globals.form.review_details, {
+    visible: true
+  });
+
+  globals.functions.setProperty(globals.form.otp_verification_panel, {
+    visible: false
+  });
+}
 
   return "OTP validated successfully";
 }
@@ -347,11 +360,99 @@ function getTax() {
 }
 
 
+/**
+ * Fetch review details API and populate review details
+ * @param {scope} globals
+ * @returns {string}
+ */
+function fetchReviewDetailsAPI(globals) {
+  const form = globals.form;
+  const review = form.review_details;
+
+  const phone =
+    document.querySelector('input[name="mobile"]')?.value || "";
+
+  fetch("https://junction-buffoon-amplify.ngrok-free.dev/review-details", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ phone })
+  })
+    .then((res) => res.json())
+    .then((response) => {
+      console.log("Review Details response:", response);
+
+      if (!response.success) return;
+
+      const data = response.data;
+
+      globals.functions.setProperty(review.loan_details.loan_amount, {
+        value: data.loanAmount
+      });
+
+      globals.functions.setProperty(review.loan_details.emi_amount, {
+        value: data.emiAmount
+      });
+
+      globals.functions.setProperty(review.loan_details.tenure, {
+        value: data.tenure
+      });
+
+      globals.functions.setProperty(review.loan_details.processing_fee, {
+        value: data.processingFees
+      });
+
+      globals.functions.setProperty(review.loan_details.rate_of_interest, {
+        value: data.rateOfInterest
+      });
+
+      globals.functions.setProperty(review.loan_details.employer_name, {
+        value: data.employerName
+      });
+
+      globals.functions.setProperty(review.loan_details.schedule_of_charges, {
+        value: data.scheduleOfCharges
+      });
+
+      globals.functions.setProperty(review.loan_details.type_of_loan, {
+        value: data.typeOfLoan
+      });
+
+      globals.functions.setProperty(review.personal_details.full_name, {
+        value: data.name
+      });
+
+      globals.functions.setProperty(review.personal_details.mobile_number, {
+        value: data.mobileNumber
+      });
+
+      globals.functions.setProperty(review.personal_details.date_of_birth, {
+        value: data.dob
+      });
+
+      globals.functions.setProperty(review.personal_details.pan, {
+        value: data.pan
+      });
+
+      globals.functions.setProperty(review.personal_details.current_address, {
+        value: data.currentAddress
+      });
+
+      globals.functions.setProperty(review.personal_details.residence_type, {
+        value: data.residenceType
+      });
+    });
+
+  return "Review details requested";
+}
+
+
 // eslint-disable-next-line import/prefer-default-export
 export {
   getFullName, days, submitFormArrayToString, maskMobileNumber, startOtpTimer, stopOtpTimer, handleOtpSuccess, handleOtpResend,
   handleOtpInvalid, handleOtpGenerated, updateLoanDetails,
   updateLoanDisplay,
   getRate,
-  getTax,
+  getTax, fetchReviewDetailsAPI,
 };
