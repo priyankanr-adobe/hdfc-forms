@@ -395,7 +395,8 @@ function handleProceedAPI(globals) {
   fetch("https://junction-buffoon-amplify.ngrok-free.dev/proceed", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "ngrok-skip-browser-warning": "true"
     },
     body: JSON.stringify(payload)
   })
