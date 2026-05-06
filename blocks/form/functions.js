@@ -359,92 +359,76 @@ function getTax() {
   return `₹${Math.round(totalCharges).toLocaleString('en-IN')}`
 }
 
-
+/*Proceed API Function*/
 /**
- * Fetch review details API and populate review details
+ * Proceed API call (Tier 1 via JS)
  * @param {scope} globals
  * @returns {string}
  */
-function fetchReviewDetailsAPI(globals) {
+function handleProceedAPI(globals) {
   const form = globals.form;
-  const review = form.review_details;
 
-  const phone =
-    document.querySelector('input[name="mobile"]')?.value || "";
+  const payload = {
+    phone: document.querySelector('input[name="mobile"]')?.value || "",
 
-  fetch("https://junction-buffoon-amplify.ngrok-free.dev/review-details", {
+    name: document.querySelector('input[name="full_name"]')?.value || "",
+    dob: document.querySelector('input[name="date_of_birth"]')?.value || "",
+    pan: document.querySelector('input[name="pan"]')?.value || "",
+
+    currentAddress: document.querySelector('input[name="current_address"]')?.value || "",
+    residenceType: document.querySelector('input[name="residence_type"]')?.value || "",
+
+    employerName: document.querySelector('input[name="employer_name"]')?.value || "",
+    typeOfLoan: document.querySelector('input[name="type_of_loan"]')?.value || "",
+
+    loanAmount: document.querySelector('input[name="loan_amount"]')?.value || "",
+    tenure: document.querySelector('input[name="tenure"]')?.value || "",
+    emiAmount: document.querySelector('input[name="emi_amount"]')?.value || "",
+    rateOfInterest: document.querySelector('input[name="rate_of_interest"]')?.value || "",
+
+    processingFees: document.querySelector('input[name="processing_fee"]')?.value || "",
+    scheduleOfCharges: document.querySelector('input[name="schedule_of_charges"]')?.value || ""
+  };
+
+  console.log("Proceed payload:", payload);
+
+  fetch("https://junction-buffoon-amplify.ngrok-free.dev/proceed", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ phone })
+    body: JSON.stringify(payload)
   })
     .then((res) => res.json())
     .then((response) => {
-      console.log("Review Details response:", response);
+      console.log("Proceed response:", response);
 
-      if (!response.success) return;
-
-      const data = response.data;
-
-      globals.functions.setProperty(review.loan_details.loan_amount, {
-        value: data.loanAmount
+      globals.functions.setProperty(form.confirmation_message, {
+        value: response.message,
+        visible: true
       });
 
-      globals.functions.setProperty(review.loan_details.emi_amount, {
-        value: data.emiAmount
-      });
+      if (response.success) {
+        // Navigate to success / thank you panel
+        globals.functions.setProperty(form.thank_you_panel, {
+          visible: true
+        });
 
-      globals.functions.setProperty(review.loan_details.tenure, {
-        value: data.tenure
-      });
+        globals.functions.setProperty(form.review_details, {
+          visible: false
+        });
+      }
+    })
+    .catch((err) => {
+      console.error("Proceed API error:", err);
 
-      globals.functions.setProperty(review.loan_details.processing_fee, {
-        value: data.processingFees
-      });
-
-      globals.functions.setProperty(review.loan_details.rate_of_interest, {
-        value: data.rateOfInterest
-      });
-
-      globals.functions.setProperty(review.loan_details.employer_name, {
-        value: data.employerName
-      });
-
-      globals.functions.setProperty(review.loan_details.schedule_of_charges, {
-        value: data.scheduleOfCharges
-      });
-
-      globals.functions.setProperty(review.loan_details.type_of_loan, {
-        value: data.typeOfLoan
-      });
-
-      globals.functions.setProperty(review.personal_details.full_name, {
-        value: data.name
-      });
-
-      globals.functions.setProperty(review.personal_details.mobile_number, {
-        value: data.mobileNumber
-      });
-
-      globals.functions.setProperty(review.personal_details.date_of_birth, {
-        value: data.dob
-      });
-
-      globals.functions.setProperty(review.personal_details.pan, {
-        value: data.pan
-      });
-
-      globals.functions.setProperty(review.personal_details.current_address, {
-        value: data.currentAddress
-      });
-
-      globals.functions.setProperty(review.personal_details.residence_type, {
-        value: data.residenceType
+      globals.functions.setProperty(form.confirmation_message, {
+        value: "Something went wrong. Please try again.",
+        visible: true
       });
     });
 
-  return "Review details requested";
+  return "Proceed API called";
 }
 
 
