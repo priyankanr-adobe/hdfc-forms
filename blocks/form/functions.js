@@ -361,7 +361,7 @@ function getTax() {
 
 /*Proceed API Function*/
 /**
- * Fetch Review Details API and populate review details panel
+ * Fetch Review Details API
  * @param {scope} globals
  * @returns {string}
  */
@@ -369,24 +369,15 @@ function fetchReviewDetailsAPI(globals) {
 
   const form = globals.form;
 
-  // review details panel
   const reviewPanel =
     form.review_details_panel.review_details.form_accordion1776849462688;
 
-  // loan details accordion
   const loanDetails = reviewPanel.loan_details;
 
-  // personal details accordion
   const personalDetails = reviewPanel.personal_details;
 
-  // mobile number from previous screen
   const phone =
     document.querySelector('input[name="mobile"]')?.value || "";
-
-  if (!phone) {
-    console.error("Phone number missing");
-    return "Phone missing";
-  }
 
   fetch("https://junction-buffoon-amplify.ngrok-free.dev/review-details", {
     method: "POST",
@@ -399,130 +390,102 @@ function fetchReviewDetailsAPI(globals) {
 
     .then((response) => {
 
-      console.log("Review API Response:", response);
+      console.log(response);
 
-      if (!response.success) {
-        console.error(response.message);
-        return;
-      }
+      if (!response.success) return;
 
       const data = response.data;
 
-      /* =========================
-         LOAN DETAILS
-      ========================== */
+      /* LOAN DETAILS */
 
       globals.functions.setProperty(
         loanDetails.loan_amount,
-        {
-          value: data.loanAmount
-        }
+        { value: data.loanAmount }
       );
 
       globals.functions.setProperty(
         loanDetails.emi_amount,
-        {
-          value: data.emiAmount
-        }
+        { value: data.emiAmount }
       );
 
       globals.functions.setProperty(
         loanDetails.tenure,
-        {
-          value: data.tenure
-        }
+        { value: data.tenure }
       );
 
       globals.functions.setProperty(
         loanDetails.processing_fee,
-        {
-          value: data.processingFees
-        }
+        { value: data.processingFees }
       );
 
       globals.functions.setProperty(
         loanDetails.rate_of_interest,
-        {
-          value: data.rateOfInterest
-        }
+        { value: data.rateOfInterest }
       );
 
       globals.functions.setProperty(
         loanDetails.employer_name,
-        {
-          value: data.employerName
-        }
+        { value: data.employerName }
       );
 
       globals.functions.setProperty(
         loanDetails.schedule_of_charges,
-        {
-          value: data.scheduleOfCharges
-        }
+        { value: data.scheduleOfCharges }
       );
 
       globals.functions.setProperty(
         loanDetails.type_of_loan,
-        {
-          value: data.typeOfLoan
-        }
+        { value: data.typeOfLoan }
       );
 
-      /* =========================
-         PERSONAL DETAILS
-      ========================== */
+      /* PERSONAL DETAILS */
 
       globals.functions.setProperty(
         personalDetails.full_name,
-        {
-          value: data.name
-        }
+        { value: data.name }
       );
 
       globals.functions.setProperty(
         personalDetails.mobile_number,
-        {
-          value: data.mobileNumber
-        }
+        { value: data.mobileNumber }
       );
 
       globals.functions.setProperty(
         personalDetails.date_of_birth,
-        {
-          value: data.dob
-        }
+        { value: data.dob }
       );
 
       globals.functions.setProperty(
         personalDetails.pan,
-        {
-          value: data.pan
-        }
+        { value: data.pan }
       );
 
       globals.functions.setProperty(
         personalDetails.current_address,
-        {
-          value: data.currentAddress
-        }
+        { value: data.currentAddress }
       );
 
       globals.functions.setProperty(
         personalDetails.residence_type,
+        { value: data.residenceType }
+      );
+
+      /* OPEN PERSONAL DETAILS ACCORDION */
+
+      globals.functions.setProperty(
+        reviewPanel.personal_details,
         {
-          value: data.residenceType
+          expanded: true
         }
       );
 
-      console.log("Review details populated successfully");
-
     })
 
-    .catch((error) => {
-      console.error("Review API Error:", error);
+    .catch((err) => {
+      console.error("API Error:", err);
     });
 
-  return "Review details API called";
+  return "Review details fetched";
 }
 
 // eslint-disable-next-line import/prefer-default-export
