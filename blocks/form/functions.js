@@ -361,7 +361,7 @@ function getTax() {
 
 /*Proceed API Function*/
 /**
- * Fetch Review Details API
+ * Fetch remaining review details
  * @param {scope} globals
  * @returns {string}
  */
@@ -369,14 +369,12 @@ function fetchReviewDetailsAPI(globals) {
 
   const form = globals.form;
 
-  // review details section
   const reviewPanel = form.review_details;
 
-  // accordions
   const loanDetails = reviewPanel.loan_details;
+
   const personalDetails = reviewPanel.personal_details;
 
-  // mobile field
   const phone =
     document.querySelector('input[name="mobile"]')?.value || "";
 
@@ -416,7 +414,6 @@ function fetchReviewDetailsAPI(globals) {
         }
       );
 
-
       globals.functions.setProperty(
         loanDetails.employer_name,
         {
@@ -449,7 +446,6 @@ function fetchReviewDetailsAPI(globals) {
         }
       );
 
-
       globals.functions.setProperty(
         personalDetails.pan,
         {
@@ -471,7 +467,7 @@ function fetchReviewDetailsAPI(globals) {
         }
       );
 
-      console.log("Review Details populated");
+      console.log("Remaining fields populated");
 
     })
 
