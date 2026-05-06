@@ -1294,6 +1294,18 @@ main .form form .field-offer-summary-panel::after {
   box-sizing: border-box;
 }
 
+/* Enter loan amount */
+main .form form .field-offer-input-panel .plain-text-wrapper {
+  margin-left: 2px !important;
+}
+
+main .form form .field-offer-input-panel .plain-text-wrapper p {
+  margin: 0 0 14px !important;
+  font-size: 18px !important;
+  font-weight: 800 !important;
+  color: #111827 !important;
+}
+
 /* MOBILE */
 @media (max-width: 900px) {
   main .form form .field-offer-input-panel,
