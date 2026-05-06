@@ -448,5 +448,5 @@ export {
   handleOtpInvalid, handleOtpGenerated, updateLoanDetails,
   updateLoanDisplay,
   getRate,
-  getTax, handleProceedAPI,
+  getTax, fetchReviewDetailsAPI,
 };
