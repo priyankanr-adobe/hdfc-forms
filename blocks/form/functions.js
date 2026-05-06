@@ -467,11 +467,76 @@ function fetchReviewDetailsAPI(globals) {
   return "API called";
 }
 
+
+/*Loan application number*/
+/**
+ * Proceed API
+ * @param {scope} globals
+ * @returns {string}
+ */
+function handleProceedAPI(globals) {
+
+  const phone =
+    document.querySelector('input[name="mobile"]')?.value || "";
+
+  fetch("https://junction-buffoon-amplify.ngrok-free.dev/proceed", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ phone })
+  })
+
+    .then((res) => res.json())
+
+    .then((response) => {
+
+      console.log("Proceed Response:", response);
+
+      if (!response.success) return;
+
+      const applicationNumber =
+        response.data.loanApplicationNumber;
+
+      /* SET APPLICATION NUMBER */
+
+      globals.functions.setProperty(
+        globals.form.loan_success_page.main_sucess_card.text_input1777273799589,
+        {
+          value: applicationNumber
+        }
+      );
+
+      /* SHOW SUCCESS PAGE */
+
+      globals.functions.setProperty(
+        globals.form.review_details_panel,
+        {
+          visible: false
+        }
+      );
+
+      globals.functions.setProperty(
+        globals.form.success_panel,
+        {
+          visible: true
+        }
+      );
+
+    })
+
+    .catch((err) => {
+      console.error(err);
+    });
+
+  return "Proceed API called";
+}
+
 // eslint-disable-next-line import/prefer-default-export
 export {
   getFullName, days, submitFormArrayToString, maskMobileNumber, startOtpTimer, stopOtpTimer, handleOtpSuccess, handleOtpResend,
   handleOtpInvalid, handleOtpGenerated, updateLoanDetails,
   updateLoanDisplay,
   getRate,
-  getTax, fetchReviewDetailsAPI,
+  getTax, fetchReviewDetailsAPI, handleProceedAPI,
 };
