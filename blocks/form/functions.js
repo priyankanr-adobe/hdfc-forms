@@ -446,12 +446,12 @@ function fetchReviewDetailsAPI(globals) {
       );
 
       globals.functions.setProperty(
-        personalDetails.mobile_number,
+        personalDetails.mobile,
         { value: data.mobileNumber }
       );
 
       globals.functions.setProperty(
-        personalDetails.date_of_birth,
+        personalDetails.date_of_birt,
         { value: data.dob }
       );
 
