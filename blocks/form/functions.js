@@ -361,77 +361,59 @@ function getTax() {
 
 /*Proceed API Function*/
 /**
- * Proceed API call (Tier 1 via JS)
+ * Call Proceed API and save application
  * @param {scope} globals
  * @returns {string}
  */
 function handleProceedAPI(globals) {
   const form = globals.form;
 
-  const payload = {
-    phone: document.querySelector('input[name="mobile"]')?.value || "",
+  const phone =
+    document.querySelector('input[name="mobile"]')?.value || "";
 
-    name: document.querySelector('input[name="full_name"]')?.value || "",
-    dob: document.querySelector('input[name="date_of_birth"]')?.value || "",
-    pan: document.querySelector('input[name="pan"]')?.value || "",
-
-    currentAddress: document.querySelector('input[name="current_address"]')?.value || "",
-    residenceType: document.querySelector('input[name="residence_type"]')?.value || "",
-
-    employerName: document.querySelector('input[name="employer_name"]')?.value || "",
-    typeOfLoan: document.querySelector('input[name="type_of_loan"]')?.value || "",
-
-    loanAmount: document.querySelector('input[name="loan_amount"]')?.value || "",
-    tenure: document.querySelector('input[name="tenure"]')?.value || "",
-    emiAmount: document.querySelector('input[name="emi_amount"]')?.value || "",
-    rateOfInterest: document.querySelector('input[name="rate_of_interest"]')?.value || "",
-
-    processingFees: document.querySelector('input[name="processing_fee"]')?.value || "",
-    scheduleOfCharges: document.querySelector('input[name="schedule_of_charges"]')?.value || ""
-  };
-
-  console.log("Proceed payload:", payload);
+  if (!phone) {
+    console.error("Phone missing");
+    return "Phone is required";
+  }
 
   fetch("https://junction-buffoon-amplify.ngrok-free.dev/proceed", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
-      "ngrok-skip-browser-warning": "true"
+      "Content-Type": "application/json"
     },
-    body: JSON.stringify(payload)
+    body: JSON.stringify({ phone })
   })
     .then((res) => res.json())
     .then((response) => {
       console.log("Proceed response:", response);
 
+      if (!response.success) {
+        console.error("Proceed failed:", response.message);
+        return;
+      }
+
+      // Show confirmation message
       globals.functions.setProperty(form.confirmation_message, {
-        value: response.message,
+        value: `Application submitted successfully. Ref No: ${response.data.loanApplicationNumber}`,
         visible: true
       });
 
-      if (response.success) {
-        // Navigate to success / thank you panel
-        globals.functions.setProperty(form.thank_you_panel, {
-          visible: true
-        });
+      // Hide review section
+      globals.functions.setProperty(form.review_details, {
+        visible: false
+      });
 
-        globals.functions.setProperty(form.review_details, {
-          visible: false
-        });
-      }
+      // Show success panel
+      globals.functions.setProperty(form.success_panel, {
+        visible: true
+      });
     })
     .catch((err) => {
       console.error("Proceed API error:", err);
-
-      globals.functions.setProperty(form.confirmation_message, {
-        value: "Something went wrong. Please try again.",
-        visible: true
-      });
     });
 
   return "Proceed API called";
 }
-
 
 // eslint-disable-next-line import/prefer-default-export
 export {
