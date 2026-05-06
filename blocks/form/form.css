@@ -1669,3 +1669,20 @@ main .form form .field-mobile label {
   font-size: 14px !important;
   font-weight: 600 !important;
 }
+
+/* Mobile field same as other fields */
+main .form form .field-mobile input {
+  border: 0 !important;
+  border-bottom: 2px solid #4f8df7 !important;
+  background: transparent !important;
+  padding-left: 0 !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: #1f2937 !important;
+}
+
+/* Remove +91 */
+main .form form .field-mobile.field-wrapper::before,
+main .form form .field-mobile.field-wrapper::after {
+  display: none !important;
+}
