@@ -413,14 +413,14 @@ function fetchReviewDetailsAPI(globals) {
       );
 
       globals.functions.setProperty(
-        globals.form.review_details_panel.review_details.loan_details.schedule_of_charges,
+        globals.form.review_details_panel.review_details.form_accordion1776849406288.loan_details.schedule_of_charges,
         {
           value: data.scheduleOfCharges
         }
       );
 
       globals.functions.setProperty(
-        globals.form.review_details_panel.review_details.loan_details.form_accordion1776849406288.type_of_loan,
+        globals.form.review_details_panel.review_details.form_accordion1776849406288.loan_details.type_of_loan,
         {
           value: data.typeOfLoan
         }
@@ -429,7 +429,7 @@ function fetchReviewDetailsAPI(globals) {
       /* PERSONAL DETAILS */
 
       globals.functions.setProperty(
-        globals.form.review_details_panel.review_details.personal_details.form_accordion1776849406288.full_name,
+        globals.form.review_details_panel.review_details.form_accordion1776849406288.personal_details.full_name,
         {
           value: data.name
         }
@@ -443,14 +443,14 @@ function fetchReviewDetailsAPI(globals) {
       );
 
       globals.functions.setProperty(
-        globals.form.review_details_panel.review_details.personal_details.form_accordion1776849406288.current_address,
+        globals.form.review_details_panel.review_details.form_accordion1776849406288.personal_details.current_address,
         {
           value: data.currentAddress
         }
       );
 
       globals.functions.setProperty(
-        globals.form.review_details_panel.review_details.personal_details.form_accordion1776849406288.residence_type,
+        globals.form.review_details_panel.review_details.form_accordion1776849406288.personal_details.residence_type,
         {
           value: data.residenceType
         }
