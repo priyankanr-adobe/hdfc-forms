@@ -359,6 +359,8 @@ function getTax() {
   return `₹${Math.round(totalCharges).toLocaleString('en-IN')}`
 }
 
+
+
 /*Proceed API Function*/
 /**
  * Fetch Review Details
@@ -390,21 +392,21 @@ function fetchReviewDetailsAPI(globals) {
       /* LOAN DETAILS */
 
       globals.functions.setProperty(
-        globals.form.review_details_panel.review_details.loan_details.tenure,
+        globals.form.review_details_panel.review_details.form_accordion1776849406288.loan_details.tenure,
         {
           value: data.tenure
         }
       );
 
       globals.functions.setProperty(
-        globals.form.review_details_panel.review_details.loan_details.processing_fee,
+        globals.form.review_details_panel.review_details.form_accordion1776849406288.loan_details.processing_fee,
         {
           value: data.processingFees
         }
       );
 
       globals.functions.setProperty(
-        globals.form.review_details_panel.review_details.loan_details.employer_name,
+        globals.form.review_details_panel.review_details.form_accordion1776849406288.loan_details.employer_name,
         {
           value: data.employerName
         }
@@ -418,7 +420,7 @@ function fetchReviewDetailsAPI(globals) {
       );
 
       globals.functions.setProperty(
-        globals.form.review_details_panel.review_details.loan_details.type_of_loan,
+        globals.form.review_details_panel.review_details.loan_details.form_accordion1776849406288.type_of_loan,
         {
           value: data.typeOfLoan
         }
@@ -427,28 +429,28 @@ function fetchReviewDetailsAPI(globals) {
       /* PERSONAL DETAILS */
 
       globals.functions.setProperty(
-        globals.form.review_details_panel.review_details.personal_details.full_name,
+        globals.form.review_details_panel.review_details.personal_details.form_accordion1776849406288.full_name,
         {
           value: data.name
         }
       );
 
       globals.functions.setProperty(
-        globals.form.review_details_panel.review_details.personal_details.pan,
+        globals.form.review_details_panel.review_details.form_accordion1776849406288.personal_details.pan,
         {
           value: data.pan
         }
       );
 
       globals.functions.setProperty(
-        globals.form.review_details_panel.review_details.personal_details.current_address,
+        globals.form.review_details_panel.review_details.personal_details.form_accordion1776849406288.current_address,
         {
           value: data.currentAddress
         }
       );
 
       globals.functions.setProperty(
-        globals.form.review_details_panel.review_details.personal_details.residence_type,
+        globals.form.review_details_panel.review_details.personal_details.form_accordion1776849406288.residence_type,
         {
           value: data.residenceType
         }
