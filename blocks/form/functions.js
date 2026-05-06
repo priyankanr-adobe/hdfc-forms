@@ -501,7 +501,7 @@ function handleProceedAPI(globals) {
       /* SET APPLICATION NUMBER */
 
       globals.functions.setProperty(
-        globals.form.loan_success_page.main_sucess_card.text_input1777273799589,
+        globals.form.loan_success_page.main_success_card.text_input1777273799589,
         {
           value: applicationNumber
         }
