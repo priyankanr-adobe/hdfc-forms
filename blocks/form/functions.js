@@ -360,23 +360,13 @@ function getTax() {
 }
 
 /*Proceed API Function*/
-/**
- * Call Proceed API and save application
- * @param {scope} globals
- * @returns {string}
- */
-function handleProceedAPI(globals) {
+function fetchReviewDetailsAPI(globals) {
   const form = globals.form;
 
   const phone =
     document.querySelector('input[name="mobile"]')?.value || "";
 
-  if (!phone) {
-    console.error("Phone missing");
-    return "Phone is required";
-  }
-
-  fetch("https://junction-buffoon-amplify.ngrok-free.dev/proceed", {
+  fetch("https://junction-buffoon-amplify.ngrok-free.dev/review-details", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -385,34 +375,71 @@ function handleProceedAPI(globals) {
   })
     .then((res) => res.json())
     .then((response) => {
-      console.log("Proceed response:", response);
+      console.log("API Response:", response);
 
-      if (!response.success) {
-        console.error("Proceed failed:", response.message);
-        return;
-      }
+      if (!response.success) return;
 
-      // Show confirmation message
-      globals.functions.setProperty(form.confirmation_message, {
-        value: `Application submitted successfully. Ref No: ${response.data.loanApplicationNumber}`,
-        visible: true
+      const data = response.data;
+
+      // 🔥 Try direct mapping (most reliable)
+      globals.functions.setProperty(form.loan_amount, {
+        value: data.loanAmount
       });
 
-      // Hide review section
-      globals.functions.setProperty(form.review_details, {
-        visible: false
+      globals.functions.setProperty(form.emi_amount, {
+        value: data.emiAmount
       });
 
-      // Show success panel
-      globals.functions.setProperty(form.success_panel, {
-        visible: true
+      globals.functions.setProperty(form.tenure, {
+        value: data.tenure
       });
-    })
-    .catch((err) => {
-      console.error("Proceed API error:", err);
+
+      globals.functions.setProperty(form.processing_fee, {
+        value: data.processingFees
+      });
+
+      globals.functions.setProperty(form.rate_of_interest, {
+        value: data.rateOfInterest
+      });
+
+      globals.functions.setProperty(form.employer_name, {
+        value: data.employerName
+      });
+
+      globals.functions.setProperty(form.schedule_of_charges, {
+        value: data.scheduleOfCharges
+      });
+
+      globals.functions.setProperty(form.type_of_loan, {
+        value: data.typeOfLoan
+      });
+
+      globals.functions.setProperty(form.full_name, {
+        value: data.name
+      });
+
+      globals.functions.setProperty(form.mobile_number, {
+        value: data.mobileNumber
+      });
+
+      globals.functions.setProperty(form.date_of_birth, {
+        value: data.dob
+      });
+
+      globals.functions.setProperty(form.pan, {
+        value: data.pan
+      });
+
+      globals.functions.setProperty(form.current_address, {
+        value: data.currentAddress
+      });
+
+      globals.functions.setProperty(form.residence_type, {
+        value: data.residenceType
+      });
     });
 
-  return "Proceed API called";
+  return "Review details fetched";
 }
 
 // eslint-disable-next-line import/prefer-default-export
