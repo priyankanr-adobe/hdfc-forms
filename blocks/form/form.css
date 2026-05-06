@@ -1686,3 +1686,20 @@ main .form form .field-mobile.field-wrapper::before,
 main .form form .field-mobile.field-wrapper::after {
   display: none !important;
 }
+
+/* Mobile input underline */
+main .form form .field-mobile input[type="text"] {
+  border: none !important;
+  border-bottom: 2px solid #4f8df7 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding-left: 0 !important;
+}
+
+/* Remove +91 and icon */
+main .form form .field-mobile::before,
+main .form form .field-mobile::after {
+  content: none !important;
+  display: none !important;
+}
