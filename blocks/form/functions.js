@@ -360,11 +360,33 @@ function getTax() {
 }
 
 /*Proceed API Function*/
+/**
+ * Fetch Review Details API and populate review details panel
+ * @param {scope} globals
+ * @returns {string}
+ */
 function fetchReviewDetailsAPI(globals) {
+
   const form = globals.form;
 
+  // review details panel
+  const reviewPanel =
+    form.review_details_panel.review_details.form_accordion1776849462688;
+
+  // loan details accordion
+  const loanDetails = reviewPanel.loan_details;
+
+  // personal details accordion
+  const personalDetails = reviewPanel.personal_details;
+
+  // mobile number from previous screen
   const phone =
     document.querySelector('input[name="mobile"]')?.value || "";
+
+  if (!phone) {
+    console.error("Phone number missing");
+    return "Phone missing";
+  }
 
   fetch("https://junction-buffoon-amplify.ngrok-free.dev/review-details", {
     method: "POST",
@@ -374,72 +396,133 @@ function fetchReviewDetailsAPI(globals) {
     body: JSON.stringify({ phone })
   })
     .then((res) => res.json())
-    .then((response) => {
-      console.log("API Response:", response);
 
-      if (!response.success) return;
+    .then((response) => {
+
+      console.log("Review API Response:", response);
+
+      if (!response.success) {
+        console.error(response.message);
+        return;
+      }
 
       const data = response.data;
 
-      // 🔥 Try direct mapping (most reliable)
-      globals.functions.setProperty(form.loan_amount, {
-        value: data.loanAmount
-      });
+      /* =========================
+         LOAN DETAILS
+      ========================== */
 
-      globals.functions.setProperty(form.emi_amount, {
-        value: data.emiAmount
-      });
+      globals.functions.setProperty(
+        loanDetails.loan_amount,
+        {
+          value: data.loanAmount
+        }
+      );
 
-      globals.functions.setProperty(form.tenure, {
-        value: data.tenure
-      });
+      globals.functions.setProperty(
+        loanDetails.emi_amount,
+        {
+          value: data.emiAmount
+        }
+      );
 
-      globals.functions.setProperty(form.processing_fee, {
-        value: data.processingFees
-      });
+      globals.functions.setProperty(
+        loanDetails.tenure,
+        {
+          value: data.tenure
+        }
+      );
 
-      globals.functions.setProperty(form.rate_of_interest, {
-        value: data.rateOfInterest
-      });
+      globals.functions.setProperty(
+        loanDetails.processing_fee,
+        {
+          value: data.processingFees
+        }
+      );
 
-      globals.functions.setProperty(form.employer_name, {
-        value: data.employerName
-      });
+      globals.functions.setProperty(
+        loanDetails.rate_of_interest,
+        {
+          value: data.rateOfInterest
+        }
+      );
 
-      globals.functions.setProperty(form.schedule_of_charges, {
-        value: data.scheduleOfCharges
-      });
+      globals.functions.setProperty(
+        loanDetails.employer_name,
+        {
+          value: data.employerName
+        }
+      );
 
-      globals.functions.setProperty(form.type_of_loan, {
-        value: data.typeOfLoan
-      });
+      globals.functions.setProperty(
+        loanDetails.schedule_of_charges,
+        {
+          value: data.scheduleOfCharges
+        }
+      );
 
-      globals.functions.setProperty(form.full_name, {
-        value: data.name
-      });
+      globals.functions.setProperty(
+        loanDetails.type_of_loan,
+        {
+          value: data.typeOfLoan
+        }
+      );
 
-      globals.functions.setProperty(form.mobile_number, {
-        value: data.mobileNumber
-      });
+      /* =========================
+         PERSONAL DETAILS
+      ========================== */
 
-      globals.functions.setProperty(form.date_of_birth, {
-        value: data.dob
-      });
+      globals.functions.setProperty(
+        personalDetails.full_name,
+        {
+          value: data.name
+        }
+      );
 
-      globals.functions.setProperty(form.pan, {
-        value: data.pan
-      });
+      globals.functions.setProperty(
+        personalDetails.mobile_number,
+        {
+          value: data.mobileNumber
+        }
+      );
 
-      globals.functions.setProperty(form.current_address, {
-        value: data.currentAddress
-      });
+      globals.functions.setProperty(
+        personalDetails.date_of_birth,
+        {
+          value: data.dob
+        }
+      );
 
-      globals.functions.setProperty(form.residence_type, {
-        value: data.residenceType
-      });
+      globals.functions.setProperty(
+        personalDetails.pan,
+        {
+          value: data.pan
+        }
+      );
+
+      globals.functions.setProperty(
+        personalDetails.current_address,
+        {
+          value: data.currentAddress
+        }
+      );
+
+      globals.functions.setProperty(
+        personalDetails.residence_type,
+        {
+          value: data.residenceType
+        }
+      );
+
+      console.log("Review details populated successfully");
+
+    })
+
+    .catch((error) => {
+      console.error("Review API Error:", error);
     });
 
-  return "Review details fetched";
+  return "Review details API called";
 }
 
 // eslint-disable-next-line import/prefer-default-export
