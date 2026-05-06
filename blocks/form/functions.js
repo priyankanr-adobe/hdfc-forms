@@ -403,20 +403,6 @@ function fetchReviewDetailsAPI(globals) {
       ========================== */
 
       globals.functions.setProperty(
-        loanDetails.loan_amount,
-        {
-          value: data.loanAmount
-        }
-      );
-
-      globals.functions.setProperty(
-        loanDetails.emi_amount,
-        {
-          value: data.emiAmount
-        }
-      );
-
-      globals.functions.setProperty(
         loanDetails.tenure,
         {
           value: data.tenure
@@ -430,12 +416,6 @@ function fetchReviewDetailsAPI(globals) {
         }
       );
 
-      globals.functions.setProperty(
-        loanDetails.rate_of_interest,
-        {
-          value: data.rateOfInterest
-        }
-      );
 
       globals.functions.setProperty(
         loanDetails.employer_name,
@@ -469,19 +449,6 @@ function fetchReviewDetailsAPI(globals) {
         }
       );
 
-      globals.functions.setProperty(
-        personalDetails.mobile,
-        {
-          value: data.mobileNumber
-        }
-      );
-
-      globals.functions.setProperty(
-        personalDetails.date_of_birt,
-        {
-          value: data.dob
-        }
-      );
 
       globals.functions.setProperty(
         personalDetails.pan,
