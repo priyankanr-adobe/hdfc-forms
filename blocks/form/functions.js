@@ -361,19 +361,10 @@ function getTax() {
 
 /*Proceed API Function*/
 /**
- * Fetch remaining review details
+ * Fetch Review Details
  * @param {scope} globals
- * @returns {string}
  */
 function fetchReviewDetailsAPI(globals) {
-
-  const form = globals.form;
-
-  const reviewPanel = form.review_details;
-
-  const loanDetails = reviewPanel.loan_details;
-
-  const personalDetails = reviewPanel.personal_details;
 
   const phone =
     document.querySelector('input[name="mobile"]')?.value || "";
@@ -390,92 +381,88 @@ function fetchReviewDetailsAPI(globals) {
 
     .then((response) => {
 
-      console.log("API RESPONSE:", response);
+      console.log(response);
 
       if (!response.success) return;
 
       const data = response.data;
 
-      /* =========================
-         LOAN DETAILS
-      ========================== */
+      /* LOAN DETAILS */
 
       globals.functions.setProperty(
-        loanDetails.tenure,
+        globals.form.review_details_panel.review_details.loan_details.tenure,
         {
           value: data.tenure
         }
       );
 
       globals.functions.setProperty(
-        loanDetails.processing_fee,
+        globals.form.review_details_panel.review_details.loan_details.processing_fee,
         {
           value: data.processingFees
         }
       );
 
       globals.functions.setProperty(
-        loanDetails.employer_name,
+        globals.form.review_details_panel.review_details.loan_details.employer_name,
         {
           value: data.employerName
         }
       );
 
       globals.functions.setProperty(
-        loanDetails.schedule_of_charges,
+        globals.form.review_details_panel.review_details.loan_details.schedule_of_charges,
         {
           value: data.scheduleOfCharges
         }
       );
 
       globals.functions.setProperty(
-        loanDetails.type_of_loan,
+        globals.form.review_details_panel.review_details.loan_details.type_of_loan,
         {
           value: data.typeOfLoan
         }
       );
 
-      /* =========================
-         PERSONAL DETAILS
-      ========================== */
+      /* PERSONAL DETAILS */
 
       globals.functions.setProperty(
-        personalDetails.full_name,
+        globals.form.review_details_panel.review_details.personal_details.full_name,
         {
           value: data.name
         }
       );
 
       globals.functions.setProperty(
-        personalDetails.pan,
+        globals.form.review_details_panel.review_details.personal_details.pan,
         {
           value: data.pan
         }
       );
 
       globals.functions.setProperty(
-        personalDetails.current_address,
+        globals.form.review_details_panel.review_details.personal_details.current_address,
         {
           value: data.currentAddress
         }
       );
 
       globals.functions.setProperty(
-        personalDetails.residence_type,
+        globals.form.review_details_panel.review_details.personal_details.residence_type,
         {
           value: data.residenceType
         }
       );
 
-      console.log("Remaining fields populated");
+      console.log("Values populated");
 
     })
 
     .catch((err) => {
-      console.error("API ERROR:", err);
+      console.error(err);
     });
 
-  return "Review details fetched";
+  return "API called";
 }
 
 // eslint-disable-next-line import/prefer-default-export
