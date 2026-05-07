@@ -1783,7 +1783,7 @@ body {
 }
 
 /* =========================
-   BODY LAYOUT
+   BODY
 ========================= */
 
 body {
@@ -1800,123 +1800,28 @@ body {
 ========================= */
 
 header.header-wrapper {
-  background: #071a4b;
-
-  height: 85px !important;
-  min-height: 85px;
-
-  width: 100%;
-
-  display: flex;
-  align-items: center;
-
   flex-shrink: 0;
 
   position: sticky;
   top: 0;
-  z-index: 1000;
-}
-
-/* HEADER INNER */
-header.header-wrapper .header.block {
-  width: 100%;
-  max-width: 1366px;
-
-  margin: 0 auto;
-  padding: 0 90px;
-
-  position: relative;
-  height: 100%;
-
-  box-sizing: border-box;
-  display: block;
-}
-
-/* LOGO */
-header.header-wrapper .header.block::before {
-  content: "";
-
-  position: absolute;
-  left: 90px;
-  top: 45%;
-
-  transform: translateY(-50%);
-
-  width: 120px;
-  height: 28px;
-
-  background-image: url("https://upload.wikimedia.org/wikipedia/commons/2/28/HDFC_Bank_Logo.svg");
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: left center;
-}
-
-/* SAFE BADGE */
-header.header-wrapper .header.block::after {
-  content: "100% SAFE & SECURE";
-
-  position: absolute;
-  right: 90px;
-  top: 45%;
-
-  transform: translateY(-50%);
-
-  display: flex;
-  align-items: center;
-
-  background-color: #2cc56f;
-  color: #fff;
-
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.3px;
-
-  padding: 6px 30px 6px 12px;
-
-  border-radius: 20px;
-
-  white-space: nowrap;
-
-  background-image: url("https://img.icons8.com/color/96/security-checked.png");
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  background-size: 16px;
+  z-index: 999;
 }
 
 /* =========================
-   MAIN CONTENT
+   MAIN SCROLL AREA
 ========================= */
 
 main {
-  flex: 1;
+  flex: 1 1 auto;
 
   overflow-y: auto !important;
   overflow-x: hidden !important;
 
   min-height: 0;
 
-  padding-top: 20px;
-  padding-bottom: 60px;
+  padding: 20px 0 60px;
 
   box-sizing: border-box;
-}
-
-/* REMOVE HEIGHT ISSUES */
-main,
-main > div,
-.section,
-.form-container,
-.form-wrapper,
-.form,
-main .section,
-main .section > div {
-  height: auto !important;
-  max-height: none !important;
-}
-
-/* EXTRA CONTENT SPACE */
-main .section {
-  padding-bottom: 40px;
 }
 
 /* =========================
@@ -1924,51 +1829,38 @@ main .section {
 ========================= */
 
 footer {
-  width: 100%;
-
-  background: transparent;
-
-  padding: 0;
-  margin: 0;
-
   flex-shrink: 0;
 
   position: sticky;
   bottom: 0;
 
-  z-index: 1000;
+  z-index: 999;
 }
 
-/* FOOTER BAR */
-footer .footer.block {
-  width: 100%;
+/* =========================
+   VERY IMPORTANT FIX
+========================= */
 
-  background: #071a4b;
+.section,
+.form-container,
+.form-wrapper,
+.form,
+main > div,
+main .section,
+main .section > div {
+  overflow: visible !important;
 
-  height: 38px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 0 !important;
-  margin: 0 !important;
+  height: auto !important;
+  max-height: none !important;
+  min-height: auto !important;
 }
 
-/* COPYRIGHT */
-footer .footer.block::after {
-  content: "© Copyright HDFC Bank Ltd.";
+/* =========================
+   REMOVE BAD HEIGHTS
+========================= */
 
-  color: #ffffff;
-
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.2px;
-}
-
-/* REMOVE DEFAULT CONTENT */
-footer .footer.block > * {
-  display: none !important;
+*[style*="100vh"] {
+  height: auto !important;
 }
 
 /* =========================
@@ -1977,28 +1869,4 @@ footer .footer.block > * {
 
 main::-webkit-scrollbar {
   width: 6px;
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width: 768px) {
-
-  header.header-wrapper .header.block {
-    padding: 0 20px;
-  }
-
-  header.header-wrapper .header.block::before {
-    left: 20px;
-    width: 100px;
-  }
-
-  header.header-wrapper .header.block::after {
-    right: 20px;
-
-    font-size: 9px;
-
-    padding: 5px 26px 5px 10px;
-  }
 }
