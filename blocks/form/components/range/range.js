@@ -76,6 +76,7 @@ export default async function decorate(fieldDiv, fieldJson) {
     input.min = 0;
     input.max = 6;
     input.step = 1;
+    input.value = Math.round(input.value);
 
     input.value = input.value || 0;
 
@@ -148,9 +149,11 @@ export default async function decorate(fieldDiv, fieldJson) {
      EVENTS
   ====================================================== */
 
-  input.addEventListener('input', () =>
-    updateBubble(input, wrapper)
-  );
+  input.addEventListener('input', () => {
+  input.value = Math.round(input.value);
+  updateBubble(input, wrapper);
+
+});
 
   input.addEventListener('change', () =>
     updateBubble(input, wrapper)
