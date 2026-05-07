@@ -53,33 +53,3 @@ footer .footer.block > * {
   display: none !important;
 }
 
-/* FULL PAGE LAYOUT */
-html,
-body {
-  height: 100%;
-  margin: 0;
-  overflow: hidden;
-}
-
-/* PAGE STRUCTURE */
-body {
-  display: flex;
-  flex-direction: column;
-}
-
-/* HEADER STATIC */
-header {
-  flex-shrink: 0;
-}
-
-/* SCROLL ONLY MAIN CONTENT */
-main {
-  flex: 1;
-  overflow-y: auto;
-}
-
-/* FOOTER STATIC */
-footer {
-  flex-shrink: 0;
-  width: 100%;
-}
