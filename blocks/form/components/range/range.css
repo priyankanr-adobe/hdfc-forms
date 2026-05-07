@@ -191,28 +191,30 @@ main .form form .field-offer-input-panel input[type="range"] {
 }
 
 /* CUSTOM SLIDER DOT */
+/* CUSTOM MOVING THUMB */
 .range-bubble::after {
   content: "";
 
   position: absolute;
 
   left: 50%;
-  bottom: -38px;
+  bottom: -30px;
 
   transform: translateX(-50%);
 
-  width: 20px;
-  height: 20px;
+  width: 14px;
+  height: 14px;
 
   border-radius: 50%;
 
   background: #2454ff;
 
-  border: 4px solid #fff;
+  border: 3px solid #fff;
 
-  box-shadow: 0 0 0 2px #2454ff;
+  box-shadow: 0 0 0 1px #2454ff;
+
+  z-index: 5;
 }
-
 /* MOBILE */
 @media (max-width: 768px) {
 
