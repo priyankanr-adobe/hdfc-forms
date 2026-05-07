@@ -320,21 +320,34 @@ function handleOtpGenerated(globals) {
 }
 
 
-/*offer detail function */
+/* offer detail function */
 /**
  * @param {scope} globals
  * @returns {string}
  */
 function updateLoanDisplay(globals) {
+
   const data = globals.functions.exportData();
 
-  const loanAmount = Number(data.loan_amount || 0);
+  /* GET REAL LOAN VALUE */
+  const loanInput =
+    document.querySelector(
+      '[name="loan_amount"]'
+    ) ||
+    document.querySelector(
+      '[name="loan_amount_inr"]'
+    );
+
+  const loanAmount = Number(
+    loanInput?.dataset?.actualValue ||
+    data.loan_amount ||
+    0
+  );
 
   return loanAmount > 0
     ? `₹${loanAmount.toLocaleString('en-IN')}`
     : '';
 }
-
 /**
  * @param {scope} globals
  * @returns {string}
