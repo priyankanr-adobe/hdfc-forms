@@ -53,3 +53,35 @@ footer .footer.block > * {
   display: none !important;
 }
 
+
+/* FULL PAGE */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+/* LAYOUT */
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* HEADER FIXED HEIGHT */
+header {
+  flex-shrink: 0;
+}
+
+/* ONLY CONTENT SCROLLS */
+main {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+/* FOOTER ALWAYS VISIBLE */
+footer {
+  flex-shrink: 0;
+  width: 100%;
+}
