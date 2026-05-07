@@ -139,49 +139,71 @@ function stopOtpTimer(globals) {
  * @returns {string}
  */
 function handleOtpSuccess(globals) {
-  const panel = globals.form.otp_verification_panel;
 
-  const validationMessage = panel.validation_message;
-  const resendBtn = panel.resend_otp;
-  const submitBtn = panel.otp_submit;
+  const panel =
+    globals.form.otp_verification_panel;
+
+  const validationMessage =
+    panel.validation_message;
+
+  const resendBtn =
+    panel.resend_otp;
+
+  const submitBtn =
+    panel.otp_submit;
 
   stopOtpTimer(globals);
 
   window.otpResendAttemptsLeft = 3;
+
   window.otpTimerExpired = false;
 
-  if (validationMessage) {
-    globals.functions.setProperty(validationMessage, {
+  /* SUCCESS MESSAGE */
+
+  globals.functions.setProperty(
+    validationMessage,
+    {
       value: "OTP validated successfully",
       visible: true
-    });
-  }
+    }
+  );
 
-  if (resendBtn) {
-    globals.functions.setProperty(resendBtn, {
+  /* BUTTON STATES */
+
+  globals.functions.setProperty(
+    resendBtn,
+    {
       visible: false,
       enabled: false
-    });
-  }
+    }
+  );
 
-  if (submitBtn) {
-    globals.functions.setProperty(submitBtn, {
+  globals.functions.setProperty(
+    submitBtn,
+    {
       enabled: true
-    });
-  }
-  if (response.success) {
-  stopOtpTimer(globals);
+    }
+  );
+
+  /* CALL REVIEW DETAILS API */
 
   fetchReviewDetailsAPI(globals);
 
-  globals.functions.setProperty(globals.form.review_details, {
-    visible: true
-  });
+  /* NAVIGATION */
 
-  globals.functions.setProperty(globals.form.otp_verification_panel, {
-    visible: false
-  });
-}
+  globals.functions.setProperty(
+    globals.form.otp_verification_panel,
+    {
+      visible: false
+    }
+  );
+
+  globals.functions.setProperty(
+    globals.form.review_details_panel,
+    {
+      visible: true
+    }
+  );
 
   return "OTP validated successfully";
 }

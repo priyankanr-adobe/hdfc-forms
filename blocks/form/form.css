@@ -1222,98 +1222,35 @@ main .form form .field-offer-input-panel .number-wrapper {
   padding: 0 !important;
 }
 
-/* HIDE DEFAULT NUMBER INPUT IF RANGE COMPONENT HAS ONE */
+/* HIDE DEFAULT NUMBER INPUT */
 main .form form .field-offer-input-panel .number-wrapper > input[type="number"],
 main .form form .field-offer-input-panel .number-wrapper > input[type="text"] {
   display: none !important;
 }
 
-/* RANGE WRAPPER */
+/* KEEP ONLY SPACING FOR RANGE */
 main .form form .field-offer-input-panel .range-widget-wrapper {
   position: relative;
-  padding-top: 46px;
-  padding-bottom: 26px;
+  padding-top: 54px;
+  padding-bottom: 34px;
 }
 
-/* VALUE BUBBLE */
+/* BUBBLE */
 main .form form .field-offer-input-panel .range-bubble {
   position: absolute;
   top: 0;
   transform: translateX(-50%);
   min-width: 96px;
   text-align: center;
-  padding: 12px 14px;
+  padding: 10px 16px;
   border: 1px solid #e5e7eb;
   border-radius: 10px;
   background: #fff;
   color: #374151;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 800;
   line-height: 1;
-}
-
-/* SLIDER */
-main .form form .field-offer-input-panel input[type="range"] {
-  width: 100%;
-  appearance: none;
-  height: 6px;
-  border-radius: 999px;
-  background: #f9a12b !important;
-  outline: none;
-  margin: 0;
-}
-
-main .form form .field-offer-input-panel .range-widget-wrapper::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 49px;
-  height: 10px;
-  pointer-events: none;
-  background: repeating-linear-gradient(
-    to right,
-    transparent 0,
-    transparent calc(14.28% - 1px),
-    rgba(255,255,255,.55) calc(14.28% - 1px),
-    rgba(255,255,255,.55) 14.28%
-  );
-}
-
-main .form form .field-offer-input-panel input[type="range"]::-webkit-slider-thumb {
-  appearance: none;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: #2147d8;
-  border: 0;
-  box-shadow: 0 0 0 3px #fff;
-}
-
-main .form form .field-offer-input-panel input[type="range"]::-moz-range-thumb {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: #2147d8;
-  border: 0;
-  box-shadow: 0 0 0 3px #fff;
-}
-
-main .form form .field-offer-input-panel .range-min,
-main .form form .field-offer-input-panel .range-max {
-  position: absolute;
-  bottom: 0;
-  color: #8b929e;
-  font-size: 12px;
-  font-weight: 700;
-}
-
-main .form form .field-offer-input-panel .range-min {
-  left: 0;
-}
-
-main .form form .field-offer-input-panel .range-max {
-  right: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
 }
 
 /* PROCEED BUTTON */
@@ -1512,8 +1449,6 @@ main .form form .field-offer-input-panel .plain-text-wrapper p {
     padding-right: 0 !important;
   }
 }
-
-
 
 /* Thank You Screen */
 /* SUCCESS PAGE */

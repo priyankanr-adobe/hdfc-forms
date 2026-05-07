@@ -17,7 +17,10 @@ function updateBubble(input, wrapper) {
   if (!bubble) return;
 
   bubble.textContent = formatValue(input, value);
-  bubble.style.left = `${percent}%`;
+  const bubbleWidth = bubble.offsetWidth || 80;
+  const offset = (percent / 100) * bubbleWidth;
+
+bubble.style.left = `calc(${percent}% - ${offset}px + 12px)`;
 
   wrapper.style.setProperty('--range-progress', `${percent}%`);
 }
