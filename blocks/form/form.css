@@ -1772,7 +1772,7 @@ main .form form .field-main-success-card .field-personal-loan-amount input {
 
 /*static header and footer */
 /* =========================
-   FULL PAGE
+   HTML/BODY
 ========================= */
 
 html,
@@ -1789,10 +1789,6 @@ body {
 body {
   display: flex;
   flex-direction: column;
-
-  height: 100vh;
-
-  overflow: hidden;
 }
 
 /* =========================
@@ -1800,26 +1796,27 @@ body {
 ========================= */
 
 header.header-wrapper {
-  flex-shrink: 0;
-
   position: sticky;
   top: 0;
-  z-index: 999;
+  z-index: 1000;
+
+  flex-shrink: 0;
 }
 
 /* =========================
-   MAIN SCROLL AREA
+   MAIN CONTENT
 ========================= */
 
 main {
-  flex: 1 1 auto;
+  flex: 1;
 
-  overflow-y: auto !important;
-  overflow-x: hidden !important;
+  overflow-y: auto;
+  overflow-x: hidden;
 
   min-height: 0;
 
-  padding: 20px 0 60px;
+  padding-top: 20px;
+  padding-bottom: 60px;
 
   box-sizing: border-box;
 }
@@ -1829,44 +1826,22 @@ main {
 ========================= */
 
 footer {
-  flex-shrink: 0;
-
   position: sticky;
   bottom: 0;
+  z-index: 1000;
 
-  z-index: 999;
+  flex-shrink: 0;
 }
 
 /* =========================
-   VERY IMPORTANT FIX
+   REMOVE BLOCKING HEIGHTS
 ========================= */
 
 .section,
 .form-container,
 .form-wrapper,
 .form,
-main > div,
-main .section,
-main .section > div {
-  overflow: visible !important;
-
+main > div {
   height: auto !important;
   max-height: none !important;
-  min-height: auto !important;
-}
-
-/* =========================
-   REMOVE BAD HEIGHTS
-========================= */
-
-*[style*="100vh"] {
-  height: auto !important;
-}
-
-/* =========================
-   SCROLLBAR
-========================= */
-
-main::-webkit-scrollbar {
-  width: 6px;
 }
