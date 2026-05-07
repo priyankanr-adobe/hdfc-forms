@@ -1116,42 +1116,42 @@ main .form form .field-offer-details {
   padding: 18px 24px 44px !important;
   border: 0 !important;
 }
-
+ 
 main .form form .field-offer-details > legend {
   display: none !important;
 }
-
+ 
 /* SUBTITLE */
 main .form form .field-offer-subtitle {
   width: 100% !important;
   margin: 0 0 22px !important;
 }
-
+ 
 main .form form .field-offer-subtitle p {
   font-size: 18px;
   font-weight: 800;
   color: #1f2937;
   margin: 0;
 }
-
+ 
 /* TOP BANNER */
 main .form form .field-offer-details > .field-offer-banner-panel {
   width: 100% !important;
   background: #e8fbff;
   border-radius: 20px;
   border: 0 !important;
-  padding: 14px 22px !important;
-  min-height: 70px;
+  padding: 20px 30px !important;
+  min-height: 86px;
   display: flex !important;
   align-items: center;
   gap: 28px;
-  margin: 0 0 18px !important;
+  margin: 0 0 34px !important;
 }
-
+ 
 main .form form .field-offer-details > .field-offer-banner-panel > legend {
   display: none !important;
 }
-
+ 
 main .form form .field-offer-details > .field-offer-banner-panel::before {
   content: "";
   width: 80px;
@@ -1163,7 +1163,7 @@ main .form form .field-offer-details > .field-offer-banner-panel::before {
   background-size: contain;
   display: block;
 }
-
+ 
 main .form form .field-offer-details > .field-offer-banner-panel p {
   font-size: 18px;
   font-weight: 800;
@@ -1173,12 +1173,12 @@ main .form form .field-offer-details > .field-offer-banner-panel p {
   align-items: center;
   gap: 28px;
 }
-
+ 
 /* HIDE DUPLICATE BANNER */
 main .form form .field-offer-input-panel .field-offer-banner-panel {
   display: none !important;
 }
-
+ 
 /* SIDE BY SIDE PANELS */
 main .form form .field-offer-input-panel,
 main .form form .field-offer-summary-panel {
@@ -1187,24 +1187,24 @@ main .form form .field-offer-summary-panel {
   box-sizing: border-box !important;
   float: none !important;
 }
-
+ 
 main .form form .field-offer-input-panel {
   padding-right: 52px !important;
   border: 0 !important;
   margin: 0 !important;
   background: transparent !important;
 }
-
+ 
 main .form form .field-offer-summary-panel {
   width: 340px !important;
   min-width: 340px !important;
 }
-
+ 
 main .form form .field-offer-input-panel > legend,
 main .form form .field-offer-summary-panel > legend {
   display: none !important;
 }
-
+ 
 /* LEFT PANEL TITLE */
 main .form form .field-offer-input-panel .number-wrapper > label,
 main .form form .field-offer-input-panel .field-wrapper > label {
@@ -1212,29 +1212,29 @@ main .form form .field-offer-input-panel .field-wrapper > label {
   line-height: 1.3 !important;
   font-weight: 800 !important;
   color: #1f2937 !important;
-  margin: 0 0 16px !important;
+  margin: 0 0 32px !important;
   display: block;
 }
-
+ 
 /* RANGE FIELD WRAPPER */
 main .form form .field-offer-input-panel .number-wrapper {
   margin: 0 0 34px !important;
   padding: 0 !important;
 }
-
+ 
 /* HIDE DEFAULT NUMBER INPUT */
 main .form form .field-offer-input-panel .number-wrapper > input[type="number"],
 main .form form .field-offer-input-panel .number-wrapper > input[type="text"] {
   display: none !important;
 }
-
+ 
 /* KEEP ONLY SPACING FOR RANGE */
 main .form form .field-offer-input-panel .range-widget-wrapper {
   position: relative;
-  padding-top: 38px;
-  padding-bottom: 18px;
+  padding-top: 54px;
+  padding-bottom: 34px;
 }
-
+ 
 /* BUBBLE */
 main .form form .field-offer-input-panel .range-bubble {
   position: absolute;
@@ -1252,12 +1252,12 @@ main .form form .field-offer-input-panel .range-bubble {
   line-height: 1;
   box-shadow: 0 2px 8px rgba(0,0,0,.06);
 }
-
+ 
 /* PROCEED BUTTON */
 main .form form .field-offer-input-panel .button-wrapper {
   margin-top: 8px !important;
 }
-
+ 
 main .form form .field-offer-input-panel .button-wrapper button {
   min-width: 190px;
   height: 46px;
@@ -1268,13 +1268,13 @@ main .form form .field-offer-input-panel .button-wrapper button {
   font-size: 15px !important;
   font-weight: 800 !important;
 }
-
+ 
 main .form form .field-offer-input-panel .button-wrapper button::after {
   font-size: 26px;
   margin-left: 9px;
   vertical-align: -2px;
 }
-
+ 
 /* SUMMARY CARD */
 main .form form .field-offer-summary-panel {
   width: 310px !important;
@@ -1288,17 +1288,17 @@ main .form form .field-offer-summary-panel {
   padding: 0 !important;
   font-family: Arial, sans-serif;
 }
-
+ 
 main .form form .field-offer-summary-panel > legend {
   display: none !important;
 }
-
+ 
 main .form form .field-offer-summary-panel .field-wrapper {
   margin: 0 !important;
   padding: 0 !important;
   width: auto !important;
 }
-
+ 
 main .form form .field-offer-summary-panel input {
   border: 0 !important;
   outline: 0 !important;
@@ -1309,7 +1309,7 @@ main .form form .field-offer-summary-panel input {
   pointer-events: auto !important;
   font-family: Arial, sans-serif;
 }
-
+ 
 /* TITLE + BIG AMOUNT */
 main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(1) {
   position: absolute !important;
@@ -1317,7 +1317,7 @@ main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(1) {
   left: 28px;
   right: 28px;
 }
-
+ 
 main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(1) label {
   display: block !important;
   font-size: 14px !important;
@@ -1326,7 +1326,7 @@ main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(1) label
   color: #111827 !important;
   margin: 0 0 10px !important;
 }
-
+ 
 main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(1) input {
   display: block !important;
   font-size: 34px !important;
@@ -1335,14 +1335,14 @@ main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(1) input
   color: #111827 !important;
   max-width: 250px !important;
 }
-
+ 
 main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(1)::after {
   content: "";
   display: block;
   border-top: 1px dashed #e4d8bd;
   margin-top: 18px;
 }
-
+ 
 /* EMI / ROI / TAXES */
 main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(2),
 main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(3),
@@ -1350,22 +1350,22 @@ main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(4) {
   position: absolute !important;
   padding-left: 12px !important;
 }
-
+ 
 main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(2) {
-  top: 126px;
+  top: 142px;
   left: 32px;
 }
-
+ 
 main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(3) {
-  top: 126px;
+  top: 142px;
   left: 188px;
 }
-
+ 
 main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(4) {
-  top: 178px;
+  top: 196px;
   left: 32px;
 }
-
+ 
 main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(2)::before,
 main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(3)::before,
 main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(4)::before {
@@ -1378,7 +1378,7 @@ main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(4)::befo
   background: #ff9f2a;
   border-radius: 2px;
 }
-
+ 
 main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(2) label,
 main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(3) label,
 main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(4) label {
@@ -1389,7 +1389,7 @@ main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(4) label
   font-weight: 700 !important;
   margin: 0 0 3px !important;
 }
-
+ 
 main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(2) input,
 main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(3) input,
 main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(4) input {
@@ -1401,16 +1401,16 @@ main .form form .field-offer-summary-panel > .field-wrapper:nth-of-type(4) input
   margin-top: 0 !important;
   max-width: 90px !important;
 }
-
+ 
 main .form form .field-offer-summary-panel .field-wrapper input {
   margin-bottom: 2px !important;
 }
-
+ 
 /* FOOTER NOTE */
 main .form form .field-offer-summary-panel > .field-wrapper:last-child {
   display: none !important;
 }
-
+ 
 main .form form .field-offer-summary-panel::after {
   content: "ⓘ  The principal offer is subject to credit review, basis which the loan amount may be down-sized or rejected.";
   position: absolute;
@@ -1426,19 +1426,19 @@ main .form form .field-offer-summary-panel::after {
   border-radius: 0 0 16px 16px;
   box-sizing: border-box;
 }
-
+ 
 /* Enter loan amount */
 main .form form .field-offer-input-panel .plain-text-wrapper {
   margin-left: 2px !important;
 }
-
+ 
 main .form form .field-offer-input-panel .plain-text-wrapper p {
   margin: 0 0 14px !important;
   font-size: 18px !important;
   font-weight: 800 !important;
   color: #111827 !important;
 }
-
+ 
 /* MOBILE */
 @media (max-width: 900px) {
   main .form form .field-offer-input-panel,
@@ -1449,7 +1449,7 @@ main .form form .field-offer-input-panel .plain-text-wrapper p {
     padding-right: 0 !important;
   }
 }
-
+ 
 /* Thank You Screen */
 /* SUCCESS PAGE */
 main .form form .field-loan-success-page {
