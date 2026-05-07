@@ -2,28 +2,41 @@
    RANGE.JS
 ========================= */
 
-function formatValue(input, value) {
+const LOAN_VALUES = [
+  50000,
+  200000,
+  400000,
+  600000,
+  800000,
+  1000000,
+  1500000
+];
 
-  const name = input.name || '';
+function formatINR(value) {
+  return `₹${Number(value).toLocaleString('en-IN')}`;
+}
 
-  /* LOAN AMOUNT */
-  if (name.includes('loan_amount')) {
+function interpolateLoanValue(percent) {
 
-    const loanValues = [
-      50000,
-      200000,
-      400000,
-      600000,
-      800000,
-      1000000,
-      1500000
-    ];
+  const segments = LOAN_VALUES.length - 1;
 
-    return `₹${loanValues[value].toLocaleString('en-IN')}`;
+  const exactIndex = (percent / 100) * segments;
+
+  const lowerIndex = Math.floor(exactIndex);
+  const upperIndex = Math.ceil(exactIndex);
+
+  const lower = LOAN_VALUES[lowerIndex];
+  const upper = LOAN_VALUES[upperIndex];
+
+  if (lowerIndex === upperIndex) {
+    return lower;
   }
 
-  /* TENURE */
-  return `${value} months`;
+  const ratio = exactIndex - lowerIndex;
+
+  return Math.round(
+    lower + (upper - lower) * ratio
+  );
 }
 
 function updateBubble(input, wrapper) {
@@ -32,27 +45,70 @@ function updateBubble(input, wrapper) {
   const max = Number(input.max);
   const value = Number(input.value);
 
-  const percent = ((value - min) / (max - min)) * 100;
+  const percent =
+    ((value - min) / (max - min)) * 100;
 
-  const bubble = wrapper.querySelector('.range-bubble');
-  const thumb = wrapper.querySelector('.custom-thumb');
+  const bubble =
+    wrapper.querySelector('.range-bubble');
+
+  const thumb =
+    wrapper.querySelector('.custom-thumb');
 
   if (!bubble || !thumb) return;
 
-  bubble.textContent = formatValue(input, value);
+  const fieldName = input.name || '';
 
-  /* BUBBLE POSITION */
-  const bubbleWidth = bubble.offsetWidth || 80;
-  const offset = (percent / 100) * bubbleWidth;
+  /* =========================
+     LOAN AMOUNT
+  ========================= */
+
+  if (fieldName.includes('loan_amount')) {
+
+    const actualValue =
+      interpolateLoanValue(percent);
+
+    /* IMPORTANT */
+    input.dataset.actualValue =
+      actualValue;
+
+    input.setAttribute(
+      'data-value',
+      actualValue
+    );
+
+    bubble.textContent =
+      formatINR(actualValue);
+
+  } else {
+
+    bubble.textContent =
+      `${value} months`;
+  }
+
+  /* =========================
+     BUBBLE POSITION
+  ========================= */
+
+  const bubbleWidth =
+    bubble.offsetWidth || 80;
+
+  const offset =
+    (percent / 100) * bubbleWidth;
 
   bubble.style.left =
     `calc(${percent}% - ${offset}px + 12px)`;
 
-  /* THUMB POSITION */
+  /* =========================
+     THUMB POSITION
+  ========================= */
+
   thumb.style.left =
     `calc(${percent}% - 7px)`;
 
-  /* TRACK PROGRESS */
+  /* =========================
+     TRACK
+  ========================= */
+
   wrapper.style.setProperty(
     '--range-progress',
     `${percent}%`
@@ -61,7 +117,8 @@ function updateBubble(input, wrapper) {
 
 export default async function decorate(fieldDiv) {
 
-  const input = fieldDiv.querySelector('input');
+  const input =
+    fieldDiv.querySelector('input');
 
   if (!input) return fieldDiv;
 
@@ -84,20 +141,14 @@ export default async function decorate(fieldDiv) {
   ) {
 
     /*
-      0 = 50K
-      1 = 2L
-      2 = 4L
-      3 = 6L
-      4 = 8L
-      5 = 10L
-      6 = 15L
+      0 → 100 virtual slider
     */
 
     input.min = 0;
-    input.max = 6;
+    input.max = 100;
     input.step = 1;
 
-    input.value = input.value || 0;
+    input.value = 0;
 
   } else {
 
@@ -109,26 +160,36 @@ export default async function decorate(fieldDiv) {
     input.max = 84;
     input.step = 12;
 
-    input.value = input.value || 48;
+    input.value = 48;
   }
 
   /* =========================
      WRAPPER
   ========================= */
 
-  const wrapper = document.createElement('div');
+  const wrapper =
+    document.createElement('div');
+
   wrapper.className =
     'range-widget-wrapper decorated';
 
   input.after(wrapper);
 
   /* BUBBLE */
-  const bubble = document.createElement('span');
-  bubble.className = 'range-bubble';
 
-  /* CUSTOM THUMB */
-  const thumb = document.createElement('span');
-  thumb.className = 'custom-thumb';
+  const bubble =
+    document.createElement('span');
+
+  bubble.className =
+    'range-bubble';
+
+  /* THUMB */
+
+  const thumb =
+    document.createElement('span');
+
+  thumb.className =
+    'custom-thumb';
 
   wrapper.appendChild(bubble);
   wrapper.appendChild(thumb);
@@ -138,7 +199,8 @@ export default async function decorate(fieldDiv) {
      LABELS
   ========================= */
 
-  const labels = document.createElement('div');
+  const labels =
+    document.createElement('div');
 
   labels.className =
     'custom-range-labels';
@@ -178,17 +240,7 @@ export default async function decorate(fieldDiv) {
   ========================= */
 
   input.addEventListener('input', () => {
-
-    input.value = Math.round(input.value);
-
     updateBubble(input, wrapper);
-
-  });
-
-  input.addEventListener('change', () => {
-
-    updateBubble(input, wrapper);
-
   });
 
   updateBubble(input, wrapper);
