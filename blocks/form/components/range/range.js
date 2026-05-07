@@ -1,12 +1,33 @@
+/* =========================
+   RANGE.JS
+========================= */
+
 function formatValue(input, value) {
+
   const name = input.name || '';
+
+  /* LOAN AMOUNT */
   if (name.includes('loan_amount')) {
-    return `₹${Number(value).toLocaleString('en-IN')}`;
+
+    const loanValues = [
+      50000,
+      200000,
+      400000,
+      600000,
+      800000,
+      1000000,
+      1500000
+    ];
+
+    return `₹${loanValues[value].toLocaleString('en-IN')}`;
   }
+
+  /* TENURE */
   return `${value} months`;
 }
 
 function updateBubble(input, wrapper) {
+
   const min = Number(input.min);
   const max = Number(input.max);
   const value = Number(input.value);
@@ -14,53 +35,119 @@ function updateBubble(input, wrapper) {
   const percent = ((value - min) / (max - min)) * 100;
 
   const bubble = wrapper.querySelector('.range-bubble');
-  if (!bubble) return;
+  const thumb = wrapper.querySelector('.custom-thumb');
+
+  if (!bubble || !thumb) return;
 
   bubble.textContent = formatValue(input, value);
+
+  /* BUBBLE POSITION */
   const bubbleWidth = bubble.offsetWidth || 80;
   const offset = (percent / 100) * bubbleWidth;
 
-bubble.style.left = `calc(${percent}% - ${offset}px + 12px)`;
+  bubble.style.left =
+    `calc(${percent}% - ${offset}px + 12px)`;
 
-  wrapper.style.setProperty('--range-progress', `${percent}%`);
+  /* THUMB POSITION */
+  thumb.style.left =
+    `calc(${percent}% - 7px)`;
+
+  /* TRACK PROGRESS */
+  wrapper.style.setProperty(
+    '--range-progress',
+    `${percent}%`
+  );
 }
 
-export default async function decorate(fieldDiv, fieldJson) {
+export default async function decorate(fieldDiv) {
+
   const input = fieldDiv.querySelector('input');
+
   if (!input) return fieldDiv;
 
   input.type = 'range';
 
   const fieldName = input.name || '';
-  const labelText = fieldDiv.querySelector('label')?.textContent?.toLowerCase() || '';
 
-  if (fieldName.includes('loan_amount') || labelText.includes('loan amount')) {
-    input.min = 50000;
-    input.max = 1500000;
-    input.step = 50000;
-    input.value = input.value || 1500000;
+  const labelText =
+    fieldDiv.querySelector('label')
+      ?.textContent
+      ?.toLowerCase() || '';
+
+  /* =========================
+     LOAN AMOUNT
+  ========================= */
+
+  if (
+    fieldName.includes('loan_amount') ||
+    labelText.includes('loan amount')
+  ) {
+
+    /*
+      0 = 50K
+      1 = 2L
+      2 = 4L
+      3 = 6L
+      4 = 8L
+      5 = 10L
+      6 = 15L
+    */
+
+    input.min = 0;
+    input.max = 6;
+    input.step = 1;
+
+    input.value = input.value || 0;
+
   } else {
+
+    /* =========================
+       TENURE
+    ========================= */
+
     input.min = 12;
     input.max = 84;
     input.step = 12;
-    input.value = input.value || 84;
+
+    input.value = input.value || 48;
   }
 
+  /* =========================
+     WRAPPER
+  ========================= */
+
   const wrapper = document.createElement('div');
-  wrapper.className = 'range-widget-wrapper decorated';
+  wrapper.className =
+    'range-widget-wrapper decorated';
 
   input.after(wrapper);
 
+  /* BUBBLE */
   const bubble = document.createElement('span');
   bubble.className = 'range-bubble';
 
+  /* CUSTOM THUMB */
+  const thumb = document.createElement('span');
+  thumb.className = 'custom-thumb';
+
   wrapper.appendChild(bubble);
+  wrapper.appendChild(thumb);
   wrapper.appendChild(input);
 
-  const labels = document.createElement('div');
-  labels.className = 'custom-range-labels';
+  /* =========================
+     LABELS
+  ========================= */
 
-  if (fieldName.includes('loan_amount') || labelText.includes('loan amount')) {
+  const labels = document.createElement('div');
+
+  labels.className =
+    'custom-range-labels';
+
+  if (
+    fieldName.includes('loan_amount') ||
+    labelText.includes('loan amount')
+  ) {
+
     labels.innerHTML = `
       <span>50K</span>
       <span>2L</span>
@@ -70,7 +157,9 @@ export default async function decorate(fieldDiv, fieldJson) {
       <span>10L</span>
       <span>15L</span>
     `;
+
   } else {
+
     labels.innerHTML = `
       <span>12m</span>
       <span>24m</span>
@@ -84,8 +173,23 @@ export default async function decorate(fieldDiv, fieldJson) {
 
   wrapper.appendChild(labels);
 
-  input.addEventListener('input', () => updateBubble(input, wrapper));
-  input.addEventListener('change', () => updateBubble(input, wrapper));
+  /* =========================
+     EVENTS
+  ========================= */
+
+  input.addEventListener('input', () => {
+
+    input.value = Math.round(input.value);
+
+    updateBubble(input, wrapper);
+
+  });
+
+  input.addEventListener('change', () => {
+
+    updateBubble(input, wrapper);
+
+  });
 
   updateBubble(input, wrapper);
 
