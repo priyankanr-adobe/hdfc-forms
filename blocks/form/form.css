@@ -1079,8 +1079,7 @@ main .form form .number-wrapper.field-entered-otp input[type="number"] {
 /* REMOVE TEXTBOX BORDER - RESEND OTP + ATTEMPT INFO + VALIDATION */
 
 main .form form .field-timer input,
-main .form form .field-attempt-info input,
-main .form form .field-validation-message input {
+main .form form .field-attempt-info input {
   border: none !important;
   background: transparent !important;
   box-shadow: none !important;
@@ -1094,10 +1093,7 @@ main .form form .field-validation-message input {
   color: #6b7280 !important;
 }
 
-/* optional: remove full validation message field */
-main .form form .field-validation-message {
-  display: none !important;
-}
+
 
 /* Offer page css */
 
