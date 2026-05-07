@@ -1076,22 +1076,6 @@ main .form form .number-wrapper.field-entered-otp input[type="number"] {
   -moz-appearance: textfield;
   appearance: textfield;
 }
-/* REMOVE TEXTBOX BORDER - RESEND OTP + ATTEMPT INFO + VALIDATION */
-
-main .form form .field-timer input,
-main .form form .field-attempt-info input {
-  border: none !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  outline: none !important;
-
-  padding: 0 !important;
-  height: auto !important;
-
-  font-size: 11px !important;
-  font-weight: 600 !important;
-  color: #6b7280 !important;
-}
 
 
 
