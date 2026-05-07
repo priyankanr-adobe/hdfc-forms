@@ -22,21 +22,32 @@ footer .footer p {
 
 /*footer*/
 /* ================= FOOTER BAR ================= */
+/* =========================
+   FOOTER
+========================= */
+
 footer {
   width: 100%;
   background: transparent;
   padding: 0;
   margin: 0;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 10;
 }
 
 /* DARK BLUE STRIP */
 footer .footer.block {
   width: 100%;
   background: #071a4b;
-  height: 38px; /* exact thin strip */
+  height: 38px;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 /* COPYRIGHT TEXT */
@@ -48,40 +59,59 @@ footer .footer.block::after {
   letter-spacing: 0.2px;
 }
 
-/* REMOVE ANY DEFAULT CONTENT */
+/* REMOVE DEFAULT CONTENT */
 footer .footer.block > * {
   display: none !important;
 }
 
+/* =========================
+   PAGE LAYOUT
+========================= */
 
-/* FULL PAGE */
 html,
 body {
   height: 100%;
   margin: 0;
-  overflow: hidden;
+  padding: 0;
 }
 
-/* LAYOUT */
+/* BODY FLEX LAYOUT */
 body {
   display: flex;
   flex-direction: column;
+
+  overflow: hidden;
 }
 
-/* HEADER FIXED HEIGHT */
+/* HEADER */
 header {
   flex-shrink: 0;
 }
 
-/* ONLY CONTENT SCROLLS */
+/* MAIN CONTENT */
 main {
   flex: 1;
+
   overflow-y: auto;
+  overflow-x: hidden;
+
   min-height: 0;
+
+  padding-bottom: 20px;
+
+  box-sizing: border-box;
 }
 
-/* FOOTER ALWAYS VISIBLE */
-footer {
-  flex-shrink: 0;
-  width: 100%;
+/* REMOVE HEIGHT ISSUES */
+main,
+.section,
+.form-container,
+.form-wrapper {
+  height: auto !important;
+  max-height: none !important;
+}
+
+/* REMOVE EXTRA PAGE SCROLL */
+body::-webkit-scrollbar {
+  display: none;
 }
