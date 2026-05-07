@@ -184,6 +184,24 @@ function handleOtpSuccess(globals) {
     }
   );
 
+  /* HIDE OTP PANEL */
+
+  globals.functions.setProperty(
+    globals.form.otp_verification_panel,
+    {
+      visible: false
+    }
+  );
+
+  /* SHOW NEXT PANEL */
+
+  globals.functions.setProperty(
+    globals.form.offer_details,
+    {
+      visible: true
+    }
+  );
+
   /* CALL REVIEW DETAILS API */
 
   fetchReviewDetailsAPI(globals);
