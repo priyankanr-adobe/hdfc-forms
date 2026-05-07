@@ -1005,6 +1005,34 @@ footer {
   padding-top: 0 !important;
 }
 
+/* FULL VIEW LOAN ELIGIBILITY BUTTON */
+
+main .form form .field-view-loan-eligibility button,
+main .form form .field-view-loan-eligibility input[type="submit"] {
+  width: 220px !important;   /* increase width */
+  height: 38px !important;
+
+  background: linear-gradient(
+    90deg,
+    #7d97ff 0%,
+    #92a8ff 100%
+  ) !important;
+
+  color: #fff !important;
+  border: none !important;
+  border-radius: 8px !important;
+
+  font-size: 13px !important;
+  font-weight: 600 !important;
+
+  white-space: nowrap !important; /* prevents cut text */
+  overflow: visible !important;
+
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
 /* MOBILE */
 @media (max-width: 768px) {
   main .form .field-offer-inputs-row {
