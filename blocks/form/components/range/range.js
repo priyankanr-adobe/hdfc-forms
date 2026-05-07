@@ -12,32 +12,52 @@ const LOAN_VALUES = [
   1500000
 ];
 
+/* =========================
+   FORMAT INR
+========================= */
+
 function formatINR(value) {
   return `₹${Number(value).toLocaleString('en-IN')}`;
 }
+
+/* =========================
+   INTERPOLATE LOAN VALUE
+========================= */
 
 function interpolateLoanValue(percent) {
 
   const segments = LOAN_VALUES.length - 1;
 
-  const exactIndex = (percent / 100) * segments;
+  const exactIndex =
+    (percent / 100) * segments;
 
-  const lowerIndex = Math.floor(exactIndex);
-  const upperIndex = Math.ceil(exactIndex);
+  const lowerIndex =
+    Math.floor(exactIndex);
 
-  const lower = LOAN_VALUES[lowerIndex];
-  const upper = LOAN_VALUES[upperIndex];
+  const upperIndex =
+    Math.ceil(exactIndex);
+
+  const lower =
+    LOAN_VALUES[lowerIndex];
+
+  const upper =
+    LOAN_VALUES[upperIndex];
 
   if (lowerIndex === upperIndex) {
     return lower;
   }
 
-  const ratio = exactIndex - lowerIndex;
+  const ratio =
+    exactIndex - lowerIndex;
 
   return Math.round(
     lower + (upper - lower) * ratio
   );
 }
+
+/* =========================
+   UPDATE UI
+========================= */
 
 function updateBubble(input, wrapper) {
 
@@ -56,7 +76,8 @@ function updateBubble(input, wrapper) {
 
   if (!bubble || !thumb) return;
 
-  const fieldName = input.name || '';
+  const fieldName =
+    input.name || '';
 
   /* =========================
      LOAN AMOUNT
@@ -67,17 +88,46 @@ function updateBubble(input, wrapper) {
     const actualValue =
       interpolateLoanValue(percent);
 
-    /* IMPORTANT */
+    /*
+      IMPORTANT
+      Use this value for EMI calculations
+    */
+
     input.dataset.actualValue =
       actualValue;
 
+    /*
+      ALSO update hidden form value
+    */
+
     input.setAttribute(
-      'data-value',
+      'data-actual-value',
       actualValue
     );
 
+    /*
+      UPDATE DISPLAY VALUE
+    */
+
     bubble.textContent =
       formatINR(actualValue);
+
+    /*
+      FIX:
+      Update display card live
+    */
+
+    const event =
+      new CustomEvent(
+        'loanAmountUpdated',
+        {
+          detail: {
+            value: actualValue
+          }
+        }
+      );
+
+    window.dispatchEvent(event);
 
   } else {
 
@@ -106,7 +156,7 @@ function updateBubble(input, wrapper) {
     `calc(${percent}% - 7px)`;
 
   /* =========================
-     TRACK
+     TRACK PROGRESS
   ========================= */
 
   wrapper.style.setProperty(
@@ -114,6 +164,10 @@ function updateBubble(input, wrapper) {
     `${percent}%`
   );
 }
+
+/* =========================
+   DECORATE
+========================= */
 
 export default async function decorate(fieldDiv) {
 
@@ -124,10 +178,12 @@ export default async function decorate(fieldDiv) {
 
   input.type = 'range';
 
-  const fieldName = input.name || '';
+  const fieldName =
+    input.name || '';
 
   const labelText =
-    fieldDiv.querySelector('label')
+    fieldDiv
+      .querySelector('label')
       ?.textContent
       ?.toLowerCase() || '';
 
@@ -141,7 +197,7 @@ export default async function decorate(fieldDiv) {
   ) {
 
     /*
-      0 → 100 virtual slider
+      Virtual slider
     */
 
     input.min = 0;
@@ -175,7 +231,9 @@ export default async function decorate(fieldDiv) {
 
   input.after(wrapper);
 
-  /* BUBBLE */
+  /* =========================
+     BUBBLE
+  ========================= */
 
   const bubble =
     document.createElement('span');
@@ -183,7 +241,9 @@ export default async function decorate(fieldDiv) {
   bubble.className =
     'range-bubble';
 
-  /* THUMB */
+  /* =========================
+     CUSTOM THUMB
+  ========================= */
 
   const thumb =
     document.createElement('span');
@@ -240,7 +300,9 @@ export default async function decorate(fieldDiv) {
   ========================= */
 
   input.addEventListener('input', () => {
+
     updateBubble(input, wrapper);
+
   });
 
   updateBubble(input, wrapper);
