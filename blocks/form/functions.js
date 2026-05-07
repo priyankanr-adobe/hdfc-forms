@@ -348,27 +348,71 @@ function updateLoanDisplay(globals) {
     ? `₹${loanAmount.toLocaleString('en-IN')}`
     : '';
 }
+
 /**
  * @param {scope} globals
  * @returns {string}
  */
 function updateLoanDetails(globals) {
+
   const data = globals.functions.exportData();
 
-  const loanAmount = Number(data.loan_amount || 0);
-  const tenure = Number(data.loan_tenure || 0);
+  /* REAL LOAN AMOUNT */
+  const loanInput =
+    document.querySelector(
+      '[name="loan_amount"]'
+    ) ||
+    document.querySelector(
+      '[name="loan_amount_inr"]'
+    );
 
-  if (!loanAmount || !tenure) return '';
+  const loanAmount = Number(
+    loanInput?.dataset.actualValue || 0
+  );
 
-  const rate = 10.97;
-  const monthlyRate = rate / (12 * 100);
+  /* TENURE */
+  const tenureInput =
+    document.querySelector(
+      '[name="loan_tenure"]'
+    ) ||
+    document.querySelector(
+      '[name="loan_tenure_months"]'
+    );
 
+  const tenure = Number(
+    tenureInput?.value || 0
+  );
+
+  if (!loanAmount || !tenure) {
+    return '';
+  }
+
+  /* INTEREST */
+  const annualRate = 10.97;
+
+  const monthlyRate =
+    annualRate / 12 / 100;
+
+  /* EMI */
   const emi =
-    (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, tenure)) /
-    (Math.pow(1 + monthlyRate, tenure) - 1);
+    (
+      loanAmount *
+      monthlyRate *
+      Math.pow(
+        1 + monthlyRate,
+        tenure
+      )
+    ) /
+    (
+      Math.pow(
+        1 + monthlyRate,
+        tenure
+      ) - 1
+    );
 
   return `₹${Math.round(emi).toLocaleString('en-IN')}`;
 }
+
 
 /**
  * @returns {string}
