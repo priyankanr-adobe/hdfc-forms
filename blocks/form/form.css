@@ -961,8 +961,7 @@ main .form input[type="submit"] {
   border: none !important;
   border-radius: 8px !important;
   height: 38px !important;
-  min-width: 220px !important;
-  padding: 0 24px !important;
+  width: 165px !important;
   font-size: 13px !important;
   font-weight: 600 !important;
   cursor: pointer !important;
@@ -1022,24 +1021,52 @@ footer {
 
 
 /* OTP Styling */
-/* Wrapper */
-main .form form .number-wrapper.field-entered-otp {
-  position: relative;
-  max-width: 520px;
+/* =====================================================
+   OTP PANEL EXACT LIKE REFERENCE
+===================================================== */
+
+/* PANEL */
+main .form form .field-otp-verification-panel {
+  max-width: 760px !important;
+  margin: 0 auto !important;
+  padding: 12px 30px 20px !important;
+  background: #fff !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  border: none !important;
 }
 
-/* OTP input */
+/* TITLE */
+main .form form .field-otp-verification-panel > legend {
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  color: #111827 !important;
+  margin-bottom: 10px !important;
+}
+
+/* =====================================================
+   OTP WRAPPER
+===================================================== */
+
+main .form form .number-wrapper.field-entered-otp {
+  position: relative !important;
+  max-width: 360px !important;
+  margin-top: 12px !important;
+}
+
+/* OTP INPUT */
 main .form form .number-wrapper.field-entered-otp input[name="entered_otp"] {
   width: 100% !important;
-  height: 48px !important;
+  height: 46px !important;
   border: 1px solid #d9dde5 !important;
   border-radius: 10px !important;
   background-color: #fff !important;
 
-  font-size: 22px !important;
+  font-size: 20px !important;
   font-weight: 600 !important;
-  letter-spacing: 28px !important;
-  padding: 0 16px !important;
+  letter-spacing: 34px !important;
+
+  padding-left: 18px !important;
 
   color: #111827 !important;
   caret-color: #6b7280 !important;
@@ -1048,25 +1075,25 @@ main .form form .number-wrapper.field-entered-otp input[name="entered_otp"] {
   box-shadow: none !important;
 }
 
-/* SHOW DOTS ONLY WHEN EMPTY */
+/* DOTS */
 main .form form .number-wrapper.field-entered-otp input[name="entered_otp"]:placeholder-shown {
-  background-image: radial-gradient(circle, #e5e7eb 2px, transparent 2px) !important;
+  background-image: radial-gradient(circle, #d1d5db 2px, transparent 2px) !important;
   background-size: calc(100% / 6) 100% !important;
   background-repeat: repeat-x !important;
   background-position: center !important;
 }
 
-/* HIDE DOTS AFTER TYPING */
+/* REMOVE DOTS AFTER TYPING */
 main .form form .number-wrapper.field-entered-otp input[name="entered_otp"]:not(:placeholder-shown) {
   background-image: none !important;
 }
 
-/* Hide placeholder text */
+/* HIDE PLACEHOLDER */
 main .form form .number-wrapper.field-entered-otp input::placeholder {
   color: transparent !important;
 }
 
-/* Remove number arrows */
+/* REMOVE ARROWS */
 main .form form .number-wrapper.field-entered-otp input[type="number"]::-webkit-inner-spin-button,
 main .form form .number-wrapper.field-entered-otp input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -1074,8 +1101,102 @@ main .form form .number-wrapper.field-entered-otp input[type="number"]::-webkit-
 }
 
 main .form form .number-wrapper.field-entered-otp input[type="number"] {
-  -moz-appearance: textfield;
   appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+/* =====================================================
+   RESEND + ATTEMPT INFO
+===================================================== */
+
+main .form form .field-timer,
+main .form form .field-attempt-info {
+  display: inline-block !important;
+  width: auto !important;
+  margin-top: 8px !important;
+}
+
+main .form form .field-timer label,
+main .form form .field-attempt-info label {
+  display: none !important;
+}
+
+main .form form .field-timer input,
+main .form form .field-attempt-info input {
+  border: none !important;
+  background: transparent !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  color: #6b7280 !important;
+  padding: 0 !important;
+  height: auto !important;
+  box-shadow: none !important;
+}
+
+/* spacing */
+main .form form .field-attempt-info {
+  margin-left: 120px !important;
+}
+
+/* =====================================================
+   SUBMIT BUTTON
+===================================================== */
+
+main .form form .field-otp-submit {
+  margin-top: 16px !important;
+}
+
+/* button */
+main .form form .field-otp-submit button {
+  width: 112px !important;
+  height: 38px !important;
+  border: none !important;
+  border-radius: 8px !important;
+  background: #8ea2ff !important;
+  color: #fff !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  box-shadow: none !important;
+}
+
+/* arrow */
+main .form form .field-otp-submit button::after {
+  content: "›";
+  margin-left: 10px;
+  font-size: 16px;
+}
+
+/* =====================================================
+   REMOVE EMPTY BACKGROUND BELOW BUTTON
+===================================================== */
+
+main .form form .field-validation-message {
+  display: none !important;
+}
+
+/* RESEND BUTTON */
+main .form form .field-resend-otp {
+  margin-top: 10px !important;
+}
+
+main .form form .field-resend-otp button {
+  width: 112px !important;
+  height: 38px !important;
+  border: none !important;
+  border-radius: 8px !important;
+  background: #8ea2ff !important;
+  color: #fff !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+}
+
+/* =====================================================
+   REMOVE EXTRA SPACING
+===================================================== */
+
+main .form form .field-wrapper {
+  margin-bottom: 10px !important;
 }
 
 /* Offer page css */
