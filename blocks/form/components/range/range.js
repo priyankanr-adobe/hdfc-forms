@@ -1,146 +1,93 @@
-/* ===== Step Values ===== */
-const LOAN_STEPS = [50000, 200000, 400000, 600000, 800000, 1000000, 1500000];
-const TENURE_STEPS = [12, 24, 36, 48, 60, 72, 84];
- 
-/* ===== Formatters ===== */
-function formatINR(value) {
-  return "₹" + Number(value).toLocaleString("en-IN");
-}
- 
-function formatMonths(value) {
-  return Math.round(value) + " months";
-}
- 
-/* ===== Get interpolated value ===== */
-function getActualValue(input, stepsArray) {
-  const sliderValue = Number(input.value);
- 
-  const lowerIndex = Math.floor(sliderValue);
-  const upperIndex = Math.ceil(sliderValue);
- 
-  if (lowerIndex === upperIndex) {
-    return stepsArray[lowerIndex];
+function formatValue(input, value) {
+  const name = input.name || '';
+  if (name.includes('loan_amount')) {
+    return `₹${Number(value).toLocaleString('en-IN')}`;
   }
- 
-  const lowerValue = stepsArray[lowerIndex];
-  const upperValue = stepsArray[upperIndex];
- 
-  const ratio = sliderValue - lowerIndex;
- 
-  return lowerValue + (upperValue - lowerValue) * ratio;
+  return `${value} months`;
 }
- 
-/* ===== Normalize values ===== */
-function normalizeValue(value, type) {
-  if (type === "loan") {
-    return Math.round(value / 1000) * 1000;
-  }
-  return Math.round(value);
+
+function updateBubble(input, wrapper) {
+  const min = Number(input.min);
+  const max = Number(input.max);
+  const value = Number(input.value);
+
+  const percent = ((value - min) / (max - min)) * 100;
+
+  const bubble = wrapper.querySelector('.range-bubble');
+  if (!bubble) return;
+
+  bubble.textContent = formatValue(input, value);
+  const bubbleWidth = bubble.offsetWidth || 80;
+  const offset = (percent / 100) * bubbleWidth;
+
+bubble.style.left = `calc(${percent}% - ${offset}px + 12px)`;
+
+  wrapper.style.setProperty('--range-progress', `${percent}%`);
 }
- 
-/* ===== Update UI ===== */
-function updateUI(input, wrapper, stepsArray, type) {
-  const sliderValue = Number(input.value);
- 
-  const rawValue = getActualValue(input, stepsArray);
-  const actualValue = normalizeValue(rawValue, type);
- 
-  const percent = (sliderValue / (stepsArray.length - 1)) * 100;
- 
-  const valueBox = wrapper.querySelector(".loan-value-box");
- 
-  if (valueBox) {
-    valueBox.innerText =
-      type === "loan" ? formatINR(actualValue) : formatMonths(actualValue);
- 
-    valueBox.style.left = percent + "%";
-  }
- 
-  wrapper.style.setProperty("--percent", percent);
-}
- 
-/* ===== Click on track ===== */
-function enableTrackClick(wrapper, input, stepsArray) {
-  wrapper.addEventListener("click", (e) => {
-    if (e.target !== input) {
-      const rect = wrapper.getBoundingClientRect();
-      const percent = (e.clientX - rect.left) / rect.width;
- 
-      const value = percent * (stepsArray.length - 1);
- 
-      input.value = value;
-      input.dispatchEvent(new Event("input", { bubbles: true }));
-    }
-  });
-}
- 
-/* ===== Main ===== */
-export default function decorate(fieldDiv) {
-  const input = fieldDiv.querySelector("input");
+
+export default async function decorate(fieldDiv, fieldJson) {
+  const input = fieldDiv.querySelector('input');
   if (!input) return fieldDiv;
- 
-  /* ✅ FIXED DETECTION */
-  const originalMax = Number(input.getAttribute("max"));
-  const isLoan = originalMax > 100000;
- 
-  const type = isLoan ? "loan" : "tenure";
-  const stepsArray = isLoan ? LOAN_STEPS : TENURE_STEPS;
- 
-  /* ===== Slider Setup ===== */
-  input.type = "range";
-  input.min = 0;
-  input.max = stepsArray.length - 1;
-  input.step = 0.01;
- 
-  const initialValue = Number(input.value || stepsArray[0]);
-  const stepIndex = stepsArray.indexOf(initialValue);
-  input.value = stepIndex >= 0 ? stepIndex : 0;
- 
-  /* ===== Wrapper ===== */
-  const wrapper = document.createElement("div");
-  wrapper.className = "range-widget-wrapper decorated";
+
+  input.type = 'range';
+
+  const fieldName = input.name || '';
+  const labelText = fieldDiv.querySelector('label')?.textContent?.toLowerCase() || '';
+
+  if (fieldName.includes('loan_amount') || labelText.includes('loan amount')) {
+    input.min = 50000;
+    input.max = 1500000;
+    input.step = 50000;
+    input.value = input.value || 1500000;
+  } else {
+    input.min = 12;
+    input.max = 84;
+    input.step = 12;
+    input.value = input.value || 84;
+  }
+
+  const wrapper = document.createElement('div');
+  wrapper.className = 'range-widget-wrapper decorated';
+
   input.after(wrapper);
- 
-  /* ===== Value Box ===== */
-  const valueBox = document.createElement("div");
-  valueBox.className = "loan-value-box";
-  wrapper.appendChild(valueBox);
- 
-  /* ===== Labels ===== */
-  const labels = document.createElement("div");
-  labels.className = "range-labels";
- 
-  stepsArray.forEach((val, i) => {
-    const span = document.createElement("span");
- 
-    span.innerText =
-      type === "loan"
-        ? val === 50000
-          ? "50K"
-          : val / 100000 + "L"
-        : val + "m";
- 
-    span.style.left = `${(i / (stepsArray.length - 1)) * 100}%`;
- 
-    span.addEventListener("click", () => {
-      input.value = i;
-      input.dispatchEvent(new Event("input", { bubbles: true }));
-    });
- 
-    labels.appendChild(span);
-  });
- 
+
+  const bubble = document.createElement('span');
+  bubble.className = 'range-bubble';
+
+  wrapper.appendChild(bubble);
   wrapper.appendChild(input);
+
+  const labels = document.createElement('div');
+  labels.className = 'custom-range-labels';
+
+  if (fieldName.includes('loan_amount') || labelText.includes('loan amount')) {
+    labels.innerHTML = `
+      <span>50K</span>
+      <span>2L</span>
+      <span>4L</span>
+      <span>6L</span>
+      <span>8L</span>
+      <span>10L</span>
+      <span>15L</span>
+    `;
+  } else {
+    labels.innerHTML = `
+      <span>12m</span>
+      <span>24m</span>
+      <span>36m</span>
+      <span>48m</span>
+      <span>60m</span>
+      <span>72m</span>
+      <span>84m</span>
+    `;
+  }
+
   wrapper.appendChild(labels);
- 
-  input.addEventListener("input", () => {
-    updateUI(input, wrapper, stepsArray, type);
-  });
- 
-  enableTrackClick(wrapper, input, stepsArray);
- 
-  updateUI(input, wrapper, stepsArray, type);
- 
+
+  input.addEventListener('input', () => updateBubble(input, wrapper));
+  input.addEventListener('change', () => updateBubble(input, wrapper));
+
+  updateBubble(input, wrapper);
+
   return fieldDiv;
 }
- 
