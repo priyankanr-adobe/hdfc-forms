@@ -62,7 +62,6 @@ function maskMobileNumber(mobileNumber) {
  */
 function startOtpTimer(globals) {
   const panel = globals.form.otp_verification_panel;
-    debugger;
   const timerField = panel.timer;
   const submitBtn = panel.otp_submit;
   const resendBtn = panel.resend_otp;
@@ -188,22 +187,6 @@ function handleOtpSuccess(globals) {
   /* CALL REVIEW DETAILS API */
 
   fetchReviewDetailsAPI(globals);
-
-  /* NAVIGATION */
-
-  globals.functions.setProperty(
-    globals.form.otp_verification_panel,
-    {
-      visible: false
-    }
-  );
-
-  globals.functions.setProperty(
-    globals.form.review_details_panel,
-    {
-      visible: true
-    }
-  );
 
   return "OTP validated successfully";
 }
