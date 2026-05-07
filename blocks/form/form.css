@@ -1772,24 +1772,30 @@ main .form form .field-main-success-card .field-personal-loan-amount input {
 
 /*static header and footer */
 /* =========================
-   PAGE LAYOUT FIX
+   FULL PAGE
 ========================= */
 
 html,
 body {
-  height: 100vh;
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  height: 100%;
 }
 
-/* BODY FLEX */
+/* BODY */
 body {
   display: flex;
   flex-direction: column;
+
+  height: 100vh;
+
+  overflow: hidden;
 }
 
-/* STATIC HEADER */
+/* =========================
+   HEADER
+========================= */
+
 header.header-wrapper {
   flex-shrink: 0;
   position: sticky;
@@ -1797,32 +1803,30 @@ header.header-wrapper {
   z-index: 1000;
 }
 
-/* SCROLL ONLY FORM CONTENT */
+/* =========================
+   MAIN SCROLL AREA
+========================= */
+
 main {
-  flex: 1 1 auto;
+  flex: 1;
 
-  height: calc(100vh - 123px);
-
-  overflow-y: auto !important;
-  overflow-x: hidden;
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
 
   min-height: 0;
-}
-/* REMOVE BLOCKING HEIGHTS */
-main > div,
-.section,
-.form-container,
-.form-wrapper {
-  min-height: auto !important;
-  height: auto !important;
+
+  height: 100%;
 }
 
-/* PREVENT BODY SCROLL */
-body {
-  overflow: hidden;
+/* IMPORTANT */
+main::-webkit-scrollbar {
+  width: 6px;
 }
 
-/* STATIC FOOTER */
+/* =========================
+   FOOTER
+========================= */
+
 footer {
   flex-shrink: 0;
 
@@ -1832,11 +1836,26 @@ footer {
   z-index: 1000;
 }
 
-/* REMOVE HEIGHT ISSUES */
-main,
+/* =========================
+   REMOVE BLOCKING HEIGHTS
+========================= */
+
+main > div,
 .section,
 .form-container,
-.form-wrapper {
+.form-wrapper,
+.form,
+main .section,
+main .section > div {
   height: auto !important;
   max-height: none !important;
+  overflow: visible !important;
+}
+
+/* =========================
+   FORCE CONTENT HEIGHT
+========================= */
+
+main .section {
+  padding-bottom: 80px;
 }
