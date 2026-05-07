@@ -1768,3 +1768,62 @@ main .form form .field-main-success-card .field-personal-loan-amount input {
 
 
 
+
+
+/*static header and footer */
+/* =========================
+   PAGE LAYOUT FIX
+========================= */
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* BODY FLEX */
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* STATIC HEADER */
+header.header-wrapper {
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* SCROLL ONLY FORM CONTENT */
+main {
+  flex: 1;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  min-height: 0;
+
+  box-sizing: border-box;
+}
+
+/* STATIC FOOTER */
+footer {
+  flex-shrink: 0;
+
+  position: sticky;
+  bottom: 0;
+
+  z-index: 1000;
+}
+
+/* REMOVE HEIGHT ISSUES */
+main,
+.section,
+.form-container,
+.form-wrapper {
+  height: auto !important;
+  max-height: none !important;
+}
