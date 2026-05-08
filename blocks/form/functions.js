@@ -352,38 +352,173 @@ function handleOtpInvalid(globals) {
  * @param {scope} globals
  * @returns {string}
  */
+/**
+ * Resend OTP handler
+ * @param {scope} globals
+ * @returns {string}
+ */
 function handleOtpResend(globals) {
-  const panel = globals.form.otp_verification_panel;
 
-  const attemptInfo = panel.attempt_info;
-  const validationMessage = panel.validation_message;
-  const resendBtn = panel.resend_otp;
+  const panel =
+    globals.form.otp_verification_panel;
 
-  window.otpResendAttemptsLeft = window.otpResendAttemptsLeft ?? 3;
+  const attemptInfo =
+    panel.attempt_info;
 
-  if (window.otpResendAttemptsLeft > 0) {
-    window.otpResendAttemptsLeft -= 1;
+  const validationMessage =
+    panel.validation_message;
+
+  const resendBtn =
+    panel.resend_otp;
+
+  const submitBtn =
+    panel.otp_submit;
+
+  const backBtn =
+    panel.back_button;
+
+  /* INITIAL VALUE */
+
+  window.otpResendAttemptsLeft =
+    window.otpResendAttemptsLeft ?? 3;
+
+  /* BLOCK AFTER LIMIT */
+
+  if (
+    window.otpResendAttemptsLeft <= 0
+  ) {
+
+    /* MESSAGE */
+
+    if (validationMessage) {
+
+      globals.functions.setProperty(
+        validationMessage,
+        {
+          value:
+            "Maximum attempts reached. Please go back.",
+
+          visible: true
+        }
+      );
+
+    }
+
+    /* DISABLE RESEND */
+
+    if (resendBtn) {
+
+      globals.functions.setProperty(
+        resendBtn,
+        {
+          visible: false,
+          enabled: false
+        }
+      );
+
+    }
+
+    /* DISABLE SUBMIT */
+
+    if (submitBtn) {
+
+      globals.functions.setProperty(
+        submitBtn,
+        {
+          enabled: false
+        }
+      );
+
+    }
+
+    /* SHOW BACK BUTTON */
+
+    if (backBtn) {
+
+      globals.functions.setProperty(
+        backBtn,
+        {
+          visible: true,
+          enabled: true
+        }
+      );
+
+    }
+
+    /* DOM FALLBACK */
+
+    setTimeout(() => {
+
+      const resendButton =
+        document.querySelector(
+          'button[name="resend_otp"]'
+        );
+
+      if (resendButton) {
+
+        resendButton.style.display =
+          "none";
+
+        resendButton.disabled =
+          true;
+
+        resendButton.style.pointerEvents =
+          "none";
+
+      }
+
+    }, 300);
+
+    return "Limit reached";
   }
+
+  /* REDUCE ATTEMPT */
+
+  window.otpResendAttemptsLeft -= 1;
+
+  /* ATTEMPT INFO */
 
   if (attemptInfo) {
-    globals.functions.setProperty(attemptInfo, {
-      value: `${window.otpResendAttemptsLeft}/3 attempt(s) left`
-    });
+
+    globals.functions.setProperty(
+      attemptInfo,
+      {
+        value:
+          `${window.otpResendAttemptsLeft}/3 attempt(s) left`
+      }
+    );
+
   }
+
+  /* HIDE OLD MESSAGE */
 
   if (validationMessage) {
-    globals.functions.setProperty(validationMessage, {
-      value: "",
-      visible: false
-    });
+
+    globals.functions.setProperty(
+      validationMessage,
+      {
+        value: "",
+        visible: false
+      }
+    );
+
   }
 
+  /* HIDE RESEND BUTTON */
+
   if (resendBtn) {
-    globals.functions.setProperty(resendBtn, {
-      visible: false,
-      enabled: false
-    });
+
+    globals.functions.setProperty(
+      resendBtn,
+      {
+        visible: false,
+        enabled: false
+      }
+    );
+
   }
+
+  /* START TIMER */
 
   startOtpTimer(globals);
 
