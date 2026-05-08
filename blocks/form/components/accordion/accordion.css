@@ -327,3 +327,78 @@ main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.a
     grid-column: 1 / -1;
   }
 }
+
+
+/* =========================
+   REVIEW DETAILS - MOBILE FIELD FIX
+========================= */
+
+/* remove old mobile styles */
+main .form form .field-mobile input,
+main .form form .field-mobile .phone-wrapper,
+main .form form .field-mobile .country-code,
+main .form form .field-mobile .mobile-prefix,
+main .form form .field-mobile .mobile-code {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* remove +91 */
+main .form form .field-mobile .country-code,
+main .form form .field-mobile .mobile-prefix,
+main .form form .field-mobile .iti__selected-flag,
+main .form form .field-mobile .iti__flag-container {
+  display: none !important;
+}
+
+/* review detail field wrapper */
+main .form form .field-review-details .field-mobile {
+  position: relative !important;
+  padding-bottom: 8px !important;
+}
+
+/* input style */
+main .form form .field-review-details .field-mobile input {
+  width: 100% !important;
+  padding: 0 0 6px !important;
+  border: none !important;
+  border-bottom: 1px solid #cfd6e4 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #111827 !important;
+
+  min-height: unset !important;
+  height: auto !important;
+}
+
+/* blue underline */
+main .form form .field-review-details .field-mobile::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  bottom: 0 !important;
+
+  width: 100% !important;
+  height: 2px !important;
+
+  background: #2454ff !important;
+}
+
+/* label */
+main .form form .field-review-details .field-mobile label {
+  margin-bottom: 6px !important;
+
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  color: #6b7280 !important;
+}
+
+/* remove focus glow */
+main .form form .field-review-details .field-mobile input:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
