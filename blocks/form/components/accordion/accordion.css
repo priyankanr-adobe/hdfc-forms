@@ -329,91 +329,52 @@ main .form form .panel-wrapper.field-form-accordion1776849406288.field-wrapper.a
 }
 
 
-/* =========================================
-   REVIEW DETAILS ONLY - MOBILE FIELD FIX
-========================================= */
+/* ======================================
+   REVIEW DETAILS MOBILE FIX ONLY
+====================================== */
 
-/* remove old mobile UI only inside review details accordion */
+/* remove +91 pseudo element */
 main .form form 
 .field-review-details-panel 
-.field-personal-details 
-.field-mobile {
-
-  position: relative !important;
-}
-
-/* remove +91 / phone prefix only here */
-main .form form 
-.field-review-details-panel 
-.field-personal-details 
-.field-mobile .iti__flag-container,
-
-main .form form 
-.field-review-details-panel 
-.field-personal-details 
-.field-mobile .country-code,
-
-main .form form 
-.field-review-details-panel 
-.field-personal-details 
-.field-mobile .mobile-prefix {
+.field-mobile::before {
   display: none !important;
+  content: none !important;
 }
 
-/* input styling */
+/* remove any after element */
 main .form form 
 .field-review-details-panel 
-.field-personal-details 
-.field-mobile input {
+.field-mobile::after {
+  display: none !important;
+  content: none !important;
+}
 
+/* remove box styling */
+main .form form 
+.field-review-details-panel 
+.field-mobile input {
   border: none !important;
   border-bottom: 2px solid #2454ff !important;
   border-radius: 0 !important;
   background: transparent !important;
-
   box-shadow: none !important;
-
-  padding: 0 0 6px 0 !important;
-
-  height: auto !important;
-  min-height: unset !important;
-
-  font-size: 14px !important;
-  font-weight: 600 !important;
-
-  color: #111827 !important;
+  padding-left: 0 !important;
 }
 
-/* remove wrapper borders */
+/* remove wrapper border */
 main .form form 
 .field-review-details-panel 
-.field-personal-details 
-.field-mobile .phone-wrapper {
+.field-mobile {
   border: none !important;
   background: transparent !important;
   box-shadow: none !important;
+  padding-left: 0 !important;
 }
 
-/* label styling */
+/* label alignment */
 main .form form 
 .field-review-details-panel 
-.field-personal-details 
 .field-mobile label {
-
-  font-size: 12px !important;
-  font-weight: 600 !important;
-
-  color: #6b7280 !important;
-
-  margin-bottom: 6px !important;
-}
-
-/* remove focus glow */
-main .form form 
-.field-review-details-panel 
-.field-personal-details 
-.field-mobile input:focus {
-
-  outline: none !important;
-  box-shadow: none !important;
+  padding-left: 0 !important;
+  margin-left: 0 !important;
 }
