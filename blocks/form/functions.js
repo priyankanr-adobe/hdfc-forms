@@ -215,44 +215,137 @@ function handleOtpSuccess(globals) {
  * @returns {string}
  */
 function handleOtpInvalid(globals) {
-  const panel = globals.form.otp_verification_panel;
 
-  const validationMessage = panel.validation_message;
-  const resendBtn = panel.resend_otp;
-  const submitBtn = panel.otp_submit;
+  const panel =
+    globals.form.otp_verification_panel;
 
-  // reduce attempts
-  window.otpResendAttemptsLeft = window.otpResendAttemptsLeft || 3;
-  if (window.otpResendAttemptsLeft > 0) {
+  const validationMessage =
+    panel.validation_message;
+
+  const resendBtn =
+    panel.resend_otp;
+
+  const submitBtn =
+    panel.otp_submit;
+
+  const backBtn =
+    panel.back_button;
+
+  /* ATTEMPTS */
+
+  window.otpResendAttemptsLeft =
+    window.otpResendAttemptsLeft || 3;
+
+  if (
+    window.otpResendAttemptsLeft > 0
+  ) {
+
     window.otpResendAttemptsLeft -= 1;
+
   }
 
-  // show invalid message
+  /* INVALID MESSAGE */
+
   if (validationMessage) {
-    globals.functions.setProperty(validationMessage, {
-      value: "Invalid OTP",
-      visible: true
-    });
+
+    globals.functions.setProperty(
+      validationMessage,
+      {
+        value:
+          `Invalid OTP (${window.otpResendAttemptsLeft}/3 attempt(s) left)`,
+
+        visible: true
+      }
+    );
+
   }
 
-  // disable submit if no attempts left
+  /* SUBMIT BUTTON */
+
   if (submitBtn) {
-    globals.functions.setProperty(submitBtn, {
-      enabled: window.otpResendAttemptsLeft > 0
-    });
+
+    globals.functions.setProperty(
+      submitBtn,
+      {
+        enabled:
+          window.otpResendAttemptsLeft > 0
+      }
+    );
+
   }
 
-  // show resend if attempts still available
+  /* RESEND BUTTON */
+
   if (resendBtn) {
-    globals.functions.setProperty(resendBtn, {
-      visible: window.otpResendAttemptsLeft > 0,
-      enabled: window.otpResendAttemptsLeft > 0
-    });
+
+    globals.functions.setProperty(
+      resendBtn,
+      {
+        visible:
+          window.otpResendAttemptsLeft > 0,
+
+        enabled:
+          window.otpResendAttemptsLeft > 0
+      }
+    );
+
+  }
+
+  /* AFTER 3 ATTEMPTS */
+
+  if (
+    window.otpResendAttemptsLeft <= 0
+  ) {
+
+    /* FINAL MESSAGE */
+
+    globals.functions.setProperty(
+      validationMessage,
+      {
+        value:
+          "Maximum attempts reached. Please go back.",
+
+        visible: true
+      }
+    );
+
+    /* DISABLE SUBMIT */
+
+    globals.functions.setProperty(
+      submitBtn,
+      {
+        enabled: false
+      }
+    );
+
+    /* HIDE RESEND */
+
+    globals.functions.setProperty(
+      resendBtn,
+      {
+        visible: false,
+        enabled: false
+      }
+    );
+
+    /* SHOW BACK BUTTON */
+
+    if (backBtn) {
+
+      globals.functions.setProperty(
+        backBtn,
+        {
+          visible: true,
+          enabled: true
+        }
+      );
+
+    }
+
   }
 
   return "Invalid OTP";
 }
-
 
 /**
  * Resend OTP handler
