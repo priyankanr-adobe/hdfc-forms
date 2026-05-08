@@ -1770,3 +1770,78 @@ main .form form .field-main-success-card .field-personal-loan-amount input {
 
 
 
+/*static header and footer */
+/* =========================
+   HTML/BODY
+========================= */
+ 
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+ 
+/* =========================
+   BODY
+========================= */
+ 
+body {
+  display: flex;
+  flex-direction: column;
+}
+ 
+/* =========================
+   STATIC HEADER
+========================= */
+ 
+header.header-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+ 
+  flex-shrink: 0;
+}
+ 
+/* =========================
+   MAIN CONTENT
+========================= */
+ 
+main {
+  flex: 1;
+ 
+  overflow-y: auto;
+  overflow-x: hidden;
+ 
+  min-height: 0;
+ 
+  padding-top: 20px;
+  padding-bottom: 60px;
+ 
+  box-sizing: border-box;
+}
+ 
+/* =========================
+   STATIC FOOTER
+========================= */
+ 
+footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 1000;
+ 
+  flex-shrink: 0;
+}
+ 
+/* =========================
+   REMOVE BLOCKING HEIGHTS
+========================= */
+ 
+.section,
+.form-container,
+.form-wrapper,
+.form,
+main > div {
+  height: auto !important;
+  max-height: none !important;
+}
