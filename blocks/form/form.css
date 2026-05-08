@@ -1772,23 +1772,24 @@ main .form form .field-main-success-card .field-personal-loan-amount input {
 
 /*static header and footer */
 /* =========================
-   HTML/BODY
+   RESET
 ========================= */
 
 html,
 body {
   margin: 0;
   padding: 0;
-  height: 100%;
+  min-height: 100vh;
 }
 
 /* =========================
-   BODY
+   PAGE LAYOUT
 ========================= */
 
 body {
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 }
 
 /* =========================
@@ -1808,15 +1809,12 @@ header.header-wrapper {
 ========================= */
 
 main {
-  flex: 1;
+  flex: 1 0 auto;
 
-  overflow-y: auto;
-  overflow-x: hidden;
-
-  min-height: 0;
+  overflow: visible !important;
 
   padding-top: 20px;
-  padding-bottom: 60px;
+  padding-bottom: 30px;
 
   box-sizing: border-box;
 }
@@ -1826,15 +1824,18 @@ main {
 ========================= */
 
 footer {
+  margin-top: auto;
+
   position: sticky;
   bottom: 0;
+
   z-index: 1000;
 
   flex-shrink: 0;
 }
 
 /* =========================
-   REMOVE BLOCKING HEIGHTS
+   REMOVE HEIGHT ISSUES
 ========================= */
 
 .section,
@@ -1844,4 +1845,5 @@ footer {
 main > div {
   height: auto !important;
   max-height: none !important;
+  min-height: unset !important;
 }
