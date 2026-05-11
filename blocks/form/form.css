@@ -1659,23 +1659,15 @@ main .form form .field-offer-input-panel .plain-text-wrapper p {
 }
  
 /* Thank You Screen */
-/* =========================================================
-   SUCCESS PAGE LAYOUT
-========================================================= */
-
+/* SUCCESS PAGE */
 main .form form .field-loan-success-page {
-  max-width: 1180px !important;
-  margin: 0 auto !important;
-  padding: 26px 30px 40px !important;
-
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 6px 20px 28px !important;
   display: grid !important;
-  grid-template-columns: 760px 220px !important;
-
-  column-gap: 24px !important;
-  row-gap: 16px !important;
-
-  background: #f8f8f8 !important;
-  border-radius: 20px !important;
+  grid-template-columns: 680px 190px !important;
+  column-gap: 28px !important;
+  row-gap: 14px !important;
   border: 0 !important;
 }
 
@@ -1683,246 +1675,100 @@ main .form form .field-loan-success-page > legend {
   display: none !important;
 }
 
-
-/* =========================================================
-   ALERT BAR
-========================================================= */
-
+/* Alert */
 main .form form .field-success-alert {
   grid-column: 1 / 2 !important;
-
-  background: #fff7e8 !important;
-  border: 1px solid #efc36b !important;
-
-  border-radius: 10px !important;
-
-  padding: 10px 18px !important;
-
-  margin: 0 0 6px !important;
-
-  font-size: 12px !important;
+  background: #fff8e8 !important;
+  border: 1px solid #f5c66b !important;
+  border-radius: 8px !important;
+  padding: 7px 14px !important;
+  margin: -8px 0 4px !important;
+  font-size: 11px !important;
   color: #6b7280 !important;
 }
 
 main .form form .field-success-alert p {
   margin: 0 !important;
+  line-height: 1.35 !important;
 }
 
-
-/* =========================================================
-   MAIN SUCCESS CARD
-========================================================= */
-
+/* Main card */
 main .form form .field-main-success-card {
   grid-column: 1 / 2 !important;
-
   background: #fff !important;
-
-  border: 1px solid #e7e7e7 !important;
-
-  border-radius: 18px !important;
-
-  padding: 34px 40px !important;
-
-  min-height: 470px !important;
-
-  position: relative !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 16px !important;
+  padding: 24px 26px !important;
+  min-height: 245px !important;
 }
 
 main .form form .field-main-success-card > legend {
   display: none !important;
 }
 
-
-/* =========================================================
-   APPLICATION NUMBER SECTION
-========================================================= */
-
+/* Application number block */
 main .form form .field-main-success-card .text-wrapper:nth-of-type(1) {
-  position: relative !important;
-
-  padding-left: 86px !important;
-
-  margin-bottom: 58px !important;
+  position: relative;
+  padding-left: 72px !important;
+  margin-bottom: 20px !important;
 }
-
-
-/* ICON */
 
 main .form form .field-main-success-card .text-wrapper:nth-of-type(1)::before {
   content: "";
-
   position: absolute;
-
-  left: 0;
+  left: 10px;
   top: 2px;
-
-  width: 62px;
-  height: 62px;
-
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-
-  background: #f1e8ff url("/content/dam/pnr-hdfc/image_1.jpeg")
-    no-repeat center !important;
-
-  background-size: cover !important;
+  background: #f3e8ff url("https://img.icons8.com/fluency-systems-regular/48/7c3aed/document.png") no-repeat center;
+  background-size: 24px;
 }
-
-
-/* LABEL */
 
 main .form form .field-main-success-card .text-wrapper:nth-of-type(1) label {
-  font-size: 14px !important;
-
-  color: #8b95a7 !important;
-
-  font-weight: 700 !important;
-
-  margin-bottom: 6px !important;
+  font-size: 12px !important;
+  color: #8b929e !important;
+  font-weight: 600 !important;
+  margin: 0 0 4px !important;
 }
-
-
-/* APPLICATION NUMBER */
 
 main .form form .field-main-success-card .text-wrapper:nth-of-type(1) input {
   border: 0 !important;
-
   background: transparent !important;
-
   padding: 0 !important;
-
   height: auto !important;
-
-  font-size: 48px !important;
-
-  line-height: 1 !important;
-
-  font-weight: 900 !important;
-
-  color: #111827 !important;
-
-  letter-spacing: 1px !important;
+  font-size: 24px !important;
+  font-weight: 800 !important;
+  color: #1f2937 !important;
 }
-
-
-/* COPY ICON */
 
 main .form form .field-main-success-card .text-wrapper:nth-of-type(1)::after {
-  content: "";
-
+  content: "⧉";
   position: absolute;
-
-  left: 320px;
-  top: 48px;
-
-  width: 18px;
-  height: 18px;
-
-  background: url("/content/dam/pnr-hdfc/image_2.jpeg")
-    no-repeat center !important;
-
-  background-size: contain !important;
+  left: 210px;
+  top: 25px;
+  font-size: 17px;
+  color: #2563eb;
 }
 
-
-/* =========================================================
-   CALL NOTE
-========================================================= */
-
+/* Call note */
 main .form form .field-main-success-card .plain-text-wrapper:nth-of-type(2) p {
-  font-size: 14px !important;
-
+  font-size: 12px !important;
   color: #6b7280 !important;
-
-  margin: 0 0 34px !important;
+  margin: 0 0 18px !important;
 }
 
-
-/* =========================================================
-   SUMMARY SECTION
-========================================================= */
-
+/* Summary title */
 main .form form .field-main-success-card .plain-text-wrapper:nth-of-type(3) {
   border-top: 1px dashed #e5e7eb !important;
-
-  padding-top: 28px !important;
+  padding-top: 18px !important;
 }
-
-
-/* SUMMARY TITLE */
 
 main .form form .field-main-success-card .plain-text-wrapper:nth-of-type(3) p {
-  font-size: 34px !important;
-
-  font-weight: 900 !important;
-
-  color: #111827 !important;
-
-  margin: 0 0 36px !important;
-}
-
-
-/* =========================================================
-   LOAN AMOUNT BLOCK
-========================================================= */
-
-main .form form .field-main-success-card .text-wrapper:nth-of-type(2) {
-  position: relative !important;
-
-  padding-left: 16px !important;
-}
-
-
-/* LEFT BLUE LINE */
-
-main .form form .field-main-success-card .text-wrapper:nth-of-type(2)::before {
-  content: "";
-
-  position: absolute;
-
-  left: 0;
-  top: 6px;
-
-  width: 3px;
-  height: 52px;
-
-  background: #7c8cff !important;
-
-  border-radius: 10px !important;
-}
-
-
-/* LOAN LABEL */
-
-main .form form .field-main-success-card .text-wrapper:nth-of-type(2) label {
-  font-size: 14px !important;
-
-  color: #8b95a7 !important;
-
-  font-weight: 700 !important;
-
-  margin-bottom: 8px !important;
-}
-
-
-/* LOAN AMOUNT */
-
-main .form form .field-main-success-card .text-wrapper:nth-of-type(2) input {
-  border: 0 !important;
-
-  background: transparent !important;
-
-  padding: 0 !important;
-
-  height: auto !important;
-
-  font-size: 42px !important;
-
-  line-height: 1 !important;
-
-  font-weight: 900 !important;
-
-  color: #111827 !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+  color: #1f2937 !important;
+  margin: 0 0 18px !important;
 }
 
 /* Loan amount */
