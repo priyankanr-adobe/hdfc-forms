@@ -883,7 +883,7 @@ main .form form .text-wrapper.field-mobile.field-wrapper::before {
   content: "";
   position: absolute !important;
   left: 14px !important;
-  top: 58% !important;
+  top: 38 px !important;
   transform: translateY(-50%) !important;
   width: 15px !important;
   height: 11px !important;
@@ -900,7 +900,7 @@ main .form form .text-wrapper.field-mobile.field-wrapper::after {
   content: "+91" !important;
   position: absolute !important;
   left: 35px !important;
-  top: 59% !important;
+  top: 30 px !important;
   transform: translateY(-50%) !important;
   color: #6b7280 !important;
   font-size: 13px !important;
