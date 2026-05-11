@@ -1300,6 +1300,20 @@ main .form form .field-back-button button {
   }
 }
 
+/* =========================================================
+   HIDE VALIDATION MESSAGE FIELD
+========================================================= */
+
+main .form form .field-validation-message {
+  position: absolute !important;
+  left: -99999px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+}
+
 
 /* Offer page css */
 
